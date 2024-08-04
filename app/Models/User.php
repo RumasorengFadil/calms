@@ -37,7 +37,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    protected $primaryKey = 'admin_id';
     /**
      * The attributes that should be cast.
      *
@@ -48,12 +48,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public static function register(){
-        User::create([
-            "username" => "admin",
+    public static function register($request){
+        return User::create([
+            "username" => $request->name,
             "real_name" => "Admin",
-            "email" => "fadilhr54545@gmail.com",
-            "password" => Hash::make("admin"),
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString()
