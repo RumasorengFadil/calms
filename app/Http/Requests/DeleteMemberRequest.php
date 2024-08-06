@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddMemberRequest extends FormRequest
+class DeleteMemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,15 +21,8 @@ class AddMemberRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = $this->memberRules();
-        $rules["password"] = "required|min:8";
-        return $rules;
-    }
-
-    public function messages()
-    {
-        $message = $this->memberMessage();
-        $message["password.required"] = "Password harus diisi";
-        return $message;
+        return [
+            //
+        ];
     }
 }

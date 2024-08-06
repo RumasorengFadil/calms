@@ -89,4 +89,7 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
+    public static function deleteMember( $request){
+        Member::find($request->all()->memberId)->delete();
+    }
 }

@@ -21,16 +21,13 @@ class UpdateMemberRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = $this->memberRules();
-        $rules["password"] = "nullable";
-        return $rules;
+        // $rules = $this->memberRules();
+        // $rules["password"] = "nullable";
+        return $this->memberRules();
     }
 
     public function messages()
     {
-        return [
-            'member_id.required' => 'ID member harus diisi.',
-            'member_id.unique' => 'ID member sudah terdaftar.',
-        ];
+        return $this->memberMessage();
     }
 }
