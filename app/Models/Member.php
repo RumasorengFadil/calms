@@ -67,7 +67,7 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
-    public static function updateMember($request){
+    public static function updateMember($request, $id){
         Member::update([
             "member_id" => $request->memberId,
             "member_name" => $request->memberName,
