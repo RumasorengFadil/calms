@@ -27,4 +27,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // public function deleteMember($id)
+    // {
+    //     try {
+    //         $this->memberService->deleteMember($id);
+    //         return response()->json(['message' => 'Member deleted successfully!'], 200);
+    //     } catch (ModelNotFoundException $e) {
+    //         return response()->json(['error' => 'Member not found!'], 404);
+    //     } catch (QueryException $e) {
+    //         return response()->json(['error' => 'Failed to delete member!'], 500);
+    //     }
+    // }
 }

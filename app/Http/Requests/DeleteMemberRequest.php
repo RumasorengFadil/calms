@@ -22,7 +22,14 @@ class DeleteMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "memberId" => "required|unique:members,member_id"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'memberId.required' => 'ID member tidak ditemukan.',
         ];
     }
 }
