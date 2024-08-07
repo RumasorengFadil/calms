@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MemberRequest extends FormRequest
+class UpdateMemberRequest extends FormRequest
 {
     use MemberRules;
     /**
@@ -23,18 +23,13 @@ class MemberRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = $this->memberRules();
-        return [
-            
-            "member_password" => "required|min:8",
-        ];
+        // $rules = $this->memberRules();
+        // $rules["password"] = "nullable";
+        return $this->memberRules();
     }
 
     public function messages()
     {
-        return [
-            'member_id.required' => 'ID member harus diisi.',
-            'member_id.unique' => 'ID member sudah terdaftar.',
-        ];
+        return $this->memberMessage();
     }
 }

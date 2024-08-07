@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMemberRequest extends FormRequest
+class DeleteMemberRequest extends FormRequest
 {
+    use MemberRules;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,13 +23,19 @@ class UpdateMemberRequest extends FormRequest
      */
     public function rules(): array
     {
-        // $rules = $this->memberRules();
-        // $rules["password"] = "nullable";
-        return $this->memberRules();
+        return [
+            "memberId" => "required|unique:members,member_id"
+        ];
+        // return [
+        //     "memberId" => "required|unique:members,member_id"
+        // ];
     }
 
     public function messages()
     {
-        return $this->memberMessage();
+        return $this->memberMessages();
+        // return [
+        //     'memberId.required' => 'ID member tidak ditemukan.',
+        // ];
     }
 }

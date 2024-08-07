@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SearchMemberRequest extends FormRequest
 {
+    use MemberRules;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,8 +31,9 @@ class SearchMemberRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            'memberId.required' => 'ID member tidak ditemukan.',
-        ];
+        return $this->memberMessages();
+        // return [
+        //     'memberId.required' => 'ID member tidak ditemukan.',
+        // ];
     }
 }

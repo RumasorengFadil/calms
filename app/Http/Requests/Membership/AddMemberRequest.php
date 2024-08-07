@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddMemberRequest extends FormRequest
 {
+    use MemberRules;
     /**
      * Determine if the user is authorized to make this request.
      */
