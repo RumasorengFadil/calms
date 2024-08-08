@@ -5,7 +5,7 @@ namespace App\Http\Requests\Membership;
 use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteMemberRequest extends FormRequest
+class CommonMemberRequest extends FormRequest
 {
     use MemberRules;
     /**
@@ -24,11 +24,8 @@ class DeleteMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "memberId" => "required|unique:members,member_id"
+            "memberId" => "required",
         ];
-        // return [
-        //     "memberId" => "required|unique:members,member_id"
-        // ];
     }
 
     public function messages()
