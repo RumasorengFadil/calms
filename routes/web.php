@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Membership\MembershipController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/membership', [MembershipController::class, 'create']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
