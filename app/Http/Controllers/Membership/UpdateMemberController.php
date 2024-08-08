@@ -14,10 +14,9 @@ class UpdateMemberController extends Controller
     {
         return Inertia::render('Membership/UpdateMember');
     }
-    public function updateMember(UpdateMemberRequest $request, $id):Response
+    public function updateMember(UpdateMemberRequest $request):Response
     {
-        $member = Member::findOrFail($id);
-        $member->update($request->all());
+        Member::updateMember($request);
 
         return Inertia::render("Membership/UpdateMember", ["message" => "Member updated successfully!"]);
     }

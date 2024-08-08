@@ -67,9 +67,11 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
-    public static function updateMember($request, $id)
+    public static function updateMember($request)
     {
-        Member::update([
+        $member = Member::findOrFail($request->all()->memberId);
+        // $member->update($request->all());
+        $member->update([
             "member_id" => $request->memberId,
             "member_name" => $request->memberName,
             "birth_date" => $request->birthDate,
@@ -102,10 +104,10 @@ class Member extends Model
     {
         $member = Member::find($request->all()->memberId);
 
-        $member->is_active = $member->is_active? false : true;
+        $member->is_active = $member->is_active ? false : true;
 
         $member->save();
-        
+
         return $member->is_active;
     }
 }
