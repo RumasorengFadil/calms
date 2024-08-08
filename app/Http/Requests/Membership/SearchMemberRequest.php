@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Membership;
 
 use App\Http\Requests\Traits\MemberRules;
 use Illuminate\Foundation\Http\FormRequest;

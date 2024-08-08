@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Http\Requests\UpdateMemberRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Membership\SearchMemberRequest;
+use App\Models\Member;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class SearchMemberController extends Controller
 {
     public function searchMember(SearchMemberRequest $request)
     {
-        // $member = Member::findOrFail($id);
-        // $member->update($request->all());
-
-        // return response()->json(['message' => 'Member updated successfully!'], 200);
+        $members = Member::searchMember($request);
+        return Inertia::render('Membership/Membership', ["members" => $members]);
     }
 }

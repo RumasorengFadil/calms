@@ -92,4 +92,7 @@ class Member extends Model
     public static function deleteMember($request){
         Member::find($request->all()->memberId)->delete();
     }
+    public static function searchMember($request){
+        return Member::find($request->all()->memberId);
+    }
 }
