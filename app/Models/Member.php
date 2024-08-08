@@ -105,5 +105,7 @@ class Member extends Model
         $member->is_active = $member->is_active? false : true;
 
         $member->save();
+        
+        return $member->is_active;
     }
 }

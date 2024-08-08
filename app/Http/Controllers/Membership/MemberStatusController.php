@@ -12,8 +12,9 @@ use Inertia\Response;
 class MemberStatusController extends Controller
 {
     public function setMemberStatus(CommonMemberRequest $request):Response{
-        Member::setStatus($request);
+        $status = Member::setStatus($request);
 
-        return Inertia::render("Membership/DeactivateMember", ["message" => "Set Member status successfully!"]);
+        return Inertia::render("Membership/DeactivateMember", ["message" => "Member" . ($status ? "activate" : "deactivate") . "successfully!"]);
+
     }
 }
