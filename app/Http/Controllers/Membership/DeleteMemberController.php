@@ -7,10 +7,11 @@ use App\Http\Requests\Membership\CommonMemberRequest;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class DeleteMemberController extends Controller
 {
-    public function deleteMember(CommonMemberRequest $request)
+    public function deleteMember(CommonMemberRequest $request):Response
     {
         Member::deleteMember($request);
 

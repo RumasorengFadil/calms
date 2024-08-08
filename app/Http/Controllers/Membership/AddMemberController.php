@@ -14,7 +14,7 @@ class AddMemberController extends Controller
     {
         return Inertia::render('Membership/AddMember');
     }
-    public function addMember(AddMemberRequest $request)
+    public function addMember(AddMemberRequest $request):Response
     {
         Member::addMember($request);
         return Inertia::render("Membership/Membership", ["message" => "Member Added successfully!"]);

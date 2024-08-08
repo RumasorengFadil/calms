@@ -67,7 +67,8 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
-    public static function updateMember($request, $id){
+    public static function updateMember($request, $id)
+    {
         Member::update([
             "member_id" => $request->memberId,
             "member_name" => $request->memberName,
@@ -89,10 +90,20 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
-    public static function deleteMember($request){
+    public static function deleteMember($request)
+    {
         Member::find($request->all()->memberId)->delete();
     }
-    public static function searchMember($request){
+    public static function searchMember($request)
+    {
         return Member::find($request->all()->memberId);
+    }
+    public static function setStatus($request)
+    {
+        $member = Member::find($request->all()->memberId);
+
+        $member->is_active = $member->is_active? false : true;
+
+        $member->save();
     }
 }
