@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date("member_since_date");
             $table->date("register_date");
             $table->date("expire_date");
+            $table->boolean("is_active")->default(true);
             $table->string("inst_name")->nullable();
             $table->string("member_address")->nullable();
             $table->string("postal_code")->nullable();
