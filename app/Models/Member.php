@@ -95,16 +95,6 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
-    public static function removePhoto($request)
-    {
-        $member = Member::find($request->only("memberId"));
-
-        if ($member->member_photo_path) {
-            Storage::delete("public/members/photo/$member->member_photo_path");
-            $member->member_photo_path = null;
-            $member->save();
-        }
-    }
     public static function deleteMember($request)
     {
         Member::find($request->all()->memberId)->delete();

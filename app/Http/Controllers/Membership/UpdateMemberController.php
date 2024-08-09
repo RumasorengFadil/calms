@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Membership;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Membership\UpdateMemberRequest;
 use App\Models\Member;
-use Illuminate\Support\Facades\Storage;
+use App\Services\PhotoService;
 use Inertia\Inertia;
 use Inertia\Response;
-use Intervention\Image\ImageManager;
 
 class UpdateMemberController extends Controller
 {
@@ -19,18 +18,14 @@ class UpdateMemberController extends Controller
     public function updateMember(UpdateMemberRequest $request): Response
     {
         // Menghapus data foto sebelumnya
-        Member::removePhoto($request);
+        PhotoService::removePhoto($request);
         
-        // Mendapatkan photo dan membuat nama unik
+        // Mendapatkan photo
         $image = $request->file('memberPhoto');
-        $filename = uniqid() . '_' . $image->getClientOriginalName();
 
-        // Resize image
-        $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
-
-        // Simpan gambar yang di-resize ke storage
-        Storage::put("public/members/photo/$filename", (string) $resizedImage->encode());
-
+        // Handle foto member
+        $filename = PhotoService::handleMemberPhoto($image);
+        
         // Tambahkan data member beserta path gambar ke dalam database
         Member::updateMember($request->all() + ['memberPhotoPath' => "public/members/photo/$filename"]);
 
