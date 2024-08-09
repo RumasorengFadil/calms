@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string("postal_code")->nullable();
             $table->string("member_phone");
             $table->integer("pin")->nullable();
-            $table->string("member_photo")->nullable();
+            $table->string("member_photo");
+            $table->string("member_photo_path");
             $table->string("member_email")->nullable();
             $table->string("member_password");
             $table->dateTime("last_login");

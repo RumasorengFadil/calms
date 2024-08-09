@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Member extends Model
 {
@@ -60,6 +61,7 @@ class Member extends Model
             "member_phone" => $request->memberPhone,
             "pin" => $request->pin,
             "member_photo" => $request->memberPhoto,
+            "member_photo_path" => $request->memberPhotoPath,
             "member_email" => $request->memberEmail,
             "member_password" => $request->memberPassword,
             "last_login" => now(),
@@ -85,6 +87,7 @@ class Member extends Model
             "member_phone" => $request->memberPhone,
             "pin" => $request->pin,
             "member_photo" => $request->memberPhoto,
+            "member_photo_path" => $request->memberPhotoPath,
             "member_email" => $request->memberEmail,
             "member_password" => $request->memberPassword,
             "last_login" => now(),
@@ -92,9 +95,24 @@ class Member extends Model
             "last_update" => now()->toDateString(),
         ]);
     }
+    public static function removePhoto($request)
+    {
+        $member = Member::find($request->only("memberId"));
+
+        if ($member->member_photo_path) {
+            Storage::delete("public/members/photo/$member->member_photo_path");
+            $member->member_photo_path = null;
+            $member->save();
+        }
+    }
     public static function deleteMember($request)
     {
         Member::find($request->all()->memberId)->delete();
+
+        return [
+            "message" => "Member deleted successfully",
+            "status" => true
+        ];
     }
     public static function searchMember($request)
     {

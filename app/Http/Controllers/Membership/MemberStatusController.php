@@ -11,10 +11,12 @@ use Inertia\Response;
 
 class MemberStatusController extends Controller
 {
-    public function setMemberStatus(CommonMemberRequest $request):Response{
+    public function setMemberStatus(CommonMemberRequest $request): Response
+    {
         $status = Member::setStatus($request);
 
-        return Inertia::render("Membership/DeactivateMember", ["message" => "Member" . ($status ? "activate" : "deactivate") . "successfully!"]);
+        // return Inertia::render("Membership/DeactivateMember", ["message" => "Member" . ($status ? "activate" : "deactivate") . "successfully!"]);
+        return Inertia::render("Membership/DeactivateMember", ["message" => __("message.member.statusChanged", ["status" => $status ? "activate" : "deactivate"])]);
 
     }
 }
