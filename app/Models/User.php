@@ -48,12 +48,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public static function register($request){
+    public static function register(){
         return User::create([
-            "username" => $request->name,
+            "username" => "Fadil",
             "real_name" => "Admin",
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
+            "email" => "fadilhr54@gmail.com",
+            "password" => Hash::make("FadIl@321"),
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString()

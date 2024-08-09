@@ -10,4 +10,7 @@ class userController extends Controller
     public function register(){
         User::register();
     }
+    public function login(){
+        User::login();
+    }
 }
