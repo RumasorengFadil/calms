@@ -10,12 +10,13 @@ class Member extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'member_id';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $primaryKey = 'member_id';
     protected $hidden = [
         'member_password',
         'remember_token',
@@ -23,7 +24,6 @@ class Member extends Model
     protected $casts = [
         'member_password' => 'hashed',
     ];
-
     protected $fillable = [
         "member_id",
         "member_name",
