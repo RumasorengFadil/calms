@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mst_places', function (Blueprint $table) {
-            $table->id("place_id");
-            $table->id("place_name");
+        Schema::create('mst_authors', function (Blueprint $table) {
+            $table->id("author_id");
+            $table->id("author_name");
+            $table->year("author_year");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mst_places');
+        Schema::dropIfExists('mst_authors');
     }
 };

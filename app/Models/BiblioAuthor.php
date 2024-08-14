@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MstPlace extends Model
+class BiblioAuthor extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'place_id';
 
     /**
      * The attributes that are mass assignable.
@@ -16,17 +15,15 @@ class MstPlace extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "place_name",
-        "input_date",
-        "last_update",
+        "biblio_id",
+        "author_id",
     ];
 
-    public static function addPlace($request)
+    public static function addAuthor($request)
     {
         Member::create([
-            "place_name" => $request->placeName,
-            "input_date" => now()->toDateString(),
-            "last_update" => now()->toDateString(),
+            "biblio_id" => $request->biblioId,
+            "author_id" => $request->authorId,
         ]);
     }
 }

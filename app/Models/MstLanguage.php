@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MstPlace extends Model
+class MstLanguage extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'place_id';
+
+    use HasFactory;
+    protected $primaryKey = 'language_id';
 
     /**
      * The attributes that are mass assignable.
@@ -16,15 +18,15 @@ class MstPlace extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "place_name",
+        "language_name",
         "input_date",
         "last_update",
     ];
 
-    public static function addPlace($request)
+    public static function addLanguage($request)
     {
         Member::create([
-            "place_name" => $request->placeName,
+            "language_name" => $request->languageName,
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ]);

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mst_places', function (Blueprint $table) {
-            $table->id("place_id");
-            $table->id("place_name");
+        Schema::create('mst_languages', function (Blueprint $table) {
+            $table->id("language_id");
+            $table->id("language_name");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mst_places');
+        Schema::dropIfExists('mst_languages');
     }
 };
