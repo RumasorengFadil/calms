@@ -41,13 +41,14 @@ return new class extends Migration
             // Others columns
             $table->integer("publish_year");
             $table->string("collation");
-            $table->string("series_title");
-            $table->integer("call_number");
-            $table->string("classfication");
-            $table->text("notes");
+            $table->string("series_title")->nullable();
+            $table->integer("call_number")->nullable();
+            $table->string("classfication")->nullable();
+            $table->string("category");
+            $table->text("notes")->nullable();
             $table->string("biblio_photo");
             $table->string("biblio_photo_path");
-            $table->string("spec_detail_info");
+            $table->string("spec_detail_info")->nullable();
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();
