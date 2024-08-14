@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("edition");
             $table->string("isbn_issn");
+            
             $table->unsignedBigInteger("publisher_id"); // Foreign key to mst_publisher table
             
             
