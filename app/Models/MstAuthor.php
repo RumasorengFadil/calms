@@ -23,7 +23,7 @@ class MstAuthor extends Model
 
     public static function addAuthor($request)
     {
-        Member::create([
+        return Member::create([
             "author_name" => $request->authorName,
             "author_year" => $request->authorYear,
             "input_date" => now()->toDateString(),

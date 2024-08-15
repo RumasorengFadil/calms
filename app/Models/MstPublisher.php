@@ -21,9 +21,9 @@ class MstPublisher extends Model
         "last_update",
     ];
 
-    public static function addMember($request)
+    public static function addPublisher($request)
     {
-        Member::create([
+        return Member::create([
             "publisher_name" => $request->publisherName,
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),

@@ -25,7 +25,7 @@ class MstLanguage extends Model
 
     public static function addLanguage($request)
     {
-        Member::create([
+        return Member::create([
             "language_name" => $request->languageName,
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),

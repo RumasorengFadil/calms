@@ -23,7 +23,7 @@ class MstPlace extends Model
 
     public static function addPlace($request)
     {
-        Member::create([
+        return Member::create([
             "place_name" => $request->placeName,
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
