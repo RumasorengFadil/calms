@@ -23,7 +23,11 @@ return new class extends Migration
             ->onDelete("cascade");
 
             // Others table
-            $table->unsignedBigInteger("biblio_id");
+            $table->string("item_code")->unique();
+            $table->integer("col_type_id")->nullable();
+            $table->date("received_date");
+            $table->date("input_date");
+            $table->date("last_update");
             $table->timestamps();
         });
     }

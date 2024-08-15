@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biblio_patterns', function (Blueprint $table) {
-            $table->id();
+        Schema::create('item_code_patterns', function (Blueprint $table) {
+            $table->id("pattern_id");
+            $table->id("pattern_name");
+            $table->date("input_date");
+            $table->date("last_update");
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biblio_patterns');
+        Schema::dropIfExists('item_code_patterns');
     }
 };
