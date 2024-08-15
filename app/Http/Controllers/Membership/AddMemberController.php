@@ -26,7 +26,7 @@ class AddMemberController extends Controller
         // Tambahkan data member beserta path gambar ke dalam database
         Member::addMember($request->all() + ['memberPhotoPath' => "public/members/photo/$filename"]);
 
-        return Inertia::render("Membership/Membership", ["message" => __("message.member.added")]);
+        return Inertia::render("Membership/Membership", ["message" => __("message.success.added", ["entity" => "Member"])]);
     }
 }
 

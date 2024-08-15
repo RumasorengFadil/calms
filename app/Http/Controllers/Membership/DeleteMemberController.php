@@ -15,7 +15,7 @@ class DeleteMemberController extends Controller
     {
         Member::deleteMember($request);
 
-        return Inertia::render("Membership/UpdateMember", ["message" => __("message.member.deleted")]);
+        return Inertia::render("Membership/UpdateMember", ["message" => __("message.success.deleted", ["entity" => "Member"])]);
         // Cara lama ketika membangun web dengan laravel tradisional;
         // return response()->json(['message' => "Member deleted successfully!"], 200);
     }

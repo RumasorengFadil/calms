@@ -1,9 +1,9 @@
 <?php
 return [
-    "member" => [
-        "created" => "Member created successfully!",
-        "updated" => "Member created successfully!",
-        "deleted" => "Member created successfully!",
+    "success" => [
+        "created" => ":entity created successfully!",
+        "updated" => ":entity created successfully!",
+        "deleted" => ":entity created successfully!",
         "statusChanged" => "Member :status successfully!"
     ]
 ];

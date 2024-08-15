@@ -16,7 +16,7 @@ class MemberStatusController extends Controller
         $status = Member::setStatus($request);
 
         // return Inertia::render("Membership/DeactivateMember", ["message" => "Member" . ($status ? "activate" : "deactivate") . "successfully!"]);
-        return Inertia::render("Membership/DeactivateMember", ["message" => __("message.member.statusChanged", ["status" => $status ? "activate" : "deactivate"])]);
+        return Inertia::render("Membership/DeactivateMember", ["message" => __("message.success.statusChanged", ["status" => $status ? "activate" : "deactivate"])]);
 
     }
 }

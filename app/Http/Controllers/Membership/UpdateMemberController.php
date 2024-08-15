@@ -29,6 +29,6 @@ class UpdateMemberController extends Controller
         // Tambahkan data member beserta path gambar ke dalam database
         Member::updateMember($request->all() + ['memberPhotoPath' => "public/members/photo/$filename"]);
 
-        return Inertia::render("Membership/UpdateMember", ["message" => __("message.member.updated")]);
+        return Inertia::render("Membership/UpdateMember", ["message" => __("message.success.updated", ["entity" => "Member"])]);
     }
 }
