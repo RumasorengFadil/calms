@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->unsignedBigInteger("biblio_id"); // Foreign key to mst_publisher table
+            $table->unsignedBigInteger("biblio_id"); // Foreign key to biblio table
             
             
             $table->foreign("biblio_id") // Defining mst_publisher the foreign key constraint
@@ -23,7 +23,7 @@ return new class extends Migration
             ->on("biblio")
             ->onDelete("cascade");
 
-            $table->unsignedBigInteger("author_id"); // Foreign key to mst_publisher table
+            $table->unsignedBigInteger("author_id"); // Foreign key to mst_author table
             
             
             $table->foreign("author_id") // Defining mst_publisher the foreign key constraint

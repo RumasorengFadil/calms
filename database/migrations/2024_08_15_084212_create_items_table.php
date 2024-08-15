@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
+            $table->id("item_id");
+
+            $table->unsignedBigInteger("biblio_id"); // Foreign key to biblio table
+            
+            
+            $table->foreign("biblio_id") // Defining mst_publisher the foreign key constraint
+            ->references("biblio_id")
+            ->on("biblio")
+            ->onDelete("cascade");
+
+            // Others table
+            $table->unsignedBigInteger("biblio_id");
             $table->timestamps();
         });
     }
