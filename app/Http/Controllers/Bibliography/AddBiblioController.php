@@ -8,9 +8,15 @@ use App\Services\BiblioService;
 
 class AddBiblioController extends Controller
 {
+    protected $biblioService;
+    public function __construct(BiblioService $biblioService){
+        $this->biblioService = $biblioService;
+    }
     public function addBiblio(AddBiblioRequest $request)
     {
         try {
+
+            
             BiblioService::createBiblioWithRelations($request);
 
             
