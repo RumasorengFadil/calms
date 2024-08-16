@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('item_code_patterns', function (Blueprint $table) {
             $table->id("pattern_id");
-            $table->id("pattern_name")->unique();
+            $table->id("item_code_pattern")->unique();
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();

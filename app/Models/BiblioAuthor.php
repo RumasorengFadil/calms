@@ -19,7 +19,7 @@ class BiblioAuthor extends Model
         "author_id",
     ];
 
-    public static function addAuthor($request)
+    public static function assignAuthorToBiblio($request)
     {
         Member::create([
             "biblio_id" => $request->biblioId,

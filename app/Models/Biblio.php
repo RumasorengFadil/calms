@@ -39,7 +39,7 @@ class Biblio extends Model
 
     public static function addBiblio($request)
     {
-        Biblio::create([
+        return Biblio::create([
             "title" => $request->title,
             "edition" => $request->edition,
             "isbn_issn" => $request->isbnIssn,
