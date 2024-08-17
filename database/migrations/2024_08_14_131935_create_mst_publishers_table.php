@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mst_publishers', function (Blueprint $table) {
             $table->id("publisher_id");
-            $table->id("publisher_name");
+            $table->string("publisher_name");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();

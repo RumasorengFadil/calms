@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mst_languages', function (Blueprint $table) {
             $table->id("language_id");
-            $table->id("language_name");
+            $table->string("language_name");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();
