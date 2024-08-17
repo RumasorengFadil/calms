@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('biblios', function (Blueprint $table) {
-            $table->id("biblo_id"); // Primary key with the name 'biblio_id'
+            $table->id("biblio_id"); // Primary key with the name 'biblio_id'
             $table->string("title");
             $table->string("edition");
             $table->string("isbn_issn");
@@ -22,21 +22,21 @@ return new class extends Migration
             
             $table->foreign("publisher_id") // Defining mst_publisher the foreign key constraint
             ->references("publisher_id")
-            ->on("mst_publisher")
+            ->on("mst_publishers")
             ->onDelete("cascade");
             
             $table->unsignedBigInteger("language_id"); // Foreign key to mst_language table
             
             $table->foreign("language_id") // Defining mst_language the foreign key constraint
             ->references("language_id")
-            ->on("mst_language")
+            ->on("mst_languages")
             ->onDelete("cascade");
    
             $table->unsignedBigInteger("publish_place_id"); // Foreign key to mst_place table
             
             $table->foreign("publish_place_id") // Defining mst_place the foreign key constraint
             ->references("place_id")
-            ->on("mst_place")
+            ->on("mst_places")
             ->onDelete("cascade");
             
             // Others columns
