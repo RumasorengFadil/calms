@@ -47,16 +47,21 @@ class BiblioService
         DB::transaction(function () use ($biblioDTO) {
             $author = $this->authorRepository->addAuthor($biblioDTO->getAuthorData());
             $language = $this->languageRepository->addLanguage($biblioDTO->getLanguageData());
-            $language = $this->publisherRepository->addPublisher($biblioDTO->getPublisherData());
-            $language = $this->placeRepository->addPlace($biblioDTO->getPlaceData());
+            $publisher = $this->publisherRepository->addPublisher($biblioDTO->getPublisherData());
+            $place = $this->placeRepository->addPlace($biblioDTO->getPlaceData());
 
-            $biblio = Biblio::addBiblio($biblioDTO->all() +
-                [
-                    "publisherId" => $publisher->publisher_id,
-                    "languageId" => $language->language_id,
-                    "placeId" => $place->place_id
-                ]);
+            $biblio = $this->biblioRepository->addBiblio($biblioDTO->getBiblioData() + [
+                "publisherId" => $publisher->publisher_id,
+                "languageId" => $language->language_id,
+                "placeId" => $place->place_id
+            ]);
 
+            $place = $this->authorRepository->addAuthor($biblioDTO->getAuthorData() + [
+                "biblioId" => $biblio->biblio_id,
+                "authorId" => $author->author_id
+            ]);
+
+            //lanjut disini
             BiblioAuthor::assignAuthorToBiblio(
                 [
                     "biblioId" => $biblio->biblio_id,

@@ -23,12 +23,12 @@ class MstLanguage extends Model
         "last_update",
     ];
 
-    public static function addLanguage($request)
-    {
-        return Member::create([
-            "language_name" => $request->languageName,
-            "input_date" => now()->toDateString(),
-            "last_update" => now()->toDateString(),
-        ]);
-    }
+    // public static function addLanguage($request)
+    // {
+    //     return MstLanguage::create([
+    //         "language_name" => $request->languageName,
+    //         "input_date" => now()->toDateString(),
+    //         "last_update" => now()->toDateString(),
+    //     ]);
+    // }
 }

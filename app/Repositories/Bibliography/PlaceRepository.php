@@ -8,6 +8,10 @@ class PlaceRepository
 {
     public function addPlace(array $data): MstPlace
     {
-        return MstPlace::create($data);
+        return MstPlace::create([
+            "place_name" => $data["placeName"],
+            "input_date" => now()->toDateString(),
+            "last_update" => now()->toDateString(),
+        ]);
     }
 }

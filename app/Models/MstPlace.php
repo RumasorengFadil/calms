@@ -21,12 +21,12 @@ class MstPlace extends Model
         "last_update",
     ];
 
-    public static function addPlace($request)
-    {
-        return Member::create([
-            "place_name" => $request->placeName,
-            "input_date" => now()->toDateString(),
-            "last_update" => now()->toDateString(),
-        ]);
-    }
+    // public static function addPlace($request)
+    // {
+        // return MstPlace::create([
+        //     "place_name" => $request->placeName,
+        //     "input_date" => now()->toDateString(),
+        //     "last_update" => now()->toDateString(),
+        // ]);
+    // }
 }

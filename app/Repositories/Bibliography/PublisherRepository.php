@@ -9,6 +9,10 @@ class PublisherRepository
 {
     public function addPublisher(array $data): MstPublisher
     {
-        return MstPublisher::create($data);
+        return MstPublisher::create([
+            "publisher_name" => $data["publisherName"],
+            "input_date" => now()->toDateString(),
+            "last_update" => now()->toDateString(),
+        ]);
     }
 }
