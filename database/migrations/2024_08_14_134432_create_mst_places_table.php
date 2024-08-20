@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mst_places', function (Blueprint $table) {
             $table->id("place_id");
-            $table->id("place_name");
+            $table->string("place_name");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();

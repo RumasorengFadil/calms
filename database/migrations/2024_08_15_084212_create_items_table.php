@@ -19,7 +19,7 @@ return new class extends Migration
             
             $table->foreign("biblio_id") // Defining mst_publisher the foreign key constraint
             ->references("biblio_id")
-            ->on("biblio")
+            ->on("biblios")
             ->onDelete("cascade");
 
             // Others table
