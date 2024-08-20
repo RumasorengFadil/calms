@@ -44,13 +44,13 @@ class BiblioService
     }
     public function createBiblioWithRelations(BiblioDTO $biblioDTO)
     {
-        DB::transaction(function () use ($request) {
-            $author = MstAuthor::addAuthor($request);
-            $language = MstLanguage::addLanguage($request);
-            $publisher = MstPublisher::addPublisher($request);
-            $place = MstPlace::addPlace($request);
+        DB::transaction(function () use ($biblioDTO) {
+            $author = $this->authorRepository->addAuthor($biblioDTO->getAuthorData());
+            $language = $this->languageRepository->addLanguage($biblioDTO->getLanguageData());
+            $language = $this->publisherRepository->addPublisher($biblioDTO->getPublisherData());
+            $language = $this->placeRepository->addPlace($biblioDTO->getPlaceData());
 
-            $biblio = Biblio::addBiblio($request->all() +
+            $biblio = Biblio::addBiblio($biblioDTO->all() +
                 [
                     "publisherId" => $publisher->publisher_id,
                     "languageId" => $language->language_id,
@@ -64,8 +64,36 @@ class BiblioService
                 ]
             );
 
-            Item::addItem($request->all() + ["itemCode" => ItemCodeGenerator::generateItemCode($request->itemCodePattern)]);
+            Item::addItem($biblioDTO->all() + ["itemCode" => ItemCodeGenerator::generateItemCode($request->itemCodePattern)]);
 
         });
     }
 }
+
+//Simple Version 
+// public function createBiblioWithRelations(BiblioDTO $biblioDTO)
+//     {
+//         DB::transaction(function () use ($biblioDTO) {
+//             $author = MstAuthor::addAuthor($biblioDTO);
+//             $language = MstLanguage::addLanguage($biblioDTO);
+//             $publisher = MstPublisher::addPublisher($biblioDTO);
+//             $place = MstPlace::addPlace($biblioDTO);
+
+//             $biblio = Biblio::addBiblio($biblioDTO->all() +
+//                 [
+//                     "publisherId" => $publisher->publisher_id,
+//                     "languageId" => $language->language_id,
+//                     "placeId" => $place->place_id
+//                 ]);
+
+//             BiblioAuthor::assignAuthorToBiblio(
+//                 [
+//                     "biblioId" => $biblio->biblio_id,
+//                     "authorId" => $author->author_id
+//                 ]
+//             );
+
+//             Item::addItem($biblioDTO->all() + ["itemCode" => ItemCodeGenerator::generateItemCode($request->itemCodePattern)]);
+
+//         });
+//     }

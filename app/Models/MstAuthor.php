@@ -17,17 +17,18 @@ class MstAuthor extends Model
      */
     protected $fillable = [
         "author_name",
+        "author_year",
         "input_date",
         "last_update",
     ];
-
-    public static function addAuthor($request)
-    {
-        return Member::create([
-            "author_name" => $request->authorName,
-            "author_year" => $request->authorYear,
-            "input_date" => now()->toDateString(),
-            "last_update" => now()->toDateString(),
-        ]);
-    }
+    
+    // public static function addAuthor($request)
+    // {
+    //     return MstAuthor::create([
+    //         "author_name" => $request->authorName,
+    //         "author_year" => $request->authorYear,
+    //         "input_date" => now()->toDateString(),
+    //         "last_update" => now()->toDateString(),
+    //     ]);
+    // }
 }

@@ -7,7 +7,7 @@ use App\Models\MstPublisher;
 
 class PublisherRepository
 {
-    public function addLanguage(array $data): MstPublisher
+    public function addPublisher(array $data): MstPublisher
     {
         return MstPublisher::create($data);
     }
