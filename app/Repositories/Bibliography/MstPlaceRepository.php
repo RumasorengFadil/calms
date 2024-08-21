@@ -4,7 +4,7 @@ namespace App\Repositories\Bibliography;
 
 use App\Models\MstPlace;
 
-class PlaceRepository
+class MstPlaceRepository
 {
     public function addPlace(array $data): MstPlace
     {

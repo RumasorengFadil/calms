@@ -4,7 +4,7 @@ namespace App\Repositories\Bibliography;
 
 use App\Models\MstLanguage;
 
-class LanguageRepository
+class MstLanguageRepository
 {
     public function addLanguage(array $data): MstLanguage
     {

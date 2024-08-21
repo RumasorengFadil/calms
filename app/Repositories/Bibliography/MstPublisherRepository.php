@@ -5,7 +5,7 @@ namespace App\Repositories\Bibliography;
 use App\Models\MstLanguage;
 use App\Models\MstPublisher;
 
-class PublisherRepository
+class MstPublisherRepository
 {
     public function addPublisher(array $data): MstPublisher
     {
