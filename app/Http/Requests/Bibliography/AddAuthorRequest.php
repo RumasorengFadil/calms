@@ -22,7 +22,13 @@ class AddAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "authorName" => "required" 
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'authorName.required' => 'Nama penulis item harus diisi.!',
         ];
     }
 }

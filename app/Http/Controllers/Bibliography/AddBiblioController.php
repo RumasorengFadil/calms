@@ -17,7 +17,7 @@ class AddBiblioController extends Controller
     public function addBiblio(AddBiblioRequest $request)
     {
         try {
-            // Data sudah tervalidasi oleh StoreBiblioRequest
+            // Data sudah tervalidasi oleh AddBiblioRequest
             $validatedData = $request->validated();
 
             $biblioTDO = new BiblioDTO(

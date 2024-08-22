@@ -22,13 +22,12 @@ class MstAuthor extends Model
         "last_update",
     ];
     
-    // public static function addAuthor($request)
-    // {
-    //     return MstAuthor::create([
-    //         "author_name" => $request->authorName,
-    //         "author_year" => $request->authorYear,
-    //         "input_date" => now()->toDateString(),
-    //         "last_update" => now()->toDateString(),
-    //     ]);
-    // }
+    public static function addAuthor($data)
+    {
+        return MstAuthor::create([
+            "author_name" => $data["authorName"],
+            "input_date" => now()->toDateString(),
+            "last_update" => now()->toDateString(),
+        ]);
+    }
 }
