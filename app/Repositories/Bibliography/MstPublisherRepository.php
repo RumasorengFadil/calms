@@ -7,7 +7,7 @@ use App\Models\MstPublisher;
 
 class MstPublisherRepository
 {
-    public function addPublisher(array $data): MstPublisher
+    public function createPublisher(array $data): MstPublisher
     {
         return MstPublisher::create([
             "publisher_name" => $data["publisherName"],

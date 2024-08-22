@@ -6,7 +6,7 @@ use App\Models\MstPlace;
 
 class MstPlaceRepository
 {
-    public function addPlace(array $data): MstPlace
+    public function createPlace(array $data): MstPlace
     {
         return MstPlace::create([
             "place_name" => $data["placeName"],

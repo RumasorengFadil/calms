@@ -6,7 +6,7 @@ use App\Models\Biblio;
 
 class BiblioRepository
 {
-    public function addBiblio(array $data): Biblio
+    public function createBiblio(array $data): Biblio
     {
         return Biblio::create([
             "title" => $data["title"],

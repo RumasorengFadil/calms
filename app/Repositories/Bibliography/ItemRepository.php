@@ -6,7 +6,7 @@ use App\Models\Item;
 
 class ItemRepository
 {
-    public function addItem(array $data): Item
+    public function createItem(array $data): Item
     {
         return Item::create($data);
     }

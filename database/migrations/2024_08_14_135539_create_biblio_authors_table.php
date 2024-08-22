@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('biblio_authors', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-
+            // $table->id();
+            
             $table->unsignedBigInteger("biblio_id"); // Foreign key to biblio table
             
             
@@ -30,6 +29,7 @@ return new class extends Migration
             ->references("author_id")
             ->on("mst_authors")
             ->onDelete("cascade");
+            $table->timestamps();
         });
     }
 
