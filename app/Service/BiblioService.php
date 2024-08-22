@@ -44,7 +44,7 @@ class BiblioService
     public function createBiblioWithRelations(BiblioDTO $biblioDTO)
     {
         DB::transaction(function () use ($biblioDTO) {
-            $createdAuthor = $this->mstAuthorRepository->createAuthor($biblioDTO->getAuthorData());
+            // $createdAuthor = $this->mstAuthorRepository->createAuthor($biblioDTO->getAuthorData());
             $createdLanguage = $this->mstLanguageRepository->createLanguage($biblioDTO->getLanguageData());
             $createdPublisher = $this->mstPublisherRepository->createPublisher($biblioDTO->getPublisherData());
             $createdPlace = $this->mstPlaceRepository->createPlace($biblioDTO->getPlaceData());
@@ -59,6 +59,7 @@ class BiblioService
                 "biblioId" => $createdBiblio->biblio_id,
                 "authorId" => $createdAuthor->author_id
             ]);
+
             $createdItem = $this->itemRepository->createItem($biblioDTO->getItemData() + [
                 "itemCode" => ItemCodeGenerator::generateItemCode(
                     $biblioDTO->getBiblioData()["itemCodePattern"]
