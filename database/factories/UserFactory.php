@@ -29,10 +29,20 @@ class UserFactory extends Factory
             // 'email_verified_at' => now(),
             // 'password' => static::$password ??= Hash::make('password'),
             // 'remember_token' => Str::random(10),  
-            "username" => fake()->userName(),
-            "real_name" => fake()->userName(),
+
+            // "username" => fake()->userName(),
+            // "real_name" => fake()->userName(),
+            // "email" => fake()->unique()->safeEmail(),
+            // "password" => Hash::make("password"),
+            // "last_login" => now(),
+            // "input_date" => now()->toDateString(),
+            // "last_update" => now()->toDateString(),
+            // 'remember_token' => Str::random(10)
+
+            "username" => 'admin',
+            "real_name" => 'Admin',
             "email" => fake()->unique()->safeEmail(),
-            "password" => Hash::make("password"),
+            "password" => Hash::make("admin"),
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),

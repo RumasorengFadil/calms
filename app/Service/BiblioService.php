@@ -55,10 +55,11 @@ class BiblioService
                 "placeId" => $createdPlace->place_id
             ]);
 
+            //lanjut disini
             $assignedBiblioAuthor = $this->biblioAuthorRepository->assignAuthorToBiblio($biblioDTO->getAuthorData() + [
                 "biblioId" => $createdBiblio->biblio_id,
-                "authorId" => $createdAuthor->author_id
             ]);
+            //===
 
             $createdItem = $this->itemRepository->createItem($biblioDTO->getItemData() + [
                 "itemCode" => ItemCodeGenerator::generateItemCode(

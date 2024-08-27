@@ -22,8 +22,7 @@ class AddBiblioController extends Controller
 
             $biblioTDO = new BiblioDTO(
                 [
-                    "authorName" => $validatedData["authorName"],
-                    "authorYear" => $validatedData["authorYear"]
+                    "authors" => $validatedData["authors"],
                 ],
                 [
                     "languageName" => $validatedData["languageName"]

@@ -11,7 +11,7 @@ class AddAuthorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class AddAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "authorName" => "required" 
+            'authors' => 'required|array',
+            'authors.*.id' => 'required|integer|exists:authors,id',
+            'authors.*.name' => 'required|string',
         ];
     }
     public function messages()

@@ -9,9 +9,11 @@ class BiblioAuthorRepository
 {
     public function assignAuthorToBiblio(array $data): MstAuthor
     {
-        return BiblioAuthor::create([
-            "biblio_id" => $data["biblioId"],
-            "author_id" => $data["authorId"],
-        ]);
+        foreach($data["authors"] as $author){
+            return BiblioAuthor::create([
+                "biblio_id" => $author["biblioId"],
+                "author_id" => $author["authorId"],
+            ]);
+        }
     }
 }

@@ -13,6 +13,8 @@ class AddAuthorController extends Controller
     public function addAuthor(AddAuthorRequest $request){
         $validatedData = $request->validated();
 
+        // foreach ($validatedData['authors'] as $author) {
+        // }
         MstAuthor::addAuthor($validatedData);
 
         return Inertia::render("Bibliography/Bibliography", ["message" => __("message.success.added", ["entity" => "author"])]);
