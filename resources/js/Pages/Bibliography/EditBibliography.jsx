@@ -1,5 +1,4 @@
-import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
@@ -9,24 +8,7 @@ export default function EditBibliography({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <SidebarNavLink
-                    href={route("bibliographies.index")}
-                    active={route().current("bibliographies.index")}
-                    >
-                    Daftar Pustaka
-                </SidebarNavLink>
-                <SidebarNavLink
-                    href={route("bibliographies.create")}
-                    active={route().current("bibliographies.create")}
-                >
-                    Tambah Pustaka
-                </SidebarNavLink>
-                <SidebarNavLink
-                    href={route("bibliographies.edit")}
-                    active={route().current("bibliographies.edit")}
-                >
-                    Edit Pustaka
-                </SidebarNavLink>
+                <BibliographySidebar />
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
