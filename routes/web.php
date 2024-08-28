@@ -50,7 +50,10 @@ Route::middleware(['auth', 'verified'])->group(function(){
     })->name('circulation.index');
     Route::get('/circulation/loan-history', function(){
         return Inertia::render('Circulation/LoanHistory');
-    })->name('circulation.index');
+    })->name('circulation.loan-history.index');
+    Route::get('/circulation/due-date-warning', function(){
+        return Inertia::render('Circulation/DueDateWarning');
+    })->name('circulation.due-date-warning.index');
 
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);

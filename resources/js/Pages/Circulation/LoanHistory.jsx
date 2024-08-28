@@ -15,7 +15,7 @@ export default function LoanHistory({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Peminjaman</h1>
+                    <h1 className="text-center mt-32">Riwayat Peminjaman</h1>
                 </MainContentLayout>
             </div>
         </div>
