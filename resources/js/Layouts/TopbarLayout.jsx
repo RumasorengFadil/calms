@@ -26,7 +26,7 @@ export default function TopbarLayout({ children }) {
                     </ul>
                     <a href="">
                         <img
-                            className="w-64"
+                            className="w-64 min-w-32"
                             src="/img/app/logo-company.png"
                             alt=""
                         />
