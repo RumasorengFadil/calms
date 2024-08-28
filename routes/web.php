@@ -30,6 +30,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/bibliography', function(){
+        return Inertia::render('Bibliography/Bibliography');
+    })->name('bibliography.index');
+
+    Route::get('/bibliography/create', function(){
+        return Inertia::render('Bibliography/CreateBibliography');
+    })->name('bibliography.create');
 });
 
 Route::middleware('auth')->group(function () {

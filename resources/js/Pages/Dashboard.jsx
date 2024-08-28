@@ -9,7 +9,7 @@ export default function Dashboard({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <Link href="dashboard">
+                <Link href={route("dashboard")}>
                     <li
                         className={`${
                             currentRouteName === "dashboard"
@@ -20,28 +20,6 @@ export default function Dashboard({}) {
                         Dashboard
                     </li>
                 </Link>
-                {/* <Link href="">
-                    <li
-                        className={`${
-                            currentRouteName === ""
-                                ? "bg bg-white shadow-lg text-primary"
-                                : "text-white"
-                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
-                    >
-                        Daftar anggota
-                    </li>
-                </Link>
-                <Link href="">
-                    <li
-                        className={`${
-                            currentRouteName === ""
-                                ? "bg bg-white shadow-lg text-primary"
-                                : "text-white"
-                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
-                    >
-                        Non-aktifkan anggota
-                    </li>
-                </Link> */}
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
