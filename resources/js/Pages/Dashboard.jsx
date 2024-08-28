@@ -9,7 +9,7 @@ export default function Dashboard({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <Link href={route("dashboard")}>
+                <Link href={route("dashboard.index")}>
                     <li
                         className={`${
                             currentRouteName === "dashboard"

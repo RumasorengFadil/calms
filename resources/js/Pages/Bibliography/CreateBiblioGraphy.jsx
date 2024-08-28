@@ -32,7 +32,7 @@ export default function CreateBibliography({}) {
                         Tambah Pustaka
                     </li>
                 </Link>
-                <Link href="">
+                <Link href={route("bibliography.edit")}>
                     <li
                         className={`${
                             currentRouteName === ""

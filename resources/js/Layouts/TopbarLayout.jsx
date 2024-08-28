@@ -15,7 +15,7 @@ export default function TopbarLayout({ children }) {
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
-                            href={route("dashboard")}
+                            href={route("dashboard.index")}
                         >
                             <li className="">Dashboard</li>
                         </Link>
@@ -53,7 +53,7 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         {children}
                     </ul>
-                    <Link href={route("dashboard")}>
+                    <Link href={route("dashboard.index")}>
                         <img
                             className="w-64 min-w-32"
                             src="/img/app/logo-company.png"

@@ -29,7 +29,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('dashboard.index');
 
     Route::get('/bibliographies', function(){
         return Inertia::render('Bibliography/Bibliographies');
@@ -38,6 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/bibliography/create', function(){
         return Inertia::render('Bibliography/CreateBibliography');
     })->name('bibliography.create');
+    Route::get('/bibliography/edit', function(){
+        return Inertia::render('Bibliography/EditBibliography');
+    })->name('bibliography.edit');
 });
 
 Route::middleware('auth')->group(function () {

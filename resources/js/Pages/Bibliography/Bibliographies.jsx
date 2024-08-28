@@ -31,7 +31,7 @@ export default function Bibliographies({}) {
                         Tambah Pustaka
                     </li>
                 </Link>
-                <Link href="">
+                <Link href={route("bibliography.edit")}>
                     <li
                         className={`${
                             currentRouteName === ""

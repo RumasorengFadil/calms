@@ -32,10 +32,10 @@ export default function EditBibliography({}) {
                         Tambah Pustaka
                     </li>
                 </Link>
-                <Link href="">
+                <Link href={route("bibliography.edit")}>
                     <li
                         className={`${
-                            currentRouteName === ""
+                            currentRouteName === "bibliography.edit"
                                 ? "bg bg-white shadow-lg text-primary"
                                 : "text-white"
                         } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
@@ -49,7 +49,7 @@ export default function EditBibliography({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Tambah Pustaka</h1>
+                    <h1 className="text-center mt-32">Edit Pustaka</h1>
                 </MainContentLayout>
             </div>
         </div>
