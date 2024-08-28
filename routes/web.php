@@ -54,6 +54,17 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/circulation/due-date-warning', function(){
         return Inertia::render('Circulation/DueDateWarning');
     })->name('circulation.due-date-warning');
+    
+    //Membership
+    Route::get('/membership', function(){
+        return Inertia::render('Membership/Memberships');
+    })->name('memberships.index');
+    // Route::get('/circulation/loan-history', function(){
+    //     return Inertia::render('Circulation/LoanHistory');
+    // })->name('circulation.loan-history');
+    // Route::get('/circulation/due-date-warning', function(){
+    //     return Inertia::render('Circulation/DueDateWarning');
+    // })->name('circulation.due-date-warning');
 
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);

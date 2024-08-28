@@ -1,4 +1,4 @@
-import CirculationSidebar from "@/Components/Sidebar/CirculationSidebar";
+import MembershipSidebar from "@/Components/Sidebar/MembershipSidebar";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
@@ -8,14 +8,14 @@ export default function Membership({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <CirculationSidebar />
+                <MembershipSidebar />
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Peminjaman</h1>
+                    <h1 className="text-center mt-32">Keanggotaan</h1>
                 </MainContentLayout>
             </div>
         </div>
