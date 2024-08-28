@@ -30,12 +30,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $currentRouteName = Route::currentRouteName();
+        $baseRouteName = explode('.', $currentRouteName)[0];
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'currentRouteName' => Route::currentRouteName(),
+            'currentRouteName' => $currentRouteName,
+            'baseRouteName' => $baseRouteName
         ];
     }
 }

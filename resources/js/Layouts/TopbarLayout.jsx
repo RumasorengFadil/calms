@@ -2,7 +2,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link, usePage } from "@inertiajs/react";
 
 export default function TopbarLayout({ children }) {
-    const { currentRouteName } = usePage().props;
+    const { baseRouteName } = usePage().props;
 
     return (
         <div className="w-full">
@@ -11,7 +11,7 @@ export default function TopbarLayout({ children }) {
                     <ul className="flex flex-auto items-center">
                         <Link
                             className={`mx-5 ${
-                                currentRouteName === "dashboard"
+                                baseRouteName === "dashboard"
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
@@ -21,17 +21,19 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                currentRouteName === "bibliographies.index"
-                                ? "text-primary"
-                                : ""
+                                baseRouteName === "bibliographies" ||
+                                baseRouteName === "bibliography"
+                                    ? "text-primary"
+                                    : ""
                             } text-xl font-inter`}
                             href={route("bibliographies.index")}
-                            >
+                        >
+                            {console.log(baseRouteName)}
                             <li className="">Pustaka</li>
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                currentRouteName === "circulation"
+                                baseRouteName === "circulation"
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
@@ -41,7 +43,7 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                currentRouteName === "membership"
+                                baseRouteName === "membership"
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
