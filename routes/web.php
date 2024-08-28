@@ -31,9 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/bibliography', function(){
-        return Inertia::render('Bibliography/Bibliography');
-    })->name('bibliography.index');
+    Route::get('/bibliographies', function(){
+        return Inertia::render('Bibliography/Bibliographies');
+    })->name('bibliographies.index');
 
     Route::get('/bibliography/create', function(){
         return Inertia::render('Bibliography/CreateBibliography');

@@ -4,15 +4,15 @@ import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
-export default function Bibliography({}) {
+export default function Bibliographies({}) {
     const { currentRouteName } = usePage().props;
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <Link href="dashboard">
+                <Link href={route("bibliographies.index")}>
                     <li
                         className={`${
-                            currentRouteName === "bibliography"
+                            currentRouteName === "bibliographies.index"
                                 ? "bg bg-white shadow-lg text-primary"
                                 : "text-white"
                         } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
@@ -20,10 +20,10 @@ export default function Bibliography({}) {
                         Daftar Pustaka
                     </li>
                 </Link>
-                <Link href="">
+                <Link href={route("bibliography.create")}>
                     <li
                         className={`${
-                            currentRouteName === ""
+                            currentRouteName === "bibliographies.create"
                                 ? "bg bg-white shadow-lg text-primary"
                                 : "text-white"
                         } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}

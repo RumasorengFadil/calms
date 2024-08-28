@@ -21,12 +21,12 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                currentRouteName === "bibliography"
-                                    ? "text-primary"
-                                    : ""
+                                currentRouteName === "bibliographies.index"
+                                ? "text-primary"
+                                : ""
                             } text-xl font-inter`}
-                            href={route("bibliography")}
-                        >
+                            href={route("bibliographies.index")}
+                            >
                             <li className="">Pustaka</li>
                         </Link>
                         <Link

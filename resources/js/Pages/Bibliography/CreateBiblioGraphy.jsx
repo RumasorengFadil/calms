@@ -9,21 +9,22 @@ export default function CreateBibliography({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <Link href="dashboard">
+                <Link href={route("bibliographies.index")}>
                     <li
                         className={`${
-                            currentRouteName === "bibliography"
+                            currentRouteName === "bibliographies.index"
                                 ? "bg bg-white shadow-lg text-primary"
                                 : "text-white"
                         } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
                     >
+                        
                         Daftar Pustaka
                     </li>
                 </Link>
-                <Link href="">
+                <Link href={route("bibliography.create")}>
                     <li
                         className={`${
-                            currentRouteName === "create-bibliography"
+                            currentRouteName === "bibliography.create"
                                 ? "bg bg-white shadow-lg text-primary"
                                 : "text-white"
                         } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
@@ -48,7 +49,7 @@ export default function CreateBibliography({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Daftar Pustaka</h1>
+                    <h1 className="text-center mt-32">Tambah Pustaka</h1>
                 </MainContentLayout>
             </div>
         </div>
