@@ -35,7 +35,7 @@ export default function TopbarLayout({ children }) {
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
-                            href=""
+                            href={route("circulation.index")}
                         >
                             <li className="">Peminjaman</li>
                         </Link>

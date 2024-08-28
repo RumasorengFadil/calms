@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         return Inertia::render('Dashboard');
     })->name('dashboard.index');
 
+    //Bibliography
     Route::get('/bibliographies', function(){
         return Inertia::render('Bibliography/Bibliographies');
     })->name('bibliographies.index');
@@ -42,6 +43,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/bibliographies/edit', function(){
         return Inertia::render('Bibliography/EditBibliography');
     })->name('bibliographies.edit');
+
+    //Circulation
+    Route::get('/circulation', function(){
+        return Inertia::render('Circulation/Circulation');
+    })->name('circulation.index');
+    Route::get('/circulation/loan-history', function(){
+        return Inertia::render('Circulation/LoanHistory');
+    })->name('circulation.index');
 
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);
