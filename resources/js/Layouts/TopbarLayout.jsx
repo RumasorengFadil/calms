@@ -21,8 +21,7 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                baseRouteName === "bibliographies" ||
-                                baseRouteName === "bibliography"
+                                baseRouteName === "bibliographies"
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}

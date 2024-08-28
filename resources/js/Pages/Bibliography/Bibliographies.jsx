@@ -1,5 +1,5 @@
 import NavLink from "@/Components/NavLink";
-import SidebarNavLink from "@/Components/SidebarNavLink";
+import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
@@ -17,14 +17,14 @@ export default function Bibliographies({}) {
                     Daftar Pustaka
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("bibliography.create")}
-                    active={route().current("bibliography.create")}
+                    href={route("bibliographies.create")}
+                    active={route().current("bibliographies.create")}
                 >
                     Tambah Pustaka
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("bibliography.edit")}
-                    active={route().current("bibliography.edit")}
+                    href={route("bibliographies.edit")}
+                    active={route().current("bibliographies.edit")}
                 >
                     Edit Pustaka
                 </SidebarNavLink>

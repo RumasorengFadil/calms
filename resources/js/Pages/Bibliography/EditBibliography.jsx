@@ -1,4 +1,4 @@
-import SidebarNavLink from "@/Components/SidebarNavLink";
+import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
@@ -10,22 +10,22 @@ export default function EditBibliography({}) {
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
                 <SidebarNavLink
-                    href={route("bibliographies.index")}
-                    active={route().current("bibliographies.index")}
+                    href={route("membership.index")}
+                    active={route().current("membership.index")}
                     >
-                    Daftar Pustaka
+                    Daftar Member
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("bibliography.create")}
-                    active={route().current("bibliography.create")}
+                    href={route("membership.create")}
+                    active={route().current("membership.create")}
                 >
-                    Tambah Pustaka
+                    Tambah Member
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("bibliography.edit")}
-                    active={route().current("bibliography.edit")}
+                    href={route("membership.edit")}
+                    active={route().current("membership.edit")}
                 >
-                    Edit Pustaka
+                    Edit Member
                 </SidebarNavLink>
             </SidebarLayout>
 

@@ -34,13 +34,18 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/bibliographies', function(){
         return Inertia::render('Bibliography/Bibliographies');
     })->name('bibliographies.index');
-
-    Route::get('/bibliography/create', function(){
+    
+    Route::get('/bibliographies/create', function(){
         return Inertia::render('Bibliography/CreateBibliography');
-    })->name('bibliography.create');
+    })->name('bibliographies.create');
+    
     Route::get('/bibliography/edit', function(){
         return Inertia::render('Bibliography/EditBibliography');
-    })->name('bibliography.edit');
+    })->name('bibliographies.edit');
+
+    // Route::get('/bibliographies/{id}/edit', function($id){
+    //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);
+    // })->name('bibliographies.edit');
 });
 
 Route::middleware('auth')->group(function () {

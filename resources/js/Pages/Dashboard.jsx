@@ -1,4 +1,4 @@
-import SidebarNavLink from "@/Components/SidebarNavLink";
+import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
