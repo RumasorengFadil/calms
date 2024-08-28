@@ -50,10 +50,10 @@ Route::middleware(['auth', 'verified'])->group(function(){
     })->name('circulation.index');
     Route::get('/circulation/loan-history', function(){
         return Inertia::render('Circulation/LoanHistory');
-    })->name('circulation.loan-history.index');
+    })->name('circulation.loan-history');
     Route::get('/circulation/due-date-warning', function(){
         return Inertia::render('Circulation/DueDateWarning');
-    })->name('circulation.due-date-warning.index');
+    })->name('circulation.due-date-warning');
 
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);

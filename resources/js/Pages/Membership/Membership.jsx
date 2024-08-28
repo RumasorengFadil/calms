@@ -4,7 +4,7 @@ import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
-export default function DueDateWarning({}) {
+export default function Membership({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
@@ -15,7 +15,7 @@ export default function DueDateWarning({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Due Date Warning</h1>
+                    <h1 className="text-center mt-32">Peminjaman</h1>
                 </MainContentLayout>
             </div>
         </div>
