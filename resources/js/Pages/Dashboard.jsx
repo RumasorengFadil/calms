@@ -2,37 +2,55 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({}) {
+    const { currentRouteName } = usePage().props;
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <a href="">
-                    <li className="bg-white mb-1 shadow-lg text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold text-primary">
-                        Tambah anggota
+                <Link href="dashboard">
+                    <li
+                        className={`${
+                            currentRouteName === "dashboard"
+                                ? "bg bg-white shadow-lg text-primary"
+                                : "text-white"
+                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
+                    >
+                        Dashboard
                     </li>
-                </a>
-                <a href="">
-                    <li className="text-xl mb-1 cursor-pointer w-64 p-2 rounded-r-full font-semibold text-white">
-                    Daftar anggota
+                </Link>
+                {/* <Link href="">
+                    <li
+                        className={`${
+                            currentRouteName === ""
+                                ? "bg bg-white shadow-lg text-primary"
+                                : "text-white"
+                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
+                    >
+                        Daftar anggota
                     </li>
-                </a>
-                <a href="">
-                    <li className="mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold text-white">
+                </Link>
+                <Link href="">
+                    <li
+                        className={`${
+                            currentRouteName === ""
+                                ? "bg bg-white shadow-lg text-primary"
+                                : "text-white"
+                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
+                    >
                         Non-aktifkan anggota
                     </li>
-                </a>
+                </Link> */}
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
                 <TopbarLayout />
-                
+
                 <MainContentLayout>
                     <h1 className="text-center mt-32">Dashboard</h1>
                 </MainContentLayout>
             </div>
-            
         </div>
     );
 }

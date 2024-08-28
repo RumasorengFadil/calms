@@ -1,36 +1,63 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function TopbarLayout({ children }) {
+    const { currentRouteName } = usePage().props;
+
     return (
         <div className="w-full">
             <nav className=" bg-white py-5 px-10 w-full">
                 <div className="flex">
                     <ul className="flex flex-auto items-center">
-                        <a
-                            className="mx-5 text-primary text-xl font-inter"
+                        <Link
+                            className={`mx-5 ${
+                                currentRouteName === "dashboard"
+                                    ? "text-primary"
+                                    : ""
+                            } text-xl font-inter`}
                             href=""
                         >
                             <li className="">Dashboard</li>
-                        </a>
-                        <a className="mx-5 text-xl font-inter" href="">
+                        </Link>
+                        <Link
+                            className={`mx-5 ${
+                                currentRouteName === "bibliography"
+                                    ? "text-primary"
+                                    : ""
+                            } text-xl font-inter`}
+                            href=""
+                        >
                             <li className="">Pustaka</li>
-                        </a>
-                        <a className="mx-5 text-xl font-inter" href="">
+                        </Link>
+                        <Link
+                            className={`mx-5 ${
+                                currentRouteName === "circulation"
+                                    ? "text-primary"
+                                    : ""
+                            } text-xl font-inter`}
+                            href=""
+                        >
                             <li className="">Peminjaman</li>
-                        </a>
-                        <a className="mx-5 text-xl font-inter" href="">
+                        </Link>
+                        <Link
+                            className={`mx-5 ${
+                                currentRouteName === "membership"
+                                    ? "text-primary"
+                                    : ""
+                            } text-xl font-inter`}
+                            href=""
+                        >
                             <li className="">Keanggotaan</li>
-                        </a>
+                        </Link>
                         {children}
                     </ul>
-                    <a href="">
+                    <Link href="dashboard">
                         <img
                             className="w-64 min-w-32"
                             src="/img/app/logo-company.png"
                             alt=""
                         />
-                    </a>
+                    </Link>
                 </div>
             </nav>
         </div>

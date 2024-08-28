@@ -26,11 +26,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', function(){
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+Route::get('/Edit', function () {
+    return Inertia::render('Edit', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
