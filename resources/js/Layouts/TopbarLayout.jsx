@@ -28,7 +28,6 @@ export default function TopbarLayout({ children }) {
                             } text-xl font-inter`}
                             href={route("bibliographies.index")}
                         >
-                            {console.log(baseRouteName)}
                             <li className="">Pustaka</li>
                         </Link>
                         <Link

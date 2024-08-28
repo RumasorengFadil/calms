@@ -1,3 +1,5 @@
+import NavLink from "@/Components/NavLink";
+import SidebarNavLink from "@/Components/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
@@ -5,43 +7,27 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Bibliographies({}) {
-    const { currentRouteName } = usePage().props;
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <Link href={route("bibliographies.index")}>
-                    <li
-                        className={`${
-                            currentRouteName === "bibliographies.index"
-                                ? "bg bg-white shadow-lg text-primary"
-                                : "text-white"
-                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
-                    >
-                        Daftar Pustaka
-                    </li>
-                </Link>
-                <Link href={route("bibliography.create")}>
-                    <li
-                        className={`${
-                            currentRouteName === "bibliographies.create"
-                                ? "bg bg-white shadow-lg text-primary"
-                                : "text-white"
-                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
-                    >
-                        Tambah Pustaka
-                    </li>
-                </Link>
-                <Link href={route("bibliography.edit")}>
-                    <li
-                        className={`${
-                            currentRouteName === ""
-                                ? "bg bg-white shadow-lg text-primary"
-                                : "text-white"
-                        } mb-1 text-xl cursor-pointer w-64 p-2 rounded-r-full font-semibold`}
-                    >
-                        Edit Pustaka
-                    </li>
-                </Link>
+                <SidebarNavLink
+                    href={route("bibliographies.index")}
+                    active={route().current("bibliographies.index")}
+                >
+                    Daftar Pustaka
+                </SidebarNavLink>
+                <SidebarNavLink
+                    href={route("bibliography.create")}
+                    active={route().current("bibliography.create")}
+                >
+                    Tambah Pustaka
+                </SidebarNavLink>
+                <SidebarNavLink
+                    href={route("bibliography.edit")}
+                    active={route().current("bibliography.edit")}
+                >
+                    Edit Pustaka
+                </SidebarNavLink>
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
