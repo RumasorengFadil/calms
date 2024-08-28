@@ -10,22 +10,22 @@ export default function EditBibliography({}) {
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
                 <SidebarNavLink
-                    href={route("membership.index")}
-                    active={route().current("membership.index")}
+                    href={route("bibliographies.index")}
+                    active={route().current("bibliographies.index")}
                     >
-                    Daftar Member
+                    Daftar Pustaka
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("membership.create")}
-                    active={route().current("membership.create")}
+                    href={route("bibliographies.create")}
+                    active={route().current("bibliographies.create")}
                 >
-                    Tambah Member
+                    Tambah Pustaka
                 </SidebarNavLink>
                 <SidebarNavLink
-                    href={route("membership.edit")}
-                    active={route().current("membership.edit")}
+                    href={route("bibliographies.edit")}
+                    active={route().current("bibliographies.edit")}
                 >
-                    Edit Member
+                    Edit Pustaka
                 </SidebarNavLink>
             </SidebarLayout>
 

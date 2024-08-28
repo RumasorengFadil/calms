@@ -1,4 +1,5 @@
 import NavLink from "@/Components/NavLink";
+import SidebarNavGroup from "@/Components/Sidebar/SidebarNavGroup ";
 import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
@@ -7,27 +8,16 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Bibliographies({}) {
+    const bibliographyLinks = [
+        { name: "bibliographies.index", label: "Daftar Pustaka" },
+        { name: "bibliographies.create", label: "Tambah Pustaka" },
+        { name: "bibliographies.edit", label: "Edit Pustaka" }
+    ];
+
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
-                <SidebarNavLink
-                    href={route("bibliographies.index")}
-                    active={route().current("bibliographies.index")}
-                >
-                    Daftar Pustaka
-                </SidebarNavLink>
-                <SidebarNavLink
-                    href={route("bibliographies.create")}
-                    active={route().current("bibliographies.create")}
-                >
-                    Tambah Pustaka
-                </SidebarNavLink>
-                <SidebarNavLink
-                    href={route("bibliographies.edit")}
-                    active={route().current("bibliographies.edit")}
-                >
-                    Edit Pustaka
-                </SidebarNavLink>
+                <SidebarNavGroup links={bibliographyLinks} />
             </SidebarLayout>
 
             <div className="flex flex-col w-full">

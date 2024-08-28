@@ -1,20 +1,20 @@
-import React from 'react';
-import SidebarNavLink from './SidebarNavLink'; // Pastikan path impor benar
+import React from "react";
+import SidebarNavLink from "./SidebarNavLink"; // Pastikan path impor benar
 
-export default function SidebarNavGroup({ links }){
+export default function SidebarNavGroup({ links }) {
     const currentRouteName = route().current();
 
     return (
         <>
-            {links.map(({ href, label }) => (
+            {links.map(({ name, label }) => (
                 <SidebarNavLink
-                    key={href}
-                    href={href}
-                    active={currentRouteName === href}
+                    key={name}
+                    href={route(name)}
+                    active={route().current(name)}
                 >
                     {label}
                 </SidebarNavLink>
             ))}
         </>
     );
-};
+}

@@ -39,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         return Inertia::render('Bibliography/CreateBibliography');
     })->name('bibliographies.create');
     
-    Route::get('/bibliography/edit', function(){
+    Route::get('/bibliographies/edit', function(){
         return Inertia::render('Bibliography/EditBibliography');
     })->name('bibliographies.edit');
 
