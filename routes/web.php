@@ -59,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/membership', function(){
         return Inertia::render('Membership/Memberships');
     })->name('memberships.index');
+    Route::get('/membership/create', function(){
+        return Inertia::render('Membership/CreateMember');
+    })->name('memberships.create');
     // Route::get('/circulation/loan-history', function(){
     //     return Inertia::render('Circulation/LoanHistory');
     // })->name('circulation.loan-history');
