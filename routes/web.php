@@ -26,16 +26,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', function(){
-        return Inertia::render('Dashboard');
-    })->name('dashboard.index');
-    
-    // Route::get('/bibliographies/{id}/edit', function($id){
-    //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);
-    // })->name('bibliographies.edit');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
