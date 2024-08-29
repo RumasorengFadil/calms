@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Member;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 
 class PhotoService
 {
-    public static function handleMemberPhoto($image)
+    public function handleMemberPhoto($image)
     {
         // Membuat nama file unik
         $filename = uniqid() . '_' . $image->getClientOriginalName();
@@ -21,7 +20,7 @@ class PhotoService
         return $filename;
     }
 
-    public static function removePhoto($memberPhotoPath)
+    public function removePhoto($memberPhotoPath)
     {
         if ($memberPhotoPath) {
             Storage::delete("public/members/photo/$memberPhotoPath");
