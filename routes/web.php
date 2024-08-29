@@ -30,17 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');
     })->name('dashboard.index');
-
     
-    
-    //Membership
-    Route::get('/membership', function(){
-        return Inertia::render('Membership/Memberships');
-    })->name('memberships.index');
-    Route::get('/membership/create', function(){
-        return Inertia::render('Membership/CreateMember');
-    })->name('memberships.create');
-
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);
     // })->name('bibliographies.edit');
