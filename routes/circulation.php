@@ -14,18 +14,16 @@ use Inertia\Inertia;
 |
 */
 
-Route::prefix("bibliographies")
+Route::prefix("circulation")
     ->middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('/', function () {
-            return Inertia::render('Bibliography/Bibliographies');
-        })->name('bibliographies.index');
-
-        Route::get('/create', function () {
-            return Inertia::render('Bibliography/CreateBibliography');
-        })->name('bibliographies.create');
-
-        Route::get('/edit', function () {
-            return Inertia::render('Bibliography/EditBibliography');
-        })->name('bibliographies.edit');
+            return Inertia::render('Circulation/Circulation');
+        })->name('circulation.index');
+        Route::get('/loan-history', function () {
+            return Inertia::render('Circulation/LoanHistory');
+        })->name('circulation.loan-history');
+        Route::get('/due-date-warning', function () {
+            return Inertia::render('Circulation/DueDateWarning');
+        })->name('circulation.due-date-warning');
     });

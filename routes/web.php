@@ -31,29 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         return Inertia::render('Dashboard');
     })->name('dashboard.index');
 
-    //Bibliography
-    // Route::get('/bibliographies', function(){
-    //     return Inertia::render('Bibliography/Bibliographies');
-    // })->name('bibliographies.index');
     
-    // Route::get('/bibliographies/create', function(){
-    //     return Inertia::render('Bibliography/CreateBibliography');
-    // })->name('bibliographies.create');
-    
-    // Route::get('/bibliographies/edit', function(){
-    //     return Inertia::render('Bibliography/EditBibliography');
-    // })->name('bibliographies.edit');
-
-    //Circulation
-    Route::get('/circulation', function(){
-        return Inertia::render('Circulation/Circulation');
-    })->name('circulation.index');
-    Route::get('/circulation/loan-history', function(){
-        return Inertia::render('Circulation/LoanHistory');
-    })->name('circulation.loan-history');
-    Route::get('/circulation/due-date-warning', function(){
-        return Inertia::render('Circulation/DueDateWarning');
-    })->name('circulation.due-date-warning');
     
     //Membership
     Route::get('/membership', function(){
@@ -62,12 +40,6 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/membership/create', function(){
         return Inertia::render('Membership/CreateMember');
     })->name('memberships.create');
-    // Route::get('/circulation/loan-history', function(){
-    //     return Inertia::render('Circulation/LoanHistory');
-    // })->name('circulation.loan-history');
-    // Route::get('/circulation/due-date-warning', function(){
-    //     return Inertia::render('Circulation/DueDateWarning');
-    // })->name('circulation.due-date-warning');
 
     // Route::get('/bibliographies/{id}/edit', function($id){
     //     return Inertia::render('Bibliography/EditBibliography', ['id' => $id]);
