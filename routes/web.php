@@ -32,17 +32,17 @@ Route::middleware(['auth', 'verified'])->group(function(){
     })->name('dashboard.index');
 
     //Bibliography
-    Route::get('/bibliographies', function(){
-        return Inertia::render('Bibliography/Bibliographies');
-    })->name('bibliographies.index');
+    // Route::get('/bibliographies', function(){
+    //     return Inertia::render('Bibliography/Bibliographies');
+    // })->name('bibliographies.index');
     
-    Route::get('/bibliographies/create', function(){
-        return Inertia::render('Bibliography/CreateBibliography');
-    })->name('bibliographies.create');
+    // Route::get('/bibliographies/create', function(){
+    //     return Inertia::render('Bibliography/CreateBibliography');
+    // })->name('bibliographies.create');
     
-    Route::get('/bibliographies/edit', function(){
-        return Inertia::render('Bibliography/EditBibliography');
-    })->name('bibliographies.edit');
+    // Route::get('/bibliographies/edit', function(){
+    //     return Inertia::render('Bibliography/EditBibliography');
+    // })->name('bibliographies.edit');
 
     //Circulation
     Route::get('/circulation', function(){
