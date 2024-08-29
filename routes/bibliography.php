@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bibliography\BibliographyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,9 +18,7 @@ use Inertia\Inertia;
 Route::prefix("bibliographies")
     ->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::get('/', function () {
-            return Inertia::render('Bibliography/Bibliographies');
-        })->name('bibliographies.index');
+        Route::get('/', [BibliographyController::class, 'index'])->name('bibliographies.index');
 
         Route::get('/create', function () {
             return Inertia::render('Bibliography/CreateBibliography');
