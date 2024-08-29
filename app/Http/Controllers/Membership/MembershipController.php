@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Membership;
 
+use App\Exceptions\PhotoHandlingException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Membership\StoreMemberRequest;
 use App\Http\Requests\Membership\UpdateMemberRequest;
@@ -56,7 +57,10 @@ class MembershipController extends Controller
             return Redirect::route('membership.create')
                 ->with(["message" => __("message.success.stored", ["entity" => "Member"])]);
 
-        } catch (\Exception $e) {
+        }catch(PhotoHandlingException $e){
+            return $e->render($request);
+        } 
+        catch (\Exception $e) {
             // Log the error for debugging
             \Log::error("Failed to store member: " . $e->getMessage());
 
@@ -98,12 +102,22 @@ class MembershipController extends Controller
     }
     public function destroy($id)
     {
-        $member = Member::findOrFail($id);
+        try {
+            $member = Member::findOrFail($id);
 
-        $this->photoService->removePhoto($member->memberPhotoPath);
+            $this->photoService->removePhoto($member->memberPhotoPath);
 
-        $this->memberRepository->destroy($member);
-        return Redirect::route('membership.index')
-            ->with(["message" => __("message.success.deleted", ["entity" => "Member"])]);
+            $this->memberRepository->destroy($member);
+            return Redirect::route('membership.index')
+                ->with(["message" => __("message.success.destroy", ["entity" => "Member"])]);
+
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error("Failed to destroy member: " . $e->getMessage());
+
+            // Redirect back with error message
+            Redirect::back()->withErrors(['error' => __("message.error.destroy", ["entity" => "Member"])]);
+        }
+
     }
 }
