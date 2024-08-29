@@ -3,7 +3,7 @@ import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 
-export default function CreateMember({}) {
+export default function EditMember({}) {
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>
@@ -14,7 +14,7 @@ export default function CreateMember({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Tambah Anggota</h1>
+                    <h1 className="text-center mt-32">Edit Anggota</h1>
                 </MainContentLayout>
             </div>
         </div>

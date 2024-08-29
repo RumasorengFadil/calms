@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Repositories\Membership\MemberRepository;
 use App\Services\PhotoService;
 use Inertia\Inertia;
+use Redirect;
 
 class MembershipController extends Controller
 {
@@ -39,7 +40,8 @@ class MembershipController extends Controller
         // Tambahkan data member beserta path gambar ke dalam database
         $this->memberRepository->store($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"]);
 
-        return Inertia::render("Membership/CreateMember", ["message" => __("message.success.added", ["entity" => "Member"])]);
+        return Redirect::route('membership.create')
+            ->with(["message" => __("message.success.added", ["entity" => "Member"])]);
     }
     public function edit($id)
     {
@@ -59,7 +61,8 @@ class MembershipController extends Controller
         // Tambahkan data member beserta path gambar ke dalam database
         $this->memberRepository->update($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"], $id);
 
-        return Inertia::render('Membership/EditMember', ["message" => __("message.success.updated", ["entity" => "Member"])]);
+        return Redirect::route('membership.edit')
+            ->with(["message" => __("message.success.updated", ["entity" => "Member"])]);
     }
     public function destroy($id)
     {
@@ -68,7 +71,7 @@ class MembershipController extends Controller
         PhotoService::removePhoto($member->memberPhotoPath);
 
         $this->memberRepository->destroy($member);
-
-        return Inertia::render("Membership/Memberships", ["message" => __("message.success.deleted", ["entity" => "Member"])]);
+        return Redirect::route('membership.index')
+            ->with(["message" => __("message.success.deleted", ["entity" => "Member"])]);
     }
 }

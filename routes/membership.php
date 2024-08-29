@@ -20,4 +20,8 @@ Route::prefix("membership")
     ->group(function () {
         Route::get('/', [MembershipController::class, 'index'])->name('memberships.index');
         Route::get('/create', [MembershipController::class, 'create'])->name('memberships.create');
+        Route::get('/edit', [MembershipController::class, 'edit'])->name('memberships.edit');
+        Route::post('/store', [MembershipController::class, 'store'])->name('memberships.store');
+        Route::put('/update', [MembershipController::class, 'update'])->name('memberships.update');
+        Route::delete('/destroy', [MembershipController::class, 'create'])->name('memberships.create');
     });
