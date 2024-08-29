@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Membership\MembershipController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,10 +18,6 @@ use Inertia\Inertia;
 Route::prefix("membership")
     ->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::get('/', function(){
-            return Inertia::render('Membership/Memberships');
-        })->name('memberships.index');
-        Route::get('/create', function(){
-            return Inertia::render('Membership/CreateMember');
-        })->name('memberships.create');
+        Route::get('/', [MembershipController::class, 'index'])->name('memberships.index');
+        Route::get('/create', [MembershipController::class, 'create'])->name('memberships.create');
     });

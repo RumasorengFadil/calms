@@ -21,12 +21,10 @@ class PhotoService
         return $filename;
     }
 
-    public static function removePhoto($request)
+    public static function removePhoto($memberPhotoPath)
     {
-        $member = Member::find($request->only("memberId"));
-        
-        if ($member->member_photo_path) {
-            Storage::delete("public/members/photo/$member->member_photo_path");
+        if ($memberPhotoPath) {
+            Storage::delete("public/members/photo/$memberPhotoPath");
         }
     }
 }

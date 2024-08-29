@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Membership;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Membership\AddMemberRequest;
+use App\Http\Requests\Membership\StoreMemberRequest;
 use App\Models\Member;
 use App\Services\PhotoService;
 use Inertia\Inertia;
@@ -15,7 +15,7 @@ class AddMemberController extends Controller
     {
         return Inertia::render('Membership/AddMember');
     }
-    public function addMember(AddMemberRequest $request): Response
+    public function addMember(StoreMemberRequest $request): Response
     {
         // Mendapatkan foto
         $image = $request->file('memberPhoto');

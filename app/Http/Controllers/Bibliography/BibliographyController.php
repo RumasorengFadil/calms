@@ -12,4 +12,13 @@ class BibliographyController extends Controller
     {
         return Inertia::render('Bibliography/Bibliographies');
     }
+
+    public function create()
+    {
+        return Inertia::render('Bibliography/CreateBibliography');
+    }
+    public function edit()
+    {
+        return Inertia::render('Bibliography/EditBibliography');
+    }
 }

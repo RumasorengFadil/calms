@@ -20,11 +20,7 @@ Route::prefix("bibliographies")
     ->group(function () {
         Route::get('/', [BibliographyController::class, 'index'])->name('bibliographies.index');
 
-        Route::get('/create', function () {
-            return Inertia::render('Bibliography/CreateBibliography');
-        })->name('bibliographies.create');
+        Route::get('/create', [BibliographyController::class, 'create'])->name('bibliographies.create');
 
-        Route::get('/edit', function () {
-            return Inertia::render('Bibliography/EditBibliography');
-        })->name('bibliographies.edit');
+        Route::get('/edit', [BibliographyController::class, 'edit'])->name('bibliographies.edit');
     });
