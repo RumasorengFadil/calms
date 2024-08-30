@@ -5,6 +5,7 @@ import SearchBar from "@/Components/SearchBar";
 import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
 import TextInput from "@/Components/TextInput";
 import MainContentLayout from "@/Layouts/MainContentLayout";
+import SearchBarLayout from "@/Layouts/SearchBarLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
@@ -21,7 +22,13 @@ export default function Bibliographies({}) {
 
                 <MainContentLayout>
                     <PageHeader> Pustaka </PageHeader>
-                    <SearchBar />
+                    <SearchBarLayout>
+                        <SearchBar
+                            onSearch={handleSearch}
+                            searchLabel="Cari Bibliografi"
+                            buttonLabel="Cari"
+                        />
+                    </SearchBarLayout>
 
                     <div className="w-full bg-white">
                         <div id="header" className="flex border-y py-3 px-10">
