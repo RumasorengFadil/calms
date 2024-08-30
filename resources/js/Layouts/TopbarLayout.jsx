@@ -1,4 +1,3 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link, usePage } from "@inertiajs/react";
 
 export default function TopbarLayout({ children }) {
