@@ -1,8 +1,10 @@
+import PageHeader from "@/Components/PageHeader";
 import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
+import PageHeader from "@/Components/PageHeader";
 
 export default function Bibliographies({}) {
     return (
@@ -15,7 +17,7 @@ export default function Bibliographies({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Daftar Pustaka</h1>
+                    <PageHeader>Pustaka</PageHeader>
                 </MainContentLayout>
             </div>
         </div>

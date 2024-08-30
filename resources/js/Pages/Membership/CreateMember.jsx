@@ -2,6 +2,7 @@ import MembershipSidebar from "@/Components/Sidebar/MembershipSidebar";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
+import PageHeader from "@/Components/PageHeader";
 
 export default function CreateMember({}) {
     return (
@@ -14,7 +15,7 @@ export default function CreateMember({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Tambah Anggota</h1>
+                    <PageHeader>Tambah Anggota</PageHeader>
                 </MainContentLayout>
             </div>
         </div>

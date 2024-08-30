@@ -1,3 +1,4 @@
+import PageHeader from "@/Components/PageHeader";
 import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MainContentLayout from "@/Layouts/MainContentLayout";
@@ -21,7 +22,7 @@ export default function Dashboard({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Dashboard</h1>
+                    <PageHeader>Dashboard</PageHeader>
                 </MainContentLayout>
             </div>
         </div>

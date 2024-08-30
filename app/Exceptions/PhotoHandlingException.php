@@ -15,4 +15,7 @@ class PhotoHandlingException extends Exception
     {
         return redirect()->back()->withErrors(['error' => 'Failed to process member photo.']);
     }
+
+
+    
 }

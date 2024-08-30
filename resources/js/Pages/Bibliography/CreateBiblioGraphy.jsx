@@ -3,6 +3,7 @@ import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
+import PageHeader from "@/Components/PageHeader";
 
 export default function CreateBibliography({}) {
     return (
@@ -15,7 +16,7 @@ export default function CreateBibliography({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Tambah Pustaka</h1>
+                    <PageHeader>Tambah Pustaka</PageHeader>
                 </MainContentLayout>
             </div>
         </div>

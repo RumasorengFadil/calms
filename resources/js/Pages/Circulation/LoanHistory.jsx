@@ -3,6 +3,7 @@ import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
+import PageHeader from "@/Components/PageHeader";
 
 export default function LoanHistory({}) {
     return (
@@ -15,7 +16,7 @@ export default function LoanHistory({}) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <h1 className="text-center mt-32">Riwayat Peminjaman</h1>
+                    <PageHeader>Riwayat Peminjaman</PageHeader>
                 </MainContentLayout>
             </div>
         </div>
