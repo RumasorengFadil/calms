@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 
 export default function MainContentLayout({ children }) {
     return (
-        <div className="w-full h-full overflow-y-auto max-h-screen">
+        <div className="w-full overflow-y-auto max-h-screen">
             {children}
         </div>
     );
