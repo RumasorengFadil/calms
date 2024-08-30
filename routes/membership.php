@@ -18,10 +18,10 @@ use Inertia\Inertia;
 Route::prefix("membership")
     ->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::get('/', [MembershipController::class, 'index'])->name('memberships.index');
-        Route::get('/create', [MembershipController::class, 'create'])->name('memberships.create');
-        Route::get('/edit', [MembershipController::class, 'edit'])->name('memberships.edit');
-        Route::post('/store', [MembershipController::class, 'store'])->name('memberships.store');
-        Route::put('/update', [MembershipController::class, 'update'])->name('memberships.update');
-        Route::delete('/destroy', [MembershipController::class, 'create'])->name('memberships.create');
+        Route::get('/', [MembershipController::class, 'index'])->name('membership.index');
+        Route::get('/create', [MembershipController::class, 'create'])->name('membership.create');
+        Route::get('/edit', [MembershipController::class, 'edit'])->name('membership.edit');
+        Route::post('/store', [MembershipController::class, 'store'])->name('membership.store');
+        Route::put('/update', [MembershipController::class, 'update'])->name('membership.update');
+        Route::delete('/destroy', [MembershipController::class, 'create'])->name('membership.destroy');
     });

@@ -41,11 +41,11 @@ export default function TopbarLayout({ children }) {
                         </Link>
                         <Link
                             className={`mx-5 ${
-                                baseRouteName === "memberships"
+                                baseRouteName === "membership"
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
-                            href= {route("memberships.index")}
+                            href= {route("membership.index")}
                         >
                             <li className="">Keanggotaan</li>
                         </Link>
