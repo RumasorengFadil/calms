@@ -7,6 +7,7 @@ export default function SidebarNavLink({
     ...props
 }) {
     return (
+
         <Link {...props}>
             <li
                 className={`${

@@ -1,8 +1,9 @@
+import { memo } from "react";
 import InputLabel from "./InputLabel";
 import PrimaryButton from "./PrimaryButton";
 import TextInput from "./TextInput";
 
-export default function SearchBar({
+export default memo(function SearchBar({
     onSearch,
     searchLabel = "Cari",
     buttonLabel = "Cari",
@@ -27,4 +28,4 @@ export default function SearchBar({
             </PrimaryButton>
         </div>
     );
-}
+});

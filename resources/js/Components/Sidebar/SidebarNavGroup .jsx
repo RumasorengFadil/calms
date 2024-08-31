@@ -1,9 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import SidebarNavLink from "./SidebarNavLink"; // Pastikan path impor benar
 
-export default function SidebarNavGroup({ links }) {
-    const currentRouteName = route().current();
-
+export default memo(function SidebarNavGroup({ links }) {
     return (
         <>
             {links.map(({ name, label }) => (
@@ -17,4 +15,4 @@ export default function SidebarNavGroup({ links }) {
             ))}
         </>
     );
-}
+});

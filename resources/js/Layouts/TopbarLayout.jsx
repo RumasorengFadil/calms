@@ -1,6 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
+import { memo } from "react";
 
-export default function TopbarLayout({ children }) {
+export default memo(function TopbarLayout({ children }) {
     const { baseRouteName } = usePage().props;
 
     return (
@@ -44,7 +45,7 @@ export default function TopbarLayout({ children }) {
                                     ? "text-primary"
                                     : ""
                             } text-xl font-inter`}
-                            href= {route("membership.index")}
+                            href={route("membership.index")}
                         >
                             <li className="">Keanggotaan</li>
                         </Link>
@@ -61,4 +62,4 @@ export default function TopbarLayout({ children }) {
             </nav>
         </div>
     );
-}
+});
