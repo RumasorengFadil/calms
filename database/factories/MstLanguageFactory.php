@@ -17,7 +17,9 @@ class MstLanguageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'language_name' => fake()->languageCode,
+            "input_date" => now()->toDateString(),
+            "last_update" => now()->toDateString(),
         ];
     }
 }

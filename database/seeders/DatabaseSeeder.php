@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\MstAuthor;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UsersTableSeeder;
 
@@ -16,7 +17,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersTableSeeder::class,
-            MemberSeeder::class
+            MemberSeeder::class,
+            MstAuthorSeeder::class,
+            BiblioSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

@@ -17,7 +17,9 @@ class MstPublisherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'publisher_name' => fake()->name(),
+            "input_date" => now()->toDateString(),
+            "last_update" => now()->toDateString(),
         ];
     }
 }

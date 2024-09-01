@@ -17,7 +17,10 @@ class MstAuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'author_name' => fake()->name(),
+            'author_year' =>  fake()->year(),
+            'input_date' => now()->toDateString(),
+            'last_update' => now()->toDateString(),
         ];
     }
 }

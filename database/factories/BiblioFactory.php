@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\MstLanguage;
+use App\Models\MstPlace;
+use App\Models\MstPublisher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,26 +21,20 @@ class BiblioFactory extends Factory
     public function definition(): array
     {
         return [
-            "member_id" => fake()->unique()->randomNumber(5),
-            "member_name" => fake()->name(),
-            "birth_date" => fake()->date(),
-            "gender" => fake()->randomElement(["pria", "wanita"]),
-            "member_since_date" => fake()->date(),
-            "register_date" => fake()->date(),
-            "expire_date" => fake()->date(),
-            "inst_name" => "Institut Teknologi Telkom Purwokerto",
-            "member_address" => fake()->address(),
-            "postal_code" => fake()->postcode(),
-            "member_phone" => fake()->phoneNumber(),
-            "pin" => "123",
-            "member_photo" => fake()->image("public/fake/images", 640, 480, null, false),
-            "member_photo_path" => fake()->url(),
-            "member_email" => fake()->email(),
-            "member_password" => fake()->password(),
-            "last_login" => fake() -> dateTime(),
-            "input_date" => fake()->date(),
-            "last_update" => fake()->date(),
-            'remember_token' => Str::random(10)
-            ];
+            'title' => fake()->sentence,
+            'edition' => fake()->randomNumber(1),
+            'isbn_issn' => fake()->isbn10(),
+            'publish_year' => fake()->year(),
+            'collation' => fake()->word(),
+            'category' => fake()->word(),
+            'biblio_photo' => "empty",
+            'biblio_photo_path' => "empty",
+            'input_date' => now()->toDateString(),
+            'last_update' => now()->toDateString(),
+            'publisher_id' => MstPublisher::factory(),
+            'language_id' => MstLanguage::factory(),
+            'publish_place_id' => MstPlace::factory(),
+        ];
+    
     }
 }

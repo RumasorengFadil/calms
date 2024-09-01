@@ -70,7 +70,7 @@ class BiblioService
                 $createdBiblio = $this->biblioRepository->createBiblio($biblioDTO->getBiblioData() + [
                     "publisherId" => $createdPublisher->publisher_id,
                     "languageId" => $createdLanguage->language_id,
-                    "placeId" => $createdPlace->place_id
+                    "publishPlaceId" => $createdPlace->place_id
                 ]);
 
                 // Assign authors to the created Bibliography entry
