@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Traits;
 
-trait MemberRules
+trait MemberMessage
 {
     protected function memberRules()
     {

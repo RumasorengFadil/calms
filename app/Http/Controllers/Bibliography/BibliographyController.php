@@ -48,11 +48,12 @@ class BibliographyController extends Controller
             // Data sudah tervalidasi oleh CreateBiblioRequest
             $validatedData = $request->validated();
 
-            // Handle foto member
-            $filename = $this->photoService->handleMemberPhoto($validatedData->file('biblioPhoto'));
+            // Handle gambar biblio
+            $filename = $this->photoService->handlePhoto($validatedData->file('biblioPhoto'), 'biblio');
 
-            // Tambahkan data member beserta path gambar ke dalam database
-            $this->memberRepository->store($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"]);
+            // Perbarui validatedData        
+            $validatedData += ['biblioPhotoPath' => $filename];
+
             $biblioDTO = new BiblioDTO(
                 [
                     'authors' => $validatedData['authors'],
@@ -95,6 +96,54 @@ class BibliographyController extends Controller
     }
     public function edit()
     {
+        return Inertia::render('Bibliography/EditBibliography');
+    }
+    public function update(Update)
+    {
+        // Data sudah tervalidasi oleh CreateBiblioRequest
+        $validatedData = $request->validated();
+
+        // Handle gambar biblio
+        $filename = $this->photoService->handlePhoto($validatedData->file('biblioPhoto'), 'biblio');
+
+        // Perbarui validatedData        
+        $validatedData += ['biblioPhotoPath' => $filename];
+
+        $biblioDTO = new BiblioDTO(
+            [
+                'authors' => $validatedData['authors'],
+            ],
+            [
+                'languageName' => $validatedData['languageName']
+            ],
+            [
+                'publisherName' => $validatedData['publisherName']
+            ],
+            [
+                'placeName' => $validatedData['placeName']
+            ],
+            [
+                'title' => $validatedData['title'],
+                'edition' => $validatedData['edition'],
+                'isbn_issn' => $validatedData['isbnIssn'],
+                'publisher_id' => $validatedData['publisherId'],
+                'language_id' => $validatedData['languageId'],
+                'publish_place_id' => $validatedData['publishPlaceId'],
+                'publish_year' => $validatedData['publishYear'],
+                'collation' => $validatedData['collation'],
+                'category' => $validatedData['category'],
+                'biblio_photo' => $validatedData['biblioPhoto'],
+                'biblio_photo_path' => $validatedData['biblioPhotoPath'],
+            ],
+            [
+                'itemCodePattern' => $validatedData['itemCodePattern'],
+                'totalItems' => $validatedData['totalItems']
+            ]
+        );
+        $this->biblioService->createBiblioWithRelations($biblioDTO);
+
+        return redirect()->route('membership.create')
+            ->with(["message" => __("message.success.stored", ["entity" => "Biblio"])]);
         return Inertia::render('Bibliography/EditBibliography');
     }
 }

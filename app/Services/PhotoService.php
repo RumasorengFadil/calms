@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class PhotoService
 {
-    const MEMBER_PHOTO_PATH = 'public/img/members/photo/';
-    const BIBLIO_PHOTO_PATH = 'public/img/biblio/photo/';
+    const MEMBER_PHOTO_PATH = 'img/members/photo/';
+    const BIBLIO_PHOTO_PATH = 'img/biblio/photo/';
 
     public function handlePhoto($image, $type)
     {
@@ -20,10 +20,12 @@ class PhotoService
 
             // Resize image
             $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
-            // Simpan gambar yang di-resize ke storage
-            Storage::put((string) $path . $filename, (string) $resizedImage->encode());
 
-            return $filename;
+            // Simpan gambar yang di-resize ke storage
+            Storage::disk('public')->put((string) $path . $filename, (string) $resizedImage->encode());
+
+            // Kembalikan URL yang dapat diakses
+            return Storage::url((string) $path . $filename);
         } catch (\Exception $e) {
             throw new PhotoHandlingException("Failed to handle $type photo", 0, $e);
         }
@@ -33,7 +35,7 @@ class PhotoService
     {
         $path = $this->getPathByType($type);
         if ($photoPath) {
-            Storage::delete((string) $path . $photoPath);
+            Storage::disk('public')->delete($path . $photoPath);
         }
     }
 

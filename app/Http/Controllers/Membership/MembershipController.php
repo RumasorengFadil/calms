@@ -48,7 +48,7 @@ class MembershipController extends Controller
             $validatedData = $request->validated();
 
             // Handle foto member
-            $filename = $this->photoService->handleMemberPhoto($validatedData->file('memberPhoto'));
+            $filename = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
 
             // Tambahkan data member beserta path gambar ke dalam database
             $this->memberRepository->store($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"]);
@@ -78,10 +78,10 @@ class MembershipController extends Controller
             $validatedData = $request->validated();
 
             // Menghapus data foto sebelumnya
-            $this->photoService->removePhoto($validatedData->memberPhotoPath);
+            $this->photoService->removePhoto($validatedData->memberPhotoPath, 'member');
 
             // Handle foto member
-            $filename = $this->photoService->handleMemberPhoto($validatedData->file('memberPhoto'));
+            $filename = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
 
             // Tambahkan data member beserta path gambar ke dalam database
             $this->memberRepository->update($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"], $id);
@@ -105,7 +105,7 @@ class MembershipController extends Controller
         try {
             $member = Member::findOrFail($id);
 
-            $this->photoService->removePhoto($member->memberPhotoPath);
+            $this->photoService->removePhoto($member->memberPhotoPath, 'member');
 
             $this->memberRepository->destroy($member);
             return redirect()->route('membership.index')
