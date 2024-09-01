@@ -58,16 +58,16 @@ class BiblioService
         try {
             DB::transaction(function () use ($biblioDTO) {
                 // Create new Language entry and retrieve the created Language object
-                $createdLanguage = $this->mstLanguageRepository->createLanguage($biblioDTO->getLanguageData());
+                $createdLanguage = $this->mstLanguageRepository->create($biblioDTO->getLanguageData());
 
                 // Create new Publisher entry and retrieve the created Publisher object
-                $createdPublisher = $this->mstPublisherRepository->createPublisher($biblioDTO->getPublisherData());
+                $createdPublisher = $this->mstPublisherRepository->create($biblioDTO->getPublisherData());
 
                 // Create new Place entry and retrieve the created Place object
-                $createdPlace = $this->mstPlaceRepository->createPlace($biblioDTO->getPlaceData());
+                $createdPlace = $this->mstPlaceRepository->create($biblioDTO->getPlaceData());
 
                 // Create new Bibliography entry with the IDs of the newly created Publisher, Language, and Place
-                $createdBiblio = $this->biblioRepository->createBiblio($biblioDTO->getBiblioData() + [
+                $createdBiblio = $this->biblioRepository->store($biblioDTO->getBiblioData() + [
                     "publisherId" => $createdPublisher->publisher_id,
                     "languageId" => $createdLanguage->language_id,
                     "publishPlaceId" => $createdPlace->place_id
@@ -79,7 +79,7 @@ class BiblioService
                 ]);
 
                 // Create items associated with the created Bibliography entry
-                $this->itemRepository->createItem($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
+                $this->itemRepository->create($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
             });
         } catch (Exception $e) {
             // Log the error for debugging

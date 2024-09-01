@@ -6,7 +6,7 @@ use App\Models\MstLanguage;
 
 class MstLanguageRepository
 {
-    public function createLanguage(array $data): MstLanguage
+    public function create(array $data): MstLanguage
     {
         return MstLanguage::create([
             "language_name" => $data["languageName"],

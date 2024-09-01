@@ -4,7 +4,6 @@ import { useForm, usePage } from "@inertiajs/react";
 
 export default memo(function BiblioList({ biblio, className = "" }) {
     const user = usePage().props.auth.user;
-
     const { data, setData, delete:destroy, get, errors, processing, recentlySuccessful } =
         useForm({
             biblioId : ""
@@ -33,12 +32,12 @@ export default memo(function BiblioList({ biblio, className = "" }) {
                         alt=""
                     />
                     <div className="p-4">
-                        <div className="mb-2">PANGERAN KODOK DAN SERIGALA</div>
+                        <div className="mb-2">{biblio.title}</div>
                         <div className="text-gray-400">JURAGAN MUDA</div>
                     </div>
                 </div>
             </div>
-            <div className="basis-1/3 text-gray-400">GRAMEDIA</div>
+            <div className="basis-1/3 text-gray-400">{biblio.publisher.publisher_name}</div>
             <div className="basis-1/3 ">SI00027</div>
             <div className="basis-1/3">
                 <div className="flex h-full items-end">

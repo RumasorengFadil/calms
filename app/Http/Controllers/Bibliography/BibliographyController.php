@@ -5,28 +5,42 @@ namespace App\Http\Controllers\Bibliography;
 use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\CreateBiblioRequest;
+use App\Repositories\Bibliography\BiblioRepository;
 use App\Services\BiblioService;
+use App\Services\PhotoService;
 use Inertia\Inertia;
 
 class BibliographyController extends Controller
 {
     protected $biblioService;
-    public function __construct(BiblioService $biblioService)
+    protected $biblioRepository;
+    protected $photoService;
+
+    public function __construct(BiblioService $biblioService, BiblioRepository $biblioRepository, PhotoService $photoService)
     {
         $this->biblioService = $biblioService;
+        $this->biblioRepository = $biblioRepository;
+        $this->photoService = $photoService;
+
     }
     public function index()
     {
-        return Inertia::render('Bibliography/Bibliographies');
+        try {
+            $biblios = $this->biblioRepository->index(10);
+            return Inertia::render('Bibliography/Bibliographies', ["biblios" => $biblios]);
+
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error("Failed to fetch member: " . $e->getMessage());
+
+            // Redirect back with error message
+            redirect()->back()->withErrors(['error' => __("message.error.fetched", ["entity" => "Biblio"])]);
+        }
     }
 
     public function create()
     {
         return Inertia::render('Bibliography/CreateBibliography');
-    }
-    public function edit()
-    {
-        return Inertia::render('Bibliography/EditBibliography');
     }
     public function store(CreateBiblioRequest $request)
     {
@@ -34,7 +48,12 @@ class BibliographyController extends Controller
             // Data sudah tervalidasi oleh CreateBiblioRequest
             $validatedData = $request->validated();
 
-            $biblioTDO = new BiblioDTO(
+            // Handle foto member
+            $filename = $this->photoService->handleMemberPhoto($validatedData->file('biblioPhoto'));
+
+            // Tambahkan data member beserta path gambar ke dalam database
+            $this->memberRepository->store($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"]);
+            $biblioDTO = new BiblioDTO(
                 [
                     'authors' => $validatedData['authors'],
                 ],
@@ -65,12 +84,17 @@ class BibliographyController extends Controller
                     'totalItems' => $validatedData['totalItems']
                 ]
             );
-            $this->biblioService->createBiblioWithRelations($biblioTDO);
+            $this->biblioService->createBiblioWithRelations($biblioDTO);
 
             return redirect()->route('membership.create')
                 ->with(["message" => __("message.success.stored", ["entity" => "Biblio"])]);
         } catch (\Exception $e) {
+            \Log::error("Failed to fetch biblios: " . $e->getMessage());
             redirect()->back()->withErrors(['error' => __("message.error.stored", ["entity" => "Biblio"])]);
         }
+    }
+    public function edit()
+    {
+        return Inertia::render('Bibliography/EditBibliography');
     }
 }

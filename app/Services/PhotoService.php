@@ -8,28 +8,87 @@ use Illuminate\Support\Facades\Storage;
 
 class PhotoService
 {
-    public function handleMemberPhoto($image)
+    const MEMBER_PHOTO_PATH = 'public/img/members/photo/';
+    const BIBLIO_PHOTO_PATH = 'public/img/biblio/photo/';
+
+    public function handlePhoto($image, $type)
     {
         try {
             // Membuat nama file unik
             $filename = uniqid() . '_' . $image->getClientOriginalName();
+            $path = $this->getPathByType($type);
 
             // Resize image
             $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
             // Simpan gambar yang di-resize ke storage
-            Storage::put("public/members/photo/$filename", (string) $resizedImage->encode());
+            Storage::put((string) $path . $filename, (string) $resizedImage->encode());
 
             return $filename;
         } catch (\Exception $e) {
-            throw new PhotoHandlingException("Failed to handle member photo", 0, $e);
+            throw new PhotoHandlingException("Failed to handle $type photo", 0, $e);
         }
-
     }
 
-    public function removePhoto($memberPhotoPath)
+    public function removePhoto($photoPath, $type)
     {
-        if ($memberPhotoPath) {
-            Storage::delete("public/members/photo/$memberPhotoPath");
+        $path = $this->getPathByType($type);
+        if ($photoPath) {
+            Storage::delete((string) $path . $photoPath);
         }
+    }
+
+    private function getPathByType($type)
+    {
+        return $type === 'member' ? self::MEMBER_PHOTO_PATH : self::BIBLIO_PHOTO_PATH;
     }
 }
+
+// class PhotoService
+// {
+//     public function handleMemberPhoto($image)
+//     {
+//         try {
+//             // Membuat nama file unik
+//             $filename = uniqid() . '_' . $image->getClientOriginalName();
+
+//             // Resize image
+//             $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
+//             // Simpan gambar yang di-resize ke storage
+//             Storage::put("public/img/members/photo/$filename", (string) $resizedImage->encode());
+
+//             return $filename;
+//         } catch (\Exception $e) {
+//             throw new PhotoHandlingException("Failed to handle member photo", 0, $e);
+//         }
+
+//     }
+//     public function handleBiblioPhoto($image)
+//     {
+//         try {
+//             // Membuat nama file unik
+//             $filename = uniqid() . '_' . $image->getClientOriginalName();
+
+//             // Resize image
+//             $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
+//             // Simpan gambar yang di-resize ke storage
+//             Storage::put("public/img/biblio/photo/$filename", (string) $resizedImage->encode());
+
+//             return $filename;
+//         } catch (\Exception $e) {
+//             throw new PhotoHandlingException("Failed to handle biblio photo", 0, $e);
+//         }
+
+//     }
+//     public function removeMemberPhoto($memberPhotoPath)
+//     {
+//         if ($memberPhotoPath) {
+//             Storage::delete("public/img/members/photo/$memberPhotoPath");
+//         }
+//     }
+//     public function removeBiblioPhoto($memberPhotoPath)
+//     {
+//         if ($memberPhotoPath) {
+//             Storage::delete("public/img/biblio/photo/$memberPhotoPath");
+//         }
+//     }
+// }

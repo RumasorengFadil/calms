@@ -9,9 +9,10 @@ import SearchBarLayout from "@/Layouts/SearchBarLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 
-export default function Bibliographies({}) {
+export default function Bibliographies({ biblios }) {
     return (
         <div className="flex fixed min-w-full bg-light-gray max-h-screen">
+            {console.log(biblios.data[0].authors)}
             <SidebarLayout>
                 <BibliographySidebar />
             </SidebarLayout>
@@ -26,9 +27,9 @@ export default function Bibliographies({}) {
                     </SearchBarLayout>
 
                     <BiblioListLayout>
-                        <BiblioList />
-                        <BiblioList />
-                        <BiblioList />
+                        {biblios.data.map((biblio, index) => (
+                            <BiblioList key={index} biblio={biblio} />
+                        ))}
                     </BiblioListLayout>
                 </MainContentLayout>
             </div>

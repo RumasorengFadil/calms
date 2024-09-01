@@ -6,7 +6,7 @@ use App\Models\MstAuthor;
 
 class MstAuthorRepository
 {
-    public function createAuthor(array $data): MstAuthor
+    public function create(array $data): MstAuthor
     {
         return MstAuthor::create([
             'author_name' => $data['authorName'],

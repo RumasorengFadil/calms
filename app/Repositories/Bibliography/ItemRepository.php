@@ -13,7 +13,7 @@ class ItemRepository
     {
         $this->itemCodeGenerator = $itemCodeGenerator;
     }
-    public function createItem(array $data)
+    public function create(array $data)
     {
         $insertData = [];
 

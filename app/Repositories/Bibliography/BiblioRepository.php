@@ -6,9 +6,28 @@ use App\Models\Biblio;
 
 class BiblioRepository
 {
-    public function createBiblio(array $data): Biblio
+
+    public function index($data)
     {
-        return Biblio::create([
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->paginate($data);
+    }
+    public function store(array $data): Biblio
+    {
+        return Biblio::create($this->mapData($data));
+    }
+    public function update(array $data, $id): bool
+    {
+        $biblio = Biblio::findOrFail($id);
+        return $biblio->update($this->mapData($data));
+    }
+    public function destroy($biblio): void
+    {
+        $biblio->delete();
+    }
+
+    private function mapData(array $data): array
+    {
+        return [
             'title' => $data['title'],
             'edition' => $data['edition'],
             'isbn_issn' => $data['isbnIssn'],
@@ -22,6 +41,6 @@ class BiblioRepository
             'biblio_photo_path' => $data['biblioPhotoPath'],
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
-        ]);
+        ];
     }
 }
