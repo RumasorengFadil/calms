@@ -56,16 +56,12 @@ class BiblioService
             ]);
 
             //lanjut disini
-            $assignedBiblioAuthor = $this->biblioAuthorRepository->assignAuthorToBiblio($biblioDTO->getAuthorData() + [
+            $this->biblioAuthorRepository->assignAuthorToBiblio($biblioDTO->getAuthorData() + [
                 "biblioId" => $createdBiblio->biblio_id,
             ]);
             //===
 
-            $createdItem = $this->itemRepository->createItem($biblioDTO->getItemData() + [
-                "itemCode" => ItemCodeGenerator::generateItemCode(
-                    $biblioDTO->getBiblioData()["itemCodePattern"]
-                )
-            ]);
+            $createdItem = $this->itemRepository->createItem($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
             //lanjut dinisi
 
             // Item::addItem($biblioDTO->all() + ["itemCode" => ItemCodeGenerator::generateItemCode($request->itemCodePattern)]);

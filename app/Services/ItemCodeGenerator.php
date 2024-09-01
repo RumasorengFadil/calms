@@ -6,7 +6,7 @@ use App\Models\Item;
 
 class ItemCodeGenerator
 {
-    public static function generateItemCode($pattern)
+    public function generateItemCode($pattern)
     {
         // Ambil item terakhir dengan pola yang mirip
         $lastItem = Item::where('item_code', 'like', self::convertPatternToLike($pattern))->orderBy('item_id', 'desc')->first();

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Bibliography;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\AddItemCodePatternRequest;
 use App\Models\ItemCodePattern;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AddItemCodePatternController extends Controller

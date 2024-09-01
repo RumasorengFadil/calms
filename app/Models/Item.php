@@ -26,7 +26,7 @@ class Item extends Model
 
     public static function addItem($request)
     {
-        return Member::create([
+        return Item::create([
             "biblio_id" => $request->biblioId,
             "item_code" => $request->itemCode,
             "received_date" => $request->receivedDate,

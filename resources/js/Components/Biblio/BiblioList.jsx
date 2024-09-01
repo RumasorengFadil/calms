@@ -2,20 +2,23 @@ import { memo } from "react";
 import TextInput from "../TextInput";
 import { useForm, usePage } from "@inertiajs/react";
 
-export default memo(function BiblioList({ className = "" }) {
+export default memo(function BiblioList({ biblio, className = "" }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, delete:destroy, put, errors, processing, recentlySuccessful } =
+    const { data, setData, delete:destroy, get, errors, processing, recentlySuccessful } =
         useForm({
-            name: user.name,
-            email: user.email,
             biblioId : ""
         });
 
     const submit = (e, method) => {
         e.preventDefault();
 
-        delete(route("bibliographies.update"));
+        if(method === "get"){
+        }
+        
+        if(method === "delete"){
+            // delete(route("bibliographies.update"));
+        }
     };
     return (
         <div className={"flex border-y py-3" + className}>
@@ -39,23 +42,19 @@ export default memo(function BiblioList({ className = "" }) {
             <div className="basis-1/3 ">SI00027</div>
             <div className="basis-1/3">
                 <div className="flex h-full items-end">
-                    <form action="">
+                    <form action="" onSubmit={(e) => submit(e, "get")}>
                         <TextInput
                             className="text-primary underline cursor-pointer"
                             type="submit"
                             value="edit"
-                            onClick = {(e) => submit(e, "put")}
                         />
+                    </form>
+                    <form action="" onSubmit={(e) => submit(e, "delete")}>
                         <TextInput
                             className="text-red-600 underline cursor-pointer mx-4"
                             type="submit"
                             value="hapus"
                             onClick = {(e) => submit(e, "delete")}
-                        />
-                        <TextInput
-                            className="hidden"
-                            type="number"
-                            value={data.biblioId}
                         />
                     </form>
                 </div>

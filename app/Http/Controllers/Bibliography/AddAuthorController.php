@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Bibliography\AddAuthorRequest;
+use App\Http\Requests\Bibliography\CreateBiblioRequest;
 use App\Models\MstAuthor;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AddAuthorController extends Controller
 {
-    public function addAuthor(AddAuthorRequest $request){
+    public function addAuthor(CreateBiblioRequest $request){
         $validatedData = $request->validated();
 
         // foreach ($validatedData['authors'] as $author) {

@@ -7,13 +7,16 @@ use App\Models\MstAuthor;
 
 class BiblioAuthorRepository
 {
-    public function assignAuthorToBiblio(array $data): MstAuthor
+    public function assignAuthorToBiblio(array $data)
     {
-        foreach($data["authors"] as $author){
-            return BiblioAuthor::create([
+        $insertData = [];
+        foreach ($data["authors"] as $author) {
+            $insertData[] = [
                 "biblio_id" => $author["biblioId"],
                 "author_id" => $author["authorId"],
-            ]);
+            ];
         }
+
+        BiblioAuthor::insert($insertData);
     }
 }

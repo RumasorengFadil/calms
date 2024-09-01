@@ -3,11 +3,30 @@
 namespace App\Repositories\Bibliography;
 
 use App\Models\Item;
+use App\Services\ItemCodeGenerator;
 
 class ItemRepository
 {
-    public function createItem(array $data): Item
+    protected $itemCodeGenerator;
+
+    public function __construct(ItemCodeGenerator $itemCodeGenerator)
     {
-        return Item::create($data);
+        $this->itemCodeGenerator = $itemCodeGenerator;
+    }
+    public function createItem(array $data)
+    {
+        $insertData = [];
+
+        for ($i = 0; $i < $data['totalItems']; $i++) {
+            $insertData[] = [
+                'biblio_id' => $data['biblioId'],
+                'item_code' => $this->itemCodeGenerator->generateItemCode($data['itemCodePattern']),
+                'received_date' => $data['receivedDate'],
+                'input_date' => now()->toDateString(),
+                'last_update' => now()->toDateString(),
+            ];
+        }
+
+        Item::insert($insertData);
     }
 }
