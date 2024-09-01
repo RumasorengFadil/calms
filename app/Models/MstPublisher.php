@@ -20,13 +20,8 @@ class MstPublisher extends Model
         "input_date",
         "last_update",
     ];
-
-    // public static function addPublisher($request)
-    // {
-    //     return MstPublisher::create([
-    //         "publisher_name" => $request->publisherName,
-    //         "input_date" => now()->toDateString(),
-    //         "last_update" => now()->toDateString(),
-    //     ]);
-    // }
+    public function biblios()
+    {
+        return $this->hasMany(Biblio::class, 'publisher_id');
+    }
 }

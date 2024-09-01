@@ -21,12 +21,8 @@ class MstPlace extends Model
         "last_update",
     ];
 
-    // public static function addPlace($request)
-    // {
-        // return MstPlace::create([
-        //     "place_name" => $request->placeName,
-        //     "input_date" => now()->toDateString(),
-        //     "last_update" => now()->toDateString(),
-        // ]);
-    // }
+    public function biblios()
+    {
+        return $this->hasMany(Biblio::class, 'place_id');
+    }
 }

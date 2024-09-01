@@ -26,4 +26,9 @@ class BiblioAuthor extends Model
             "author_id" => $request->authorId,
         ]);
     }
+
+    public function biblio()
+    {
+        return $this->belongsTo(Biblio::class, 'biblio_id');
+    }
 }

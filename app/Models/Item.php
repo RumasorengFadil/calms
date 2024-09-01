@@ -24,14 +24,8 @@ class Item extends Model
         "last_update",
     ];
 
-    public static function addItem($request)
+    public function biblio()
     {
-        return Item::create([
-            "biblio_id" => $request->biblioId,
-            "item_code" => $request->itemCode,
-            "received_date" => $request->receivedDate,
-            "input_date" => now()->toDateString(),
-            "last_update" => now()->toDateString(),
-        ]);
+        return $this->belongsTo(Biblio::class, 'biblio_id');
     }
 }

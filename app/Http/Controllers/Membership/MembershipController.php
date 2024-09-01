@@ -57,7 +57,7 @@ class MembershipController extends Controller
                 ->with(["message" => __("message.success.stored", ["entity" => "Member"])]);
 
         } catch (PhotoHandlingException $e) {
-            return $e->render($request);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error("Failed to store member: " . $e->getMessage());

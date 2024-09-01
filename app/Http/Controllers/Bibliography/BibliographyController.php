@@ -66,17 +66,17 @@ class BibliographyController extends Controller
                     'member_email' => $validatedData['member_email'],
                     'member_password' => $validatedData['member_password'],
                 ],
-                [   
+                [
                     'itemCodePattern' => $validatedData['itemCodePattern'],
                     'totalItems' => $validatedData['totalItems']
                 ]
-
-
-                //tambahkan
             );
             $this->biblioService->createBiblioWithRelations($biblioTDO);
-        } catch (\Exception $e) {
 
+            return redirect()->route('membership.create')
+                ->with(["message" => __("message.success.stored", ["entity" => "Biblio"])]);
+        } catch (\Exception $e) {
+            redirect()->back()->withErrors(['error' => __("message.error.stored", ["entity" => "Biblio"])]);
         }
     }
 }
