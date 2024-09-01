@@ -4,40 +4,34 @@ namespace App\Http\Requests\Traits;
 
 trait BiblioRules
 {
-    protected function memberRules()
+    protected function biblioRules()
     {
         return [
-            "memberId" => "required|unique:members,member_id",
-            "memberName" => "required",
-            "birthDate" => "required",
-            "gender" => "required",
-            "memberSinceDate" => "required",
-            "registerDate" =>"required",
-            "expireDate" => "required",
-            "memberPhone" => "required",
-            "memberPhoto" => "required|image|mimes:jpg,jpeg,png|max:2048",
-            "memberPhotoPath" => "required",
-            // Aturan validasi lainnya yang umum
+            "title" => "required|unique:members,member_id",
+            "edition" => "required",
+            "isbnIssn" => "required",
+            "publishYear" => "required",
+            "collation" => "required",
+            "category" => "required",
+            "biblioPhoto" => "required|image|mimes:jpg,jpeg,png|max:2048",
+            "biblioPhotoPath" => "required",
         ];
     }
 
-    public function memberMessages()
+    public function biblioMessages()
     {
         return [
-            'memberId.required' => 'ID member harus diisi.!',
-            'memberId.unique' => 'ID member sudah terdaftar.!',
-            'memberName.required' => 'Nama harus diisi!',
-            'birthDate.required' => 'Tanggal lahir harus diisi!',
-            'gender.required' => 'Jenis kelamin harus diisi!',
-            'memberSinceDate.required' => 'Member sejak kapan harus diisi!',
-            'registerDate.required' => 'Tanggal daftar harus diisi!',
-            'expireDate.required' => 'Tanggal expired harus diisi!',
-            'memberPhone.required' => 'Nomor telepon harus diisi!',
-            'memberPhoto.required' => 'Member image harus diisi!',
-            'memberPhoto.image' => 'File harus berupa gambar!',
-            'memberPhoto.mimes' => 'Eksitensi yang didukung:jpg,jpeg, dan png',
-            'memberPhoto.max' => 'Gambar tidak boleh melebihi 2mb!',
-            'memberPhotoPath.required' => 'Path image harus diisi!',
+            'title.required' => 'Judul harus diisi.!',
+            'edition.unique' => 'Edisi sudah terdaftar.!',
+            'isbnIssn.required' => 'Isbn/Issn harus diisi!',
+            'publishYear.required' => 'Tahun Terbit harus diisi!',
+            'collation.required' => 'Kolasi harus diisi!',
+            'category.required' => 'Kategori harus diisi!',
+            'biblioPhoto.required' => 'Member image harus diisi!',
+            'biblioPhoto.image' => 'File harus berupa gambar!',
+            'biblioPhoto.mimes' => 'Eksitensi yang didukung:jpg,jpeg, dan png',
+            'biblioPhoto.max' => 'Gambar tidak boleh melebihi 2mb!',
+            'biblioPhotoPath.required' => 'Path image harus diisi!',
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Bibliography;
 use App\Http\Requests\Traits\BiblioRules;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBiblioRequest extends FormRequest
+class UpdateBiblioRequest extends FormRequest
 {
     use BiblioRules;
     /**

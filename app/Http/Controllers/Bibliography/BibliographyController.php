@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bibliography;
 use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\CreateBiblioRequest;
+use App\Http\Requests\Bibliography\UpdateBiblioRequest;
 use App\Repositories\Bibliography\BiblioRepository;
 use App\Services\BiblioService;
 use App\Services\PhotoService;
@@ -98,7 +99,7 @@ class BibliographyController extends Controller
     {
         return Inertia::render('Bibliography/EditBibliography');
     }
-    public function update(Update)
+    public function update(UpdateBiblioRequest $request)
     {
         // Data sudah tervalidasi oleh CreateBiblioRequest
         $validatedData = $request->validated();
@@ -142,8 +143,7 @@ class BibliographyController extends Controller
         );
         $this->biblioService->createBiblioWithRelations($biblioDTO);
 
-        return redirect()->route('membership.create')
-            ->with(["message" => __("message.success.stored", ["entity" => "Biblio"])]);
-        return Inertia::render('Bibliography/EditBibliography');
+        return redirect()->route('membership.update')
+            ->with(["message" => __("message.success.updated", ["entity" => "Biblio"])]);
     }
 }
