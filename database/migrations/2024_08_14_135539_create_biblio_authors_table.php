@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign("biblio_id") // Defining mst_publisher the foreign key constraint
             ->references("biblio_id")
             ->on("biblios")
-            ->onDelete("cascade");
+            ->onDelete("set null");
 
             $table->unsignedBigInteger("author_id"); // Foreign key to mst_author table
             
@@ -28,7 +28,8 @@ return new class extends Migration
             $table->foreign("author_id") // Defining mst_publisher the foreign key constraint
             ->references("author_id")
             ->on("mst_authors")
-            ->onDelete("cascade");
+            ->onDelete("set null");
+            // ->onDelete("cascade");
             $table->timestamps();
         });
     }

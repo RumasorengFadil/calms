@@ -99,7 +99,7 @@ class BibliographyController extends Controller
     {
         return Inertia::render('Bibliography/EditBibliography');
     }
-    public function update(UpdateBiblioRequest $request)
+    public function update(UpdateBiblioRequest $request, $biblioId)
     {
         // Data sudah tervalidasi oleh CreateBiblioRequest
         $validatedData = $request->validated();
@@ -141,7 +141,7 @@ class BibliographyController extends Controller
                 'totalItems' => $validatedData['totalItems']
             ]
         );
-        $this->biblioService->createBiblioWithRelations($biblioDTO);
+        $this->biblioService->updateBiblioWithRelations($biblioDTO, $biblioId);
 
         return redirect()->route('membership.update')
             ->with(["message" => __("message.success.updated", ["entity" => "Biblio"])]);

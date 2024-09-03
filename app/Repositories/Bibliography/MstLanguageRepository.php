@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Bibliography;
 
+use App\Models\Biblio;
 use App\Models\MstLanguage;
 
 class MstLanguageRepository
@@ -13,5 +14,17 @@ class MstLanguageRepository
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ]);
+    }
+    public function update(array $data, $biblioId): MstLanguage
+    {
+
+        $mstLanguage = Biblio::findOrFail($biblioId);
+    
+        $mstLanguage->update([
+            'language_name' => $data['languageName'],
+            'last_update' => now()->toDateString(),
+        ]);
+    
+        return $mstLanguage;
     }
 }

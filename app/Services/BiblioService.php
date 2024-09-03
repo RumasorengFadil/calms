@@ -89,4 +89,40 @@ class BiblioService
             throw new Exception("Failed to create biblio", 0, $e);
         }
     }
+    public function updateBiblioWithRelations(BiblioDTO $biblioDTO, $biblioId)
+    {
+        try {
+            DB::transaction(function () use ($biblioDTO, $biblioId) {
+                // Create new Language entry and retrieve the created Language object
+                $createdLanguage = $this->mstLanguageRepository->update($biblioDTO->getLanguageData(), $biblioId);
+
+                // Create new Publisher entry and retrieve the created Publisher object
+                $createdPublisher = $this->mstPublisherRepository->create($biblioDTO->getPublisherData(), $biblioId);
+
+                // Create new Place entry and retrieve the created Place object
+                $createdPlace = $this->mstPlaceRepository->create($biblioDTO->getPlaceData());
+
+                // Create new Bibliography entry with the IDs of the newly created Publisher, Language, and Place
+                $createdBiblio = $this->biblioRepository->store($biblioDTO->getBiblioData() + [
+                    "publisherId" => $createdPublisher->publisher_id,
+                    "languageId" => $createdLanguage->language_id,
+                    "publishPlaceId" => $createdPlace->place_id
+                ]);
+
+                // Assign authors to the created Bibliography entry
+                $this->biblioAuthorRepository->assignAuthorToBiblio($biblioDTO->getAuthorData() + [
+                    "biblioId" => $createdBiblio->biblio_id,
+                ]);
+
+                // Create items associated with the created Bibliography entry
+                $this->itemRepository->create($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
+            });
+        } catch (Exception $e) {
+            // Log the error for debugging
+            Log::error('Failed to create biblio with relations: ' . $e->getMessage());
+
+            // Handle error (return a custom exception or a specific response)
+            throw new Exception("Failed to create biblio", 0, $e);
+        }
+    }
 }
