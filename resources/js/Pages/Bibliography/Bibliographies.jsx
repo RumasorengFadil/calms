@@ -1,6 +1,7 @@
 import BiblioList from "@/Components/Biblio/BiblioList";
-import BiblioListLayout from "@/Components/Biblio/BiblioListLayout";
 import BiblioTableBody from "@/Components/Biblio/BiblioTableBody";
+import BiblioTableHeader from "@/Components/Biblio/BiblioTableHeader";
+import BiblioTableLayout from "@/Components/Biblio/BiblioTableLayout";
 import PageHeader from "@/Components/PageHeader";
 import SearchBar from "@/Components/SearchBar";
 import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
@@ -26,9 +27,10 @@ export default function Bibliographies({ biblios }) {
                         <SearchBar />
                     </SearchBarLayout>
 
-                    <BiblioListLayout>
+                    <BiblioTableLayout>
+                        <BiblioTableHeader />
                         <BiblioTableBody biblios = {biblios} />
-                    </BiblioListLayout>
+                    </BiblioTableLayout>
 
 
                 </MainContentLayout>

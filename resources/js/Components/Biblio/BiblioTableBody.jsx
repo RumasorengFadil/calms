@@ -37,10 +37,10 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
     };
 
     return (
-        <div className="">
+        <div className={"px-10" + className}>
             {biblios.data.map((biblio) => (
                 <div
-                    className={"flex border-y py-3" + className}
+                    className={"flex border-y py-3"}
                     key={biblio.biblio_id}
                 >
                     <div className="basis-1/5 flex items-center justify-start">
