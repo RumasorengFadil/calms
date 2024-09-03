@@ -7,7 +7,7 @@ use App\Models\MstLanguage;
 
 class MstLanguageRepository
 {
-    public function create(array $data): MstLanguage
+    public function store(array $data): MstLanguage
     {
         return MstLanguage::create([
             "language_name" => $data["languageName"],
@@ -17,8 +17,7 @@ class MstLanguageRepository
     }
     public function update(array $data, $biblioId): MstLanguage
     {
-
-        $mstLanguage = Biblio::findOrFail($biblioId);
+        $mstLanguage = Biblio::findOrFail($biblioId)->language()->firstOrFail();
     
         $mstLanguage->update([
             'language_name' => $data['languageName'],

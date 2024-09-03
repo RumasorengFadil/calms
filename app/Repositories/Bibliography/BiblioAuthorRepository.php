@@ -23,17 +23,17 @@ class BiblioAuthorRepository
         });
     }
 
-    public function syncAuthorsWithBiblio(array $data)
+    public function syncAuthorsWithBiblio(array $data, $biblioId)
     {
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data, $biblioId) {
             // Hapus semua author yang terkait dengan biblio_id
-             BiblioAuthor::where('biblio_id', $data['biblioId'])->delete();
+             BiblioAuthor::where('biblio_id', $biblioId)->delete();
 
             // Persiapkan data untuk diinsert
-            $authorsToInsert = array_map(function ($author) {
+            $authorsToInsert = array_map(function ($data) {
                 return [
-                    'biblio_id' => $author['biblioId'],
-                    'author_id' => $author['authorId'],
+                    'biblio_id' => $data['biblioId'],
+                    'author_id' => $data['authorId'],
                 ];
             }, $data['authors']);
 

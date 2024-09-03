@@ -13,7 +13,7 @@ class ItemRepository
     {
         $this->itemCodeGenerator = $itemCodeGenerator;
     }
-    public function create(array $data)
+    public function store(array $data)
     {
         $insertData = [];
 
@@ -26,7 +26,7 @@ class ItemRepository
                 'last_update' => now()->toDateString(),
             ];
         }
-
+        
         Item::insert($insertData);
     }
 }

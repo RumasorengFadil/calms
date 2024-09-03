@@ -58,13 +58,13 @@ class BiblioService
         try {
             DB::transaction(function () use ($biblioDTO) {
                 // Create new Language entry and retrieve the created Language object
-                $createdLanguage = $this->mstLanguageRepository->create($biblioDTO->getLanguageData());
+                $createdLanguage = $this->mstLanguageRepository->store($biblioDTO->getLanguageData());
 
                 // Create new Publisher entry and retrieve the created Publisher object
-                $createdPublisher = $this->mstPublisherRepository->create($biblioDTO->getPublisherData());
+                $createdPublisher = $this->mstPublisherRepository->store($biblioDTO->getPublisherData());
 
                 // Create new Place entry and retrieve the created Place object
-                $createdPlace = $this->mstPlaceRepository->create($biblioDTO->getPlaceData());
+                $createdPlace = $this->mstPlaceRepository->store($biblioDTO->getPlaceData());
 
                 // Create new Bibliography entry with the IDs of the newly created Publisher, Language, and Place
                 $createdBiblio = $this->biblioRepository->store($biblioDTO->getBiblioData() + [
@@ -79,7 +79,7 @@ class BiblioService
                 ]);
 
                 // Create items associated with the created Bibliography entry
-                $this->itemRepository->create($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
+                $this->itemRepository->store($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
             });
         } catch (Exception $e) {
             // Log the error for debugging
@@ -89,40 +89,50 @@ class BiblioService
             throw new Exception("Failed to create biblio", 0, $e);
         }
     }
+
+    /**
+     * Update an existing Bibliography entry and its associated data.
+     *
+     * This method performs a series of database operations within a transaction to ensure
+     * data consistency. If any operation fails, the entire transaction will be rolled back.
+     *
+     * @param BiblioDTO $biblioDTO Data Transfer Object containing all necessary data for updating a bibliography and related entities.
+     * @param int $biblioId The ID of the Bibliography entry to update.
+     * @return void
+     * @throws \Exception If any operation within the transaction fails.
+     */
     public function updateBiblioWithRelations(BiblioDTO $biblioDTO, $biblioId)
     {
         try {
             DB::transaction(function () use ($biblioDTO, $biblioId) {
-                // Create new Language entry and retrieve the created Language object
+                // Update Language entry and retrieve the updated Language object
                 $createdLanguage = $this->mstLanguageRepository->update($biblioDTO->getLanguageData(), $biblioId);
 
-                // Create new Publisher entry and retrieve the created Publisher object
-                $createdPublisher = $this->mstPublisherRepository->create($biblioDTO->getPublisherData(), $biblioId);
+                // Update Publisher entry and retrieve the updated Publisher object
+                $createdPublisher = $this->mstPublisherRepository->update($biblioDTO->getPublisherData(), $biblioId);
 
-                // Create new Place entry and retrieve the created Place object
-                $createdPlace = $this->mstPlaceRepository->create($biblioDTO->getPlaceData());
+                // Update Place entry and retrieve the updated Place object
+                $createdPlace = $this->mstPlaceRepository->update($biblioDTO->getPlaceData(), $biblioId);
 
-                // Create new Bibliography entry with the IDs of the newly created Publisher, Language, and Place
-                $createdBiblio = $this->biblioRepository->store($biblioDTO->getBiblioData() + [
+                // Update Bibliography entry with the IDs of the newly updated Publisher, Language, and Place
+                $createdBiblio = $this->biblioRepository->update($biblioDTO->getBiblioData() + [
                     "publisherId" => $createdPublisher->publisher_id,
                     "languageId" => $createdLanguage->language_id,
                     "publishPlaceId" => $createdPlace->place_id
-                ]);
+                ], $biblioId);
 
-                // Assign authors to the created Bibliography entry
-                $this->biblioAuthorRepository->assignAuthorToBiblio($biblioDTO->getAuthorData() + [
-                    "biblioId" => $createdBiblio->biblio_id,
-                ]);
+                // Sync authors to the updated Bibliography entry
+                $this->biblioAuthorRepository->syncAuthorsWithBiblio($biblioDTO->getAuthorData(), $biblioId);
 
-                // Create items associated with the created Bibliography entry
-                $this->itemRepository->create($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
+                // Update items associated with the updated Bibliography entry
+                $this->itemRepository->store($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
             });
         } catch (Exception $e) {
             // Log the error for debugging
-            Log::error('Failed to create biblio with relations: ' . $e->getMessage());
+            Log::error('Failed to update biblio with relations: ' . $e->getMessage());
 
             // Handle error (return a custom exception or a specific response)
-            throw new Exception("Failed to create biblio", 0, $e);
+            throw new Exception("Failed to update biblio", 0, $e);
         }
     }
 }

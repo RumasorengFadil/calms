@@ -15,10 +15,12 @@ class BiblioRepository
     {
         return Biblio::create($this->mapData($data));
     }
-    public function update(array $data, $id): bool
+    public function update(array $data, $id): Biblio
     {
         $biblio = Biblio::findOrFail($id);
-        return $biblio->update($this->mapData($data));
+        $biblio->update($this->mapData($data));
+
+        return $biblio;
     }
     public function destroy($biblio): void
     {
