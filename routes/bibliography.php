@@ -21,6 +21,9 @@ Route::prefix("bibliographies")
         Route::get('/', [BibliographyController::class, 'index'])->name('bibliographies.index');
 
         Route::get('/create', [BibliographyController::class, 'create'])->name('bibliographies.create');
+        Route::get('/store', [BibliographyController::class, 'store'])->name('bibliographies.store');
 
         Route::get('/edit', [BibliographyController::class, 'edit'])->name('bibliographies.edit');
+        Route::get('/update', [BibliographyController::class, 'update'])->name('bibliographies.update');
+        Route::get('/destroy', [BibliographyController::class, 'destroy'])->name('bibliographies.destroy');
     });
