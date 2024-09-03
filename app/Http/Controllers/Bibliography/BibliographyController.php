@@ -37,7 +37,7 @@ class BibliographyController extends Controller
     public function index()
     {
         try {
-            $biblios = $this->biblioRepository->index(10);
+            $biblios = $this->biblioRepository->index(5);
             return Inertia::render('Bibliography/Bibliographies', ["biblios" => $biblios]);
 
         } catch (\Exception $e) {

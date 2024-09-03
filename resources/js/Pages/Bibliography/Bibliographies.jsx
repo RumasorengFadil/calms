@@ -1,5 +1,6 @@
 import BiblioList from "@/Components/Biblio/BiblioList";
 import BiblioListLayout from "@/Components/Biblio/BiblioListLayout";
+import BiblioTableBody from "@/Components/Biblio/BiblioTableBody";
 import PageHeader from "@/Components/PageHeader";
 import SearchBar from "@/Components/SearchBar";
 import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
@@ -12,7 +13,6 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 export default function Bibliographies({ biblios }) {
     return (
         <div className="flex fixed min-w-full bg-light-gray max-h-screen">
-            {console.log(biblios.data[0].authors)}
             <SidebarLayout>
                 <BibliographySidebar />
             </SidebarLayout>
@@ -27,10 +27,10 @@ export default function Bibliographies({ biblios }) {
                     </SearchBarLayout>
 
                     <BiblioListLayout>
-                        {biblios.data.map((biblio, index) => (
-                            <BiblioList key={index} biblio={biblio} />
-                        ))}
+                        <BiblioTableBody biblios = {biblios} />
                     </BiblioListLayout>
+
+
                 </MainContentLayout>
             </div>
         </div>
