@@ -2,6 +2,7 @@ import { memo } from "react";
 import BiblioList from "./BiblioList";
 import TextInput from "../TextInput";
 import { useForm } from "@inertiajs/react";
+import PrimaryButton from "../PrimaryButton";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
     const {
@@ -14,17 +15,18 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
         recentlySuccessful,
     } = useForm({
         biblioId: "",
-        selectedItems: [],
+        selectedBiblioIds: [],
     });
 
-    const handleSelectItem = (id) => {
-        const selectedItems = data.selectedItems.includes(id)
-            ? data.selectedItems.filter((item) => item !== id)
-            : [...data.selectedItems, id];
-        setData("selectedItems", selectedItems);
+    const handleSelectBiblioId = (id) => {
+        const selectedBiblioIds = data.selectedBiblioIds.includes(id)
+            ? data.selectedBiblioIds.filter((item) => item !== id)
+            : [...data.selectedBiblioIds, id];
+        setData("selectedBiblioIds", selectedBiblioIds);
     };
 
     const submit = (e, method) => {
+        console.log(data.biblioId);
         e.preventDefault();
 
         console.log();
@@ -35,7 +37,13 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
             // delete(route("bibliographies.update"));
         }
     };
-
+    const selectAllBibliographyIds  = (data) => {
+        const selectedBiblioIds = data.map((item) => item.biblio_id);
+        setData("selectedBiblioIds", selectedBiblioIds);
+    };
+    const unselectAllBibliographyIds = () => {
+        setData("selectedBiblioIds", []);
+    };
     return (
         <div className={"px-10" + className}>
             {biblios.data.map((biblio) => (
@@ -46,8 +54,8 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     <div className="basis-1/5 flex items-center justify-start">
                         <TextInput
                             type="checkbox"
-                            onChange={() => handleSelectItem(biblio.biblio_id)}
-                            checked={data.selectedItems.includes(
+                            onChange={() => handleSelectBiblioId(biblio.biblio_id)}
+                            checked={data.selectedBiblioIds.includes(
                                 biblio.biblio_id
                             )}
                         />
@@ -95,6 +103,11 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     </div>
                 </div>
             ))}
+            <div className="py-3 px-10">
+                <PrimaryButton className="bg-red-500">Hapus Data yang Dipilih</PrimaryButton>
+                <PrimaryButton onClick = {() => selectAllBibliographyIds(biblios.data)} className="bg-gray-500 mx-2">Pilih Semua</PrimaryButton>
+                <PrimaryButton onClick = {unselectAllBibliographyIds} className="bg-gray-500">Jangan Pilih Semua</PrimaryButton>
+            </div>
         </div>
     );
 });

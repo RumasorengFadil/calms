@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Bibliography;
 
 use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Bibliography\CreateBiblioRequest;
+use App\Http\Requests\Bibliography\StoreBiblioRequest;
 use App\Services\BiblioService;
 
 class CreateBiblioController extends Controller
@@ -14,7 +14,7 @@ class CreateBiblioController extends Controller
     {
         $this->biblioService = $biblioService;
     }
-    public function createBiblio(CreateBiblioRequest $request)
+    public function createBiblio(StoreBiblioRequest $request)
     {
         try {
             // Data sudah tervalidasi oleh AddBiblioRequest

@@ -173,4 +173,16 @@ class BiblioService
 
         $this->biblioRepository->destroy($biblio);
     }
+    public function deleteBiblios(array $selectedBiblioIds)
+    {
+        DB::transaction(function () use ($selectedBiblioIds) {
+            $biblios = Biblio::whereIn('id', $selectedBiblioIds)->get();
+
+            foreach ($biblios as $biblio) {
+                $this->photoService->removePhoto($biblio->biblioPhotoPath, 'biblio');
+
+                $this->biblioRepository->destroy($biblio);
+            }
+        });
+    }
 }
