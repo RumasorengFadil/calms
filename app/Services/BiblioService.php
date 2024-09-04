@@ -48,7 +48,7 @@ class BiblioService
         $this->biblioAuthorRepository = $biblioAuthorRepository;
         $this->itemRepository = $itemRepository;
         $this->photoService = $photoService;
-        $this->photoService = $biblioDTOFactory;
+        $this->biblioDTOFactory = $biblioDTOFactory;
     }
     /**
      * Create a new Bibliography entry with its associated data.
@@ -169,7 +169,7 @@ class BiblioService
     {
         $biblio = Biblio::findOrFail($biblioId);
 
-        $this->photoService->removePhoto($biblio->biblioPhotoPath, 'biblio');
+        $this->photoService->removePhoto($biblio->biblio_photo_path, 'biblio');
 
         $this->biblioRepository->destroy($biblio);
     }

@@ -45,7 +45,7 @@ class PhotoService
     {
         $path = $this->getPathByType($type);
         if ($photoPath) {
-            Storage::disk('public')->delete($path . $photoPath);
+            Storage::disk('public')->delete((string) $path . $photoPath);
         }
     }
 
