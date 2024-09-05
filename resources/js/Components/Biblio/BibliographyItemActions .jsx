@@ -1,8 +1,12 @@
 import { memo } from "react";
 import TextInput from "../TextInput";
 import { useForm } from "@inertiajs/react";
+import { toast } from "react-toastify";
 
-export default memo(function BibliographyItemActions ({ biblioId, className = "" }) {
+export default memo(function BibliographyItemActions({
+    biblioId,
+    className = "",
+}) {
     const { data, delete: destroy, errors, get } = useForm({});
 
     const handleFormSubmit = (e, method) => {
@@ -12,8 +16,17 @@ export default memo(function BibliographyItemActions ({ biblioId, className = ""
             get(route("bibliographies.edit", biblioId));
         }
 
-        if (method === "delete") {
-            destroy(route("bibliographies.destroy", biblioId));
+        if (method !== "delete") return;
+
+        if (confirm("Apakah Anda yakin ingin menghapus data yang dipilih?")) {
+            destroy(route("bibliographies.destroy", biblioId), {
+                onSuccess: (page) => {
+                    toast.success(page.props.flash.message);
+                },
+                onError: (errors) => {
+                    toast.error(errors.error);
+                },
+            });
         }
     };
 

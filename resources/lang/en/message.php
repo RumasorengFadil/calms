@@ -11,6 +11,7 @@ return [
         "updated" => ":entity updated failed!",
         "destroyed" => ":entity destroy failed!",
         "statusChanged" => "Member :status failed!",
-        'fetched' => ':entity fetch failed!'
+        'fetched' => ':entity fetch failed!',
+        'searched' => ':entity search failed!'
     ]
 ];

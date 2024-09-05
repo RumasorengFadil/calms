@@ -28,4 +28,5 @@ Route::prefix("bibliographies")
         // Route::delete('/destroy', [BibliographyController::class, 'destroy'])->name('bibliographies.destroy');
         Route::delete('/destroy/{biblioId}', [BibliographyController::class, 'destroy'])->name('bibliographies.destroy');
         Route::delete('/destroys', [BibliographyController::class, 'destroys'])->name('bibliographies.destroys');
+        Route::get('/search', [BibliographyController::class, 'search'])->name('bibliographies.search');
     });

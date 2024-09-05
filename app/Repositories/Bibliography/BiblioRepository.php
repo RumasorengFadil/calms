@@ -26,6 +26,10 @@ class BiblioRepository
     {
         $biblio->delete();
     }
+    public function search($biblioSearchKey)
+    {
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->paginate(5);
+    }
 
     private function mapData(array $data): array
     {

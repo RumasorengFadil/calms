@@ -176,8 +176,7 @@ class BiblioService
     public function deleteBiblios(array $selectedBiblioIds)
     {
         DB::transaction(function () use ($selectedBiblioIds) {
-            $biblios = Biblio::whereIn('id', $selectedBiblioIds)->get();
-
+            $biblios = Biblio::whereIn('biblio_id', $selectedBiblioIds)->get();
             foreach ($biblios as $biblio) {
                 $this->photoService->removePhoto($biblio->biblioPhotoPath, 'biblio');
 

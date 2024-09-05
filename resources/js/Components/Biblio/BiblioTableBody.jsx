@@ -1,20 +1,21 @@
 import { memo } from "react";
 import TextInput from "../TextInput";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "../PrimaryButton";
 import BibliographyItemActions from "./BibliographyItemActions ";
+import InputError from "../InputError";
+import Toast from "../Toast";
+import { toast, ToastContainer } from "react-toastify";
+import Modal from "../Modal";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
+    // const { flash } = usePage().props;
+
     const {
         data,
         setData,
         delete: destroy,
-        get,
-        errors,
-        processing,
-        recentlySuccessful,
     } = useForm({
-        biblioId: "",
         selectedBiblioIds: [],
     });
 
@@ -25,19 +26,26 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
         setData("selectedBiblioIds", selectedBiblioIds);
     };
 
-    const submit = (e, method) => {
-        console.log(data.biblioId);
+    const submit = (e) => {
         e.preventDefault();
-
-        console.log();
-        if (method === "get") {
-        }
-
-        if (method === "delete") {
-            // delete(route("bibliographies.update"));
+        if (confirm("Apakah Anda yakin ingin menghapus data yang dipilih?")) {
+            destroy(route("bibliographies.destroys"), {
+                onError: (errors) => {
+                    if (errors.error) {
+                        toast.error(errors.error);
+                    } else {
+                        toast.error(errors.selectedBiblioIds);
+                    }
+                },
+                onSuccess: (page) => {
+                    console.log(page);
+                    toast.success(page.props.flash.message);
+                    setData("selectedBiblioIds", []);
+                },
+            });
         }
     };
-    const selectAllBibliographyIds  = (data) => {
+    const selectAllBibliographyIds = (data) => {
         const selectedBiblioIds = data.map((item) => item.biblio_id);
         setData("selectedBiblioIds", selectedBiblioIds);
     };
@@ -47,14 +55,13 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
     return (
         <div className={"px-10" + className}>
             {biblios.data.map((biblio) => (
-                <div
-                    className={"flex border-y py-3"}
-                    key={biblio.biblio_id}
-                >
+                <div className={"flex border-y py-3"} key={biblio.biblio_id}>
                     <div className="basis-1/5 flex items-center justify-start">
                         <TextInput
                             type="checkbox"
-                            onChange={() => handleSelectBiblioId(biblio.biblio_id)}
+                            onChange={() =>
+                                handleSelectBiblioId(biblio.biblio_id)
+                            }
                             checked={data.selectedBiblioIds.includes(
                                 biblio.biblio_id
                             )}
@@ -80,15 +87,28 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     </div>
                     <div className="basis-1/3 ">SI00027</div>
                     <div className="basis-1/3">
-                        <BibliographyItemActions biblioId = {biblio.biblio_id} />
+                        <BibliographyItemActions biblioId={biblio.biblio_id} />
                     </div>
                 </div>
             ))}
             <div className="py-3 px-10">
-                <PrimaryButton className="bg-red-500">Hapus Data yang Dipilih</PrimaryButton>
-                <PrimaryButton onClick = {() => selectAllBibliographyIds(biblios.data)} className="bg-gray-500 mx-2">Pilih Semua</PrimaryButton>
-                <PrimaryButton onClick = {unselectAllBibliographyIds} className="bg-gray-500">Jangan Pilih Semua</PrimaryButton>
+                <PrimaryButton onClick={submit} className="bg-red-500">
+                    Hapus Data yang Dipilih
+                </PrimaryButton>
+                <PrimaryButton
+                    onClick={() => selectAllBibliographyIds(biblios.data)}
+                    className="bg-gray-500 mx-2"
+                >
+                    Pilih Semua
+                </PrimaryButton>
+                <PrimaryButton
+                    onClick={unselectAllBibliographyIds}
+                    className="bg-gray-500"
+                >
+                    Jangan Pilih Semua
+                </PrimaryButton>
             </div>
+            <ToastContainer />
         </div>
     );
 });

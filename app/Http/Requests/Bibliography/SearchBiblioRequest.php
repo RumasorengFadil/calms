@@ -4,7 +4,7 @@ namespace App\Http\Requests\Bibliography;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysBiblioRequest extends FormRequest
+class SearchBiblioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,15 @@ class DestroysBiblioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'selectedBiblioIds' => 'required|array|min:1',
-            'selectedBiblioIds.*' => 'exists:biblios,biblio_id',
+            'biblioSearchKey' => 'required|string|max:255'
         ];
     }
 
     public function messages()
     {
         return [
-            'selectedBiblioIds.required' => 'Biblio belum dipilih.!',
-            'selectedBiblioIds.*.exists' => 'The selected bibliography ID :input does not exist.',
+            'biblioSearchKey.required' => 'Tidak ada input yang diterima!.',
+            'biblioSearchKey.max' => 'Panjang karakter melebihi 255 karakter!.',
         ];
     }
 }

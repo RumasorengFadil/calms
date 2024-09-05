@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bibliography;
 use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\DestroysBiblioRequest;
+use App\Http\Requests\Bibliography\SearchBiblioRequest;
 use App\Http\Requests\Bibliography\StoreBiblioRequest;
 use App\Http\Requests\Bibliography\UpdateBiblioRequest;
 use App\Models\Biblio;
@@ -69,7 +70,7 @@ class BibliographyController extends Controller
 
             $this->biblioService->storeBiblio($validatedData);
 
-            return redirect()->route('bibliography.create')
+            return redirect()->route('bibliographies.create')
                 ->with(['message' => __('message.success.stored', ['entity' => 'Biblio'])]);
         } catch (\Exception $e) {
             \Log::error('Failed to fetch biblios: ' . $e->getMessage());
@@ -97,7 +98,7 @@ class BibliographyController extends Controller
             // Panggil service untuk melakukan update
             $this->biblioService->updateBiblio($validatedData, $biblioId);
 
-            return redirect()->route('bibliography.edit')
+            return redirect()->route('bibliographies.edit')
                 ->with(['message' => __('message.success.updated', ['entity' => 'Biblio'])]);
         } catch (\Exception $e) {
             \Log::error('Failed to update biblios: ' . $e->getMessage());
@@ -109,8 +110,9 @@ class BibliographyController extends Controller
         try {
             $this->biblioService->deleteBiblio($biblioId);
 
-            return redirect()->route('bibliography.index')
+            return redirect()->route('bibliographies.index')
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Biblio'])]);
+
         } catch (\Exception $e) {
             \Log::error('Failed to update biblios: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Biblio'])]);
@@ -124,11 +126,31 @@ class BibliographyController extends Controller
 
             $this->biblioService->deleteBiblios($validatedData['selectedBiblioIds']);
 
-            return redirect()->route('bibliography.index')
+            return redirect()->route('bibliographies.index')
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Biblio'])]);
+
         } catch (\Exception $e) {
             \Log::error('Failed to update biblios: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Biblio'])]);
+        }
+    }
+    public function search(SearchBiblioRequest $request)
+    {
+        try {
+            // Data sudah tervalidasi oleh SearchBiblioRequest
+            $validatedData = $request->validated();
+
+            $biblios = $this->biblioRepository->search($validatedData["biblioSearchKey"]);
+
+            return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
+        } catch (\Exception $e) {
+            // Menyimpan log error
+            \Log::error('Failed to search biblios: ' . $e->getMessage());
+
+            // Menyediakan feedback kepada pengguna
+            return Inertia::render('Bibliography/Bibliographies', [
+                'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
+            ]);
         }
     }
 }

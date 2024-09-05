@@ -14,21 +14,21 @@ return new class extends Migration
         Schema::create('biblio_authors', function (Blueprint $table) {
             // $table->id();
             
-            $table->unsignedBigInteger("biblio_id")->nullable(); // Foreign key to biblio table
+            $table->unsignedBigInteger("biblio_id"); // Foreign key to biblio table
             
             
             $table->foreign("biblio_id") // Defining mst_publisher the foreign key constraint
             ->references("biblio_id")
             ->on("biblios")
-            ->onDelete("set null");
+            ->onDelete("cascade");
 
-            $table->unsignedBigInteger("author_id")->nullable(); // Foreign key to mst_author table
+            $table->unsignedBigInteger("author_id"); // Foreign key to mst_author table
             
             
             $table->foreign("author_id") // Defining mst_publisher the foreign key constraint
             ->references("author_id")
             ->on("mst_authors")
-            ->onDelete("set null");
+            ->onDelete("cascade");
             // ->onDelete("cascade");
             $table->timestamps();
         });
