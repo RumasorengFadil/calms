@@ -6,7 +6,6 @@ import { useForm } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 
 export default memo(function SearchBar({
-    onSearch,
     searchLabel = "Cari",
     buttonLabel = "Cari",
     className,
@@ -21,11 +20,9 @@ export default memo(function SearchBar({
 
     const submit = (e) => {
         e.preventDefault();
-
-        get(route("bibliographies.search"), {
+        get(route("bibliographies.index"), {
             onError: (error) => {
-                console.log(error);
-                toast.error("hallo");
+                toast.error(error);
             },
         });
     };

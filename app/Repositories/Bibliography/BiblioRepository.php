@@ -7,9 +7,9 @@ use App\Models\Biblio;
 class BiblioRepository
 {
 
-    public function index($data)
+    public function index()
     {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->paginate($data);
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->paginate(5);
     }
     public function store(array $data): Biblio
     {

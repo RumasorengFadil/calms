@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bibliography;
 use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\DestroysBiblioRequest;
+use App\Http\Requests\Bibliography\IndexBiblioRequest;
 use App\Http\Requests\Bibliography\SearchBiblioRequest;
 use App\Http\Requests\Bibliography\StoreBiblioRequest;
 use App\Http\Requests\Bibliography\UpdateBiblioRequest;
@@ -36,14 +37,22 @@ class BibliographyController extends Controller
      * @return \Inertia\Response
      * @return mixed
      */
-    public function index()
+    public function index(IndexBiblioRequest $request)
     {
         try {
-            $biblios = $this->biblioRepository->index(5);
-            return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
+            // Data sudah tervalidasi oleh SearchBiblioRequest
+            $validatedData = $request->validated();
 
+            if ($validatedData) {
+                $biblios = $this->biblioRepository->search($validatedData['biblioSearchKey']);
+            } else {
+                $biblios = $this->biblioRepository->index();
+            }
+
+            return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
         } catch (\Exception $e) {
             // Log the error for debugging
+            dd($e->getMessage());
             \Log::error('Failed to fetch member: ' . $e->getMessage());
 
             // Redirect back with error message
@@ -110,7 +119,7 @@ class BibliographyController extends Controller
         try {
             $this->biblioService->deleteBiblio($biblioId);
 
-            return redirect()->route('bibliographies.index')
+            return redirect()->back()
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Biblio'])]);
 
         } catch (\Exception $e) {
@@ -126,7 +135,7 @@ class BibliographyController extends Controller
 
             $this->biblioService->deleteBiblios($validatedData['selectedBiblioIds']);
 
-            return redirect()->route('bibliographies.index')
+            return redirect()->back()
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Biblio'])]);
 
         } catch (\Exception $e) {
