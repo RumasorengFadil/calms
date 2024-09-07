@@ -3,6 +3,7 @@
 namespace App\Repositories\Bibliography;
 
 use App\Models\Biblio;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BiblioRepository
 {
@@ -26,9 +27,9 @@ class BiblioRepository
     {
         $biblio->delete();
     }
-    public function search($biblioSearchKey)
+    public function search($biblioSearchKey) : LengthAwarePaginator
     {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->paginate(5);
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(5);
     }
 
     private function mapData(array $data): array

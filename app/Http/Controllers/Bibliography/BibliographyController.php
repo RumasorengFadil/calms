@@ -40,7 +40,7 @@ class BibliographyController extends Controller
     public function index(IndexBiblioRequest $request)
     {
         try {
-            // Data sudah tervalidasi oleh SearchBiblioRequest
+            // Data sudah tervalidasi oleh IndexBiblioRequest
             $validatedData = $request->validated();
 
             if ($validatedData) {
@@ -92,9 +92,11 @@ class BibliographyController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function edit()
+    public function edit($biblioId)
     {
-        return Inertia::render('Bibliography/EditBibliography');
+        $biblio = $this->biblioRepository->search($biblioId)->first();
+
+        return Inertia::render('Bibliography/EditBibliography', ['biblio' => $biblio]);
     }
 
 
@@ -143,23 +145,27 @@ class BibliographyController extends Controller
             return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Biblio'])]);
         }
     }
-    public function search(SearchBiblioRequest $request)
-    {
-        try {
-            // Data sudah tervalidasi oleh SearchBiblioRequest
-            $validatedData = $request->validated();
-
-            $biblios = $this->biblioRepository->search($validatedData["biblioSearchKey"]);
-
-            return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
-        } catch (\Exception $e) {
-            // Menyimpan log error
-            \Log::error('Failed to search biblios: ' . $e->getMessage());
-
-            // Menyediakan feedback kepada pengguna
-            return Inertia::render('Bibliography/Bibliographies', [
-                'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
-            ]);
-        }
-    }
 }
+
+
+
+
+// public function search(SearchBiblioRequest $request)
+// {
+//     try {
+//         // Data sudah tervalidasi oleh SearchBiblioRequest
+//         $validatedData = $request->validated();
+
+//         $biblios = $this->biblioRepository->search($validatedData["biblioSearchKey"]);
+
+//         return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
+//     } catch (\Exception $e) {
+//         // Menyimpan log error
+//         \Log::error('Failed to search biblios: ' . $e->getMessage());
+
+//         // Menyediakan feedback kepada pengguna
+//         return Inertia::render('Bibliography/Bibliographies', [
+//             'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
+//         ]);
+//     }
+// }
