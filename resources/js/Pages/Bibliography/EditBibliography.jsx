@@ -7,7 +7,7 @@ import PageHeader from "@/Components/PageHeader";
 import Breadcrumbs from "@/Components/Breadcrumbs/Breadcrumbs ";
 import BreadcrumbsEdit from "@/Components/Breadcrumbs/BreadcrumbsEdit";
 
-export default function EditBibliography({ biblio }) {
+export default function EditBibliography({ biblio, breadcrumbs }) {
     
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
@@ -19,7 +19,8 @@ export default function EditBibliography({ biblio }) {
                 <TopbarLayout />
 
                 <MainContentLayout>
-                    <PageHeader>Edit Pustaka</PageHeader>
+                    <Breadcrumbs breadcrumbs={breadcrumbs} />
+                    {/* <PageHeader>Edit Pustaka</PageHeader> */}
                 </MainContentLayout>
             </div>
         </div>

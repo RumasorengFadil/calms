@@ -38,7 +38,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-            \App\Http\Middleware\SetTimeZone::class
+            \App\Http\Middleware\SetTimeZone::class,
+            \App\Http\Middleware\BreadcrumbsMiddleware::class
         ],
 
         'api' => [

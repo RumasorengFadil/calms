@@ -1,19 +1,26 @@
 import { Link } from "@inertiajs/react";
+import { memo } from "react";
 
-export default function Breadcrumbs({ links, param }) {
+export default memo(function Breadcrumbs({ breadcrumbs }) {
     return (
         <nav>
-            <ul className="flex space-x-2">
-                {links.map((link, index) => (
+            <ul className="flex space-x-2 py-8 pl-10 text-3xl">
+                {breadcrumbs.map((crumb, index) => (
                     <li key={index}>
-                        {console.log(link.params)}
-                        <Link href={route(link.name, param)}>
-                            {link.label}
+                        <Link
+                            className={
+                                route().current() === crumb.name
+                                    ? "font-bold"
+                                    : ""
+                            }
+                            href={route(crumb.name, crumb.params)}
+                        >
+                            {crumb.label}
                         </Link>
-                        {index < links.length - 1 && ">"}
+                        {index < breadcrumbs.length - 1 && " >"}
                     </li>
                 ))}
             </ul>
         </nav>
     );
-}
+});
