@@ -28,3 +28,4 @@ Route::prefix("bibliographies")
         Route::delete('/destroy/{biblioId}', [BibliographyController::class, 'destroy'])->name('bibliographies.destroy');
         Route::delete('/destroys', [BibliographyController::class, 'destroys'])->name('bibliographies.destroys');
     });
+

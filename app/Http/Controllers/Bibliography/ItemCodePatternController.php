@@ -11,18 +11,17 @@ use Inertia\Inertia;
 class ItemCodePatternController extends Controller
 {
     protected $itemCodePatternRepository;
-    public function __construct(ItemCodePatternRepository $itemCodePatternRepository) {
+    public function __construct(ItemCodePatternRepository $itemCodePatternRepository)
+    {
         $this->itemCodePatternRepository = $itemCodePatternRepository;
     }
-    public function index () {
-        
-    }
-    public function store(AddItemCodePatternRequest $request){
-        
+    public function store(AddItemCodePatternRequest $request)
+    {
+
         $validatedData = $request->validated();
 
         $this->itemCodePatternRepository->store($validatedData);
 
-        return Inertia::render('Bibliography/Bibliography', ['message' => __('message.success.added', ['entity' => 'Item code pattern'])]);
+        return redirect()->route('bibliographies.create')->with(['message' => __('message.success.stored', ['entity' => 'Item code pattern'])]);
     }
 }
