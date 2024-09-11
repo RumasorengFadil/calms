@@ -17,11 +17,15 @@ class ItemCodePatternController extends Controller
     }
     public function store(AddItemCodePatternRequest $request)
     {
-
-        $validatedData = $request->validated();
-
-        $this->itemCodePatternRepository->store($validatedData);
-
-        return redirect()->route('bibliographies.create')->with(['message' => __('message.success.stored', ['entity' => 'Item code pattern'])]);
+        try {
+            $validatedData = $request->validated();
+            
+            $this->itemCodePatternRepository->store($validatedData);
+            
+            return redirect()->route('bibliographies.create')->with(['message' => __('message.success.stored', ['entity' => 'Item code pattern'])]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to store item code pattern: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => __('message.error.stored', ['entity' => 'Item code pattern'])]);
+        }
     }
 }

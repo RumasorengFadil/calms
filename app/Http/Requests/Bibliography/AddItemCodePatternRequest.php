@@ -11,7 +11,7 @@ class AddItemCodePatternRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,14 +22,14 @@ class AddItemCodePatternRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "patternName" => "required|unique:item_code_patterns,pattern_name" 
+            "itemCodePatter" => "required|unique:item_code_patterns,item_code_pattern" 
         ];
     }
 
     public function messages()
     {
         return [
-            'patternName.required' => 'Pola code item harus diisi.!',
+            'itemCodePatter.required' => 'Pola code item harus diisi.!',
         ];
     }
 }

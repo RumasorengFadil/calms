@@ -24,7 +24,7 @@ class ItemCodePattern extends Model
     public static function addPattern($request)
     {
         Member::create([
-            "pattern_name" => $request->patternName,
+            "item_code_pattern" => $request->itemCodePattern,
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ]);

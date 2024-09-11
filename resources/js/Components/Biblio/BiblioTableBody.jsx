@@ -38,7 +38,6 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     }
                 },
                 onSuccess: (page) => {
-                    console.log(page);
                     toast.success(page.props.flash.message);
                     setData("selectedBiblioIds", []);
                 },

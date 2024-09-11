@@ -7,7 +7,7 @@ import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { memo, useEffect, useState } from "react";
-import Modal from "@/Components/Modal";
+import AddPatternModal from "@/Components/AddPatternModal";
 
 export default memo(function CreateBibliography({}) {
     const [isVisible, setIsVisible] = useState(false);
@@ -96,31 +96,7 @@ export default memo(function CreateBibliography({}) {
                                     >
                                         Tambah Pola Baru
                                     </PrimaryButton>
-                                    <Modal
-                                        show={isVisible}
-                                        onClose={() =>
-                                            setModalVisibility(false)
-                                        }
-                                    >
-                                        <div className="p-5 border-b">
-                                            Tambah Pola Baru
-                                        </div>
-                                        <form action="" className="p-5">
-                                            <div className="py-2 flex items-center border-b">
-                                                <label htmlFor="pattern">
-                                                    Pola
-                                                </label>
-                                                <span className="mx-7">:</span>
-                                                <TextInput
-                                                    type="text"
-                                                    className="p-1 pl-2"
-                                                    placeholder = "exp : B00001"
-                                                />
-                                            </div>
-                                            
-                                            <PrimaryButton className="mt-5 bg-primary">Simpan</PrimaryButton>
-                                        </form>
-                                    </Modal>
+                                    <AddPatternModal show={isVisible} onClose = {() => setModalVisibility(false)} />
                                 </div>
                             </div>
                         </form>
