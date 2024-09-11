@@ -1,12 +1,9 @@
 import { memo } from "react";
 import TextInput from "../TextInput";
-import { useForm, usePage } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import PrimaryButton from "../PrimaryButton";
 import BibliographyItemActions from "./BibliographyItemActions ";
-import InputError from "../InputError";
-import Toast from "../Toast";
-import { toast, ToastContainer } from "react-toastify";
-import Modal from "../Modal";
+import { toast } from "react-toastify";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
     // const { flash } = usePage().props;
@@ -107,7 +104,6 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     Jangan Pilih Semua
                 </PrimaryButton>
             </div>
-            <ToastContainer />
         </div>
     );
 });
