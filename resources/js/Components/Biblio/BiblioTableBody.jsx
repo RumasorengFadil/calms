@@ -1,9 +1,12 @@
 import { memo } from "react";
 import TextInput from "../TextInput";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "../PrimaryButton";
 import BibliographyItemActions from "./BibliographyItemActions ";
+import InputError from "../InputError";
 import { toast } from "react-toastify";
+import Modal from "../Modal";
+import toastUtils from "@/utils/toastUtils";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
     // const { flash } = usePage().props;
@@ -28,14 +31,10 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
         if (confirm("Apakah Anda yakin ingin menghapus data yang dipilih?")) {
             destroy(route("bibliographies.destroys"), {
                 onError: (errors) => {
-                    if (errors.error) {
-                        toast.error(errors.error);
-                    } else {
-                        toast.error(errors.selectedBiblioIds);
-                    }
+                    toastUtils.showError(errors);
                 },
-                onSuccess: (page) => {
-                    toast.success(page.props.flash.message);
+                onSuccess: (response) => {
+                    toastUtils.showSuccess(response.props.flash);
                     setData("selectedBiblioIds", []);
                 },
             });

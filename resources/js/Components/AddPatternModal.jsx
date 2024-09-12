@@ -3,15 +3,16 @@ import Modal from "./Modal";
 import TextInput from "./TextInput";
 import PrimaryButton from "./PrimaryButton";
 import { useForm } from "@inertiajs/react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import InputError from "./InputError";
+import toastUtils from "@/utils/toastUtils";
 
 export default memo(function AddPatternModal({
     closelable = true,
     onClose = () => {},
     show = false,
 }) {
-    const { post, data, setData, errors } = useForm({
+    const { post, data, setData, errors, reset } = useForm({
         itemCodePattern: "",
     });
 
@@ -23,11 +24,14 @@ export default memo(function AddPatternModal({
         e.preventDefault();
 
         post(route("item-code-pattern.store"), {
-            onError: (e) => {
-                // console.log(typeof Object.values(e)[0]);
-                toast.error("namaku fadil");
+            onSuccess: (response) => {
+                toastUtils.showSuccess(response.props.flash);
+                onClose();
+                reset();
             },
-            onSuccess: () => {},
+            onError: (errors) => {
+                toastUtils.showError(errors);
+            },
         });
     };
     return (

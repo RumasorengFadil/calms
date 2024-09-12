@@ -116,10 +116,10 @@ class BibliographyController extends Controller
             return redirect()->back()->withErrors(['error' => __('message.error.updated', ['entity' => 'Biblio'])]);
         }
     }
-    public function destroy($biblioId)
+    public function destroy($biblio)
     {
-        try {
-            $this->biblioService->deleteBiblio($biblioId);
+        try {   
+            $this->biblioService->deleteBiblio($biblio);
 
             return redirect()->back()
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Biblio'])]);

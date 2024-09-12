@@ -11,6 +11,7 @@ import AddPatternModal from "@/Components/AddPatternModal";
 import MainLayout from "@/Layouts/MainLayout";
 
 export default memo(function CreateBibliography({}) {
+    
     const [isVisible, setIsVisible] = useState(false);
 
     const setModalVisibility = (isVisible) => {

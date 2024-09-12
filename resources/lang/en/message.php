@@ -7,7 +7,7 @@ return [
         "statusChanged" => "Member :status successfully!"
     ],
     "error" => [
-        "store" => ":entity store failed!",
+        "stored" => ":entity store failed!",
         "updated" => ":entity updated failed!",
         "destroyed" => ":entity destroy failed!",
         "statusChanged" => "Member :status failed!",

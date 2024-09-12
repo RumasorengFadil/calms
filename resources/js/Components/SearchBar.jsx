@@ -3,7 +3,7 @@ import InputLabel from "./InputLabel";
 import PrimaryButton from "./PrimaryButton";
 import TextInput from "./TextInput";
 import { useForm } from "@inertiajs/react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default memo(function SearchBar({
     searchLabel = "Cari",
@@ -45,10 +45,6 @@ export default memo(function SearchBar({
             >
                 {buttonLabel}
             </PrimaryButton>
-
-            <div>
-                <ToastContainer />
-            </div>
         </div>
     );
 });

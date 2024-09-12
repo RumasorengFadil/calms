@@ -13,10 +13,10 @@ class ItemCodePatternRepository
     {
         return ItemCodePattern::all();
     }
-    public function store(array $data): Biblio
+    public function store(array $data): ItemCodePattern
     {
         return ItemCodePattern::create([
-            'pattern_name' => $data['patternName'],
+            'item_code_pattern' => $data['itemCodePattern'],
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
         ]);

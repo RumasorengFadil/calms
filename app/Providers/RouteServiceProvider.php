@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+        
         Route::model('biblioId', Biblio::class);
 
         $this->routes(function () {
@@ -36,11 +37,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/web.php'))
-                ->group(base_path('routes/dashboard.php'))
-                ->group(base_path('routes/bibliography.php'))
-                ->group(base_path('routes/circulation.php'))
-                ->group(base_path('routes/membership.php'));
+                ->group(function () {
+                    require base_path('routes/web.php');
+                    require base_path('routes/dashboard.php');
+                    require base_path('routes/bibliography.php');
+                    require base_path('routes/circulation.php');
+                    require base_path('routes/membership.php');
+                });
         });
     }
 }

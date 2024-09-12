@@ -16,7 +16,7 @@ class ItemCodePattern extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "pattern_name",
+        "item_code_pattern",
         "input_date",
         "last_update",
     ];

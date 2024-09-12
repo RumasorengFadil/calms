@@ -22,14 +22,14 @@ class AddItemCodePatternRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "itemCodePatter" => "required|unique:item_code_patterns,item_code_pattern" 
+            "itemCodePattern" => "required|unique:item_code_patterns,item_code_pattern" 
         ];
     }
 
     public function messages()
     {
         return [
-            'itemCodePatter.required' => 'Pola code item harus diisi.!',
+            'itemCodePattern.required' => 'Pola code item harus diisi.!',
         ];
     }
 }

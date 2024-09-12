@@ -165,10 +165,8 @@ class BiblioService
         $this->updateBiblioWithRelations($biblioDTO, $biblioId);
     }
 
-    public function deleteBiblio($biblioId)
+    public function deleteBiblio($biblio)
     {
-        $biblio = Biblio::findOrFail($biblioId);
-
         $this->photoService->removePhoto($biblio->biblio_photo_path, 'biblio');
 
         $this->biblioRepository->destroy($biblio);
