@@ -12,17 +12,17 @@ export default memo(function StoreAuthorModal({
     show = false,
 }) {
     const { post, data, setData, errors, reset } = useForm({
-        author_name: "",
+        authorName: "",
     });
 
     const handleItemCodePattern = (e) => {
-        setData("itemCodePattern", e.target.value);
+        setData("authorName", e.target.value);
     };
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("item-code-pattern.store"), {
+        post(route("author.store"), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
                 onClose();
@@ -45,12 +45,12 @@ export default memo(function StoreAuthorModal({
                             type="text"
                             className="p-1 pl-2"
                             placeholder="exp : Fadil, Jr"
-                            name="author_name"
-                            value={data.author_name}
+                            name="authorName"
+                            value={data.authorName}
                             onChange={handleItemCodePattern}
                         />
                     </div>
-                    <InputError message={errors.author_name} />
+                    <InputError message={errors.authorName} />
                 </div>
                 <PrimaryButton type="submit" className="mt-5 bg-primary">
                     Simpan

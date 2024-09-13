@@ -25,10 +25,4 @@ class ItemCodePatternRepository
     {
         $ItemCodePattern->delete();
     }
-    public function search($biblioSearchKey): LengthAwarePaginator
-    {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', '%{$biblioSearchKey}%')->orWhere('biblio_id', $biblioSearchKey)->paginate(5);
-    }
-
-
 }

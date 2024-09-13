@@ -17,7 +17,6 @@ class MstAuthor extends Model
      */
     protected $fillable = [
         "author_name",
-        "author_year",
         "input_date",
         "last_update",
     ];

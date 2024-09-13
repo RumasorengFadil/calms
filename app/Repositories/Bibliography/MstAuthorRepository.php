@@ -6,13 +6,20 @@ use App\Models\MstAuthor;
 
 class MstAuthorRepository
 {
-    public function create(array $data): MstAuthor
+    public function index()
+    {
+        return MstAuthor::all();
+    }
+    public function store(array $data): MstAuthor
     {
         return MstAuthor::create([
             'author_name' => $data['authorName'],
-            'author_year' =>  $data['authorYear'],
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
         ]);
     }
+    // public function destroy($ItemCodePattern): void
+    // {
+    //     $ItemCodePattern->delete();
+    // }
 }

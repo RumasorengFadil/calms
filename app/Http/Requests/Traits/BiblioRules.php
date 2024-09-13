@@ -15,6 +15,7 @@ trait BiblioRules
             "category" => "required",
             "biblioPhoto" => "required|image|mimes:jpg,jpeg,png|max:2048",
             "biblioPhotoPath" => "required",
+            
         ];
     }
 

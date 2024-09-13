@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bibliography\AuthorController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliography\ItemCodePatternController;
 use Illuminate\Support\Facades\Route;
@@ -47,4 +48,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::post('/item-code-pattern/store', [ItemCodePatternController::class, 'store'])->name('item-code-pattern.store');
+    Route::post('/author/store', [AuthorController::class, 'store'])->name('author.store');
 });

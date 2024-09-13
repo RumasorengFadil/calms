@@ -4,7 +4,7 @@ namespace App\Http\Requests\Bibliography;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddAuthorRequest extends FormRequest
+class StoreAuthorRequestOld extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class AddAuthorRequest extends FormRequest
     public function messages()
     {
         return [
-            'authorName.required' => 'Nama penulis item harus diisi.!',
+            'authors.required' => 'Nama penulis item harus diisi.!',
         ];
     }
 }

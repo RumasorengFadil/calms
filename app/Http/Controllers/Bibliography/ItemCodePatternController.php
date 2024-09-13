@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Bibliography\AddItemCodePatternRequest;
-use App\Models\ItemCodePattern;
+use App\Http\Requests\Bibliography\StoreItemCodePatternRequest;
 use App\Repositories\Bibliography\ItemCodePatternRepository;
-use Inertia\Inertia;
 
 class ItemCodePatternController extends Controller
 {
@@ -15,7 +13,7 @@ class ItemCodePatternController extends Controller
     {
         $this->itemCodePatternRepository = $itemCodePatternRepository;
     }
-    public function store(AddItemCodePatternRequest $request)
+    public function store(StoreItemCodePatternRequest $request)
     {
         try {
             // dd("hallo");
