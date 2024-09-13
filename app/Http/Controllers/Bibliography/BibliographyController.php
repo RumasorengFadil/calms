@@ -11,6 +11,7 @@ use App\Http\Requests\Bibliography\StoreBiblioRequest;
 use App\Http\Requests\Bibliography\UpdateBiblioRequest;
 use App\Models\Biblio;
 use App\Repositories\Bibliography\BiblioRepository;
+use App\Repositories\Bibliography\ItemCodePatternRepository;
 use App\Services\BiblioDTOFactory;
 use App\Services\BiblioService;
 use App\Services\PhotoService;
@@ -21,14 +22,17 @@ class BibliographyController extends Controller
     protected $biblioService;
     protected $biblioRepository;
     protected $photoService;
-    protected $biblioDTOFactory;
 
-    public function __construct(BiblioService $biblioService, BiblioRepository $biblioRepository, PhotoService $photoService, BiblioDTOFactory $biblioDTOFactory)
+    protected $biblioDTOFactory;
+    protected $itemCodePatternRepository;
+
+    public function __construct(BiblioService $biblioService, BiblioRepository $biblioRepository, PhotoService $photoService, BiblioDTOFactory $biblioDTOFactory, ItemCodePatternRepository $itemCodePatternRepository)
     {
         $this->biblioService = $biblioService;
         $this->biblioRepository = $biblioRepository;
         $this->photoService = $photoService;
         $this->biblioDTOFactory = $biblioDTOFactory;
+        $this->itemCodePatternRepository = $itemCodePatternRepository;
     }
 
     /**
@@ -68,7 +72,9 @@ class BibliographyController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Bibliography/CreateBibliography');
+        $itemCodePatterns = $this->itemCodePatternRepository->index();
+
+        return Inertia::render('Bibliography/CreateBibliography', ['itemCodePatterns' => $itemCodePatterns]);
     }
 
     public function store(StoreBiblioRequest $request)

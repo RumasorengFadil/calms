@@ -2,22 +2,32 @@ import BibliographySidebar from "@/Components/Sidebar/BibliographySidebar";
 import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { memo, useEffect, useState } from "react";
-import AddPatternModal from "@/Components/AddPatternModal";
 import MainLayout from "@/Layouts/MainLayout";
+import StorePatternModal from "@/Components/Modal/StorePatternModal";
+import StoreAuthorModal from "@/Components/Modal/StoreAuthorModal";
 
-export default memo(function CreateBibliography({}) {
-    
+export default memo(function CreateBibliography({ itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
 
     const setModalVisibility = (isVisible) => {
         setIsVisible(isVisible);
     };
 
+    const { post, errors, data, setData } = useForm({
+        itemCodePatterns: "",
+    });
+
+    const handleChange = (e) => {
+        setData({
+            ...data,
+            [`${e.target.name}`]: e.target.value,
+        });
+    };
     return (
         <MainLayout>
             <div className="flex fixed min-w-full bg-light-gray max-h-screen">
@@ -66,7 +76,7 @@ export default memo(function CreateBibliography({}) {
                                     <span className="mx-7">:</span>
 
                                     <div className="flex flex-col basis-full">
-                                        <PrimaryButton className="bg-shadow-blue w-max">
+                                        <PrimaryButton type="button" onClick={() => setModalVisibility(true)} className="bg-shadow-blue w-max">
                                             Tambah Penulis
                                         </PrimaryButton>
                                         <div className="border mt-5 rounded p-5 h-28 overflow-auto">
@@ -88,11 +98,21 @@ export default memo(function CreateBibliography({}) {
                                     </label>
                                     <span className="mx-7">:</span>
                                     <div className="basis-full flex">
-                                        <select className="p-1 pl-2 rounded basis-full">
+                                        <select
+                                            name="itemCodePattern"
+                                            className="p-1 pl-2 rounded basis-full"
+                                        >
                                             <option value="">
                                                 -- Tentukan Pola --
                                             </option>
-                                            <option value="">B00001</option>
+                                            {itemCodePatterns.map((code, i) => (
+                                                <option
+                                                    key={code.pattern_id}
+                                                    value=""
+                                                >
+                                                    {code.item_code_pattern}
+                                                </option>
+                                            ))}
                                         </select>
                                         <TextInput
                                             type="number"
@@ -109,12 +129,6 @@ export default memo(function CreateBibliography({}) {
                                         >
                                             Tambah Pola Baru
                                         </PrimaryButton>
-                                        <AddPatternModal
-                                            show={isVisible}
-                                            onClose={() =>
-                                                setModalVisibility(false)
-                                            }
-                                        />
                                     </div>
                                 </div>
                             </form>
@@ -122,6 +136,14 @@ export default memo(function CreateBibliography({}) {
                     </MainContentLayout>
                 </div>
             </div>
+            <StorePatternModal
+                show={isVisible}
+                onClose={() => setModalVisibility(false)}
+            />
+            <StoreAuthorModal
+                show={isVisible}
+                onClose={() => setModalVisibility(false)}
+            />
         </MainLayout>
     );
 });

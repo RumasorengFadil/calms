@@ -1,19 +1,18 @@
 import { memo, useState } from "react";
-import Modal from "./Modal";
-import TextInput from "./TextInput";
-import PrimaryButton from "./PrimaryButton";
 import { useForm } from "@inertiajs/react";
-import { toast } from "react-toastify";
-import InputError from "./InputError";
 import toastUtils from "@/utils/toastUtils";
+import Modal from "./Modal";
+import TextInput from "../TextInput";
+import InputError from "../InputError";
+import PrimaryButton from "../PrimaryButton";
 
-export default memo(function AddPatternModal({
+export default memo(function StoreAuthorModal({
     closelable = true,
     onClose = () => {},
     show = false,
 }) {
     const { post, data, setData, errors, reset } = useForm({
-        itemCodePattern: "",
+        author_name: "",
     });
 
     const handleItemCodePattern = (e) => {
@@ -36,22 +35,22 @@ export default memo(function AddPatternModal({
     };
     return (
         <Modal show={show} onClose={() => onClose()} closeable={closelable}>
-            <div className="p-5 border-b">Tambah Pola Baru</div>
+            <div className="p-5 border-b">Tambah Penulis Baru</div>
             <form onSubmit={submit} action="" className="p-5">
                 <div className="py-2 border-b">
                     <div>
-                        <label htmlFor="pattern">Pola</label>
+                        <label htmlFor="author">Nama</label>
                         <span className="mx-7">:</span>
                         <TextInput
                             type="text"
                             className="p-1 pl-2"
-                            placeholder="exp : B00001"
-                            name="itemCodePattern"
-                            value={data.itemCodePattern}
+                            placeholder="exp : Fadil, Jr"
+                            name="author_name"
+                            value={data.author_name}
                             onChange={handleItemCodePattern}
                         />
                     </div>
-                    <InputError message={errors.itemCodePattern} />
+                    <InputError message={errors.author_name} />
                 </div>
                 <PrimaryButton type="submit" className="mt-5 bg-primary">
                     Simpan

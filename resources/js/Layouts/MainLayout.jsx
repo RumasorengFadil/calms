@@ -9,7 +9,6 @@ export default memo(function MainLayout({ children, className }) {
 
             {/* Main content of the page */}
             {children}
-            {console.log("ha")}
         </div>
     );
 });

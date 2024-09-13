@@ -1,11 +1,8 @@
 import { memo } from "react";
 import TextInput from "../TextInput";
-import { useForm, usePage } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import PrimaryButton from "../PrimaryButton";
 import BibliographyItemActions from "./BibliographyItemActions ";
-import InputError from "../InputError";
-import { toast } from "react-toastify";
-import Modal from "../Modal";
 import toastUtils from "@/utils/toastUtils";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {

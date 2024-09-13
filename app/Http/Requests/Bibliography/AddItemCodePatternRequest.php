@@ -22,7 +22,7 @@ class AddItemCodePatternRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "itemCodePattern" => "required|unique:item_code_patterns,item_code_pattern" 
+            "itemCodePattern" => "required|unique:item_code_patterns,item_code_pattern|regex:/^[A-Z]*0+[A-Z]*$/",
         ];
     }
 
@@ -30,6 +30,7 @@ class AddItemCodePatternRequest extends FormRequest
     {
         return [
             'itemCodePattern.required' => 'Pola code item harus diisi.!',
+            'itemCodePattern.regex' => 'Pola salah!. exp : B000/B000B/000B'
         ];
     }
 }
