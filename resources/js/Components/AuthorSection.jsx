@@ -49,3 +49,5 @@ export default function AuthorSection({ authors, onAdded, onDelete }) {
         </div>
     );
 }
+
+AuthorSection.
