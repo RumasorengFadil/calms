@@ -1,8 +1,9 @@
 import { useState } from "react";
 import StoreAuthorModal from "./Modal/StoreAuthorModal";
 import PrimaryButton from "./PrimaryButton";
+import PropTypes from 'prop-types';
 
-export default function AuthorSection({ authors, onAdded, onDelete }) {
+function AuthorSection({ authors, onAdded, onDelete }) {
     const [isVisible, setIsVisible] = useState(false);
     const setModalVisibility = (isVisible) => setIsVisible(isVisible);
 
@@ -50,4 +51,11 @@ export default function AuthorSection({ authors, onAdded, onDelete }) {
     );
 }
 
-AuthorSection.
+// Tambahkan validasi props di sini
+AuthorSection.propTypes = {
+    author: PropTypes.array.isRequired, // authors harus berupa array
+    onAdded: PropTypes.func.isRequired,  // onAdded harus berupa function
+    onDelete: PropTypes.func.isRequired, // onDelete harus berupa function
+};
+
+export default AuthorSection;

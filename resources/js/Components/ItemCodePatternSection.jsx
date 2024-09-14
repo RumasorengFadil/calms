@@ -2,8 +2,9 @@ import { useState } from "react";
 import PrimaryButton from "./PrimaryButton";
 import StorePatternModal from "./Modal/StorePatternModal";
 import TextInput from "./TextInput";
+import PropTypes from 'prop-types';
 
-export default function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
+function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
 
     const setModalVisibility = (isVisible) => setIsVisible(isVisible);
@@ -50,3 +51,11 @@ export default function ItemCodePatternSection({ onChange, data, itemCodePattern
         </div>
     );
 }
+
+export default ItemCodePatternSection;
+
+ItemCodePatternSection.propTypes = {
+    onChange: PropTypes.func.isRequired, // onChage harus berupa functio
+    data: PropTypes.object.isRequired,  // data harus berupa objek
+    itemCodePattern: PropTypes.string.isRequired, // itemCodePattern harus berupa string
+};
