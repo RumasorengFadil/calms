@@ -15,7 +15,7 @@ export default memo(function StorePatternModal({
         itemCodePattern: "",
     });
 
-    const handleItemCodePattern = (e) => {
+    const handlePatternChange  = (e) => {
         setData("itemCodePattern", e.target.value);
     };
 
@@ -39,7 +39,7 @@ export default memo(function StorePatternModal({
             <form onSubmit={submit} action="" className="p-5">
                 <div className="py-2 border-b">
                     <div>
-                        <label htmlFor="pattern">Pola</label>
+                        <label htmlFor="itemCodePattern">Pola</label>
                         <span className="mx-7">:</span>
                         <TextInput
                             type="text"
@@ -47,7 +47,7 @@ export default memo(function StorePatternModal({
                             placeholder="exp : B000"
                             name="itemCodePattern"
                             value={data.itemCodePattern}
-                            onChange={handleItemCodePattern}
+                            onChange={handlePatternChange }
                         />
                     </div>
                     <InputError message={errors.itemCodePattern} />
