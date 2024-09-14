@@ -23,7 +23,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
 
     const { post, errors, data, setData } = useForm({
         itemCodePatterns: "",
-        authors : []
+        authors: [],
     });
 
     const handleChange = (e) => {
