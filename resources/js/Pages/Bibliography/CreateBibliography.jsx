@@ -14,6 +14,7 @@ import FormLayout from "@/Layouts/FormLayout";
 import InputLabel from "@/Components/InputLabel";
 import FormElement from "@/Components/FormElement";
 import AuthorSection from "@/Components/AuthorSection";
+import ItemCodePatternSection from "@/Components/ItemCodePatternSection";
 
 export default memo(function CreateBibliography({ itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
@@ -25,6 +26,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
     const { post, errors, data, setData } = useForm({
         itemCodePatterns: "",
         authors: [],
+        totalItems : 0
     });
 
     const handleChange = (e) => {
@@ -40,7 +42,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
 
     const handleDeleteAuthor = (id) => {
         const authors = data.authors.filter((author) => author.author_id !== id);
-        
+
         setData("authors", authors);
     };
     return (
@@ -85,51 +87,17 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
 
                                 <AuthorSection authors={data.authors} onAdded ={handleAddAuthor} onDelete={handleDeleteAuthor} />
                             </FormElement>
-                            <div className="flex px-10 border-y items-center py-3">
-                                <label htmlFor="publisher" className="basis-80">
+                            <FormElement>
+                                <InputLabel className="basis-80">
                                     Generator kode item
-                                </label>
+                                </InputLabel>
                                 <span className="mx-7">:</span>
-                                <div className="basis-full flex">
-                                    <select
-                                        name="itemCodePattern"
-                                        className="p-1 pl-2 rounded basis-full"
-                                    >
-                                        <option value="">
-                                            -- Tentukan Pola --
-                                        </option>
-                                        {itemCodePatterns.map((code, i) => (
-                                            <option
-                                                key={code.pattern_id}
-                                                value=""
-                                            >
-                                                {code.item_code_pattern}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <TextInput
-                                        type="number"
-                                        className="p-1 pl-2 mx-4 w-2/3"
-                                        placeholder="Total item(s)"
-                                        min={0}
-                                    />
-                                    <PrimaryButton
-                                        type="button"
-                                        onClick={() => setModalVisibility(true)}
-                                        className="bg-shadow-blue text-center w-2/3 basis-auto"
-                                    >
-                                        Tambah Pola Baru
-                                    </PrimaryButton>
-                                </div>
-                            </div>
+                                <ItemCodePatternSection itemCodePatterns = {itemCodePatterns} onChange={handleChange} data = {data} />
+                            </FormElement>
                         </FormLayout>
                     </MainContentLayout>
                 </div>
             </div>
-            <StorePatternModal
-                show={isVisible}
-                onClose={() => setModalVisibility(false)}
-            />
         </MainLayout>
     );
 });
