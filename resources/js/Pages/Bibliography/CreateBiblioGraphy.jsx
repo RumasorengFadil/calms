@@ -11,6 +11,8 @@ import MainLayout from "@/Layouts/MainLayout";
 import StorePatternModal from "@/Components/Modal/StorePatternModal";
 import StoreAuthorModal from "@/Components/Modal/StoreAuthorModal";
 import FormLayout from "@/Layouts/FormLayout";
+import InputLabel from "@/Components/InputLabel";
+import FormElement from "@/Components/FormElement";
 
 export default memo(function CreateBibliography({ itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
@@ -21,6 +23,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
 
     const { post, errors, data, setData } = useForm({
         itemCodePatterns: "",
+        authors : []
     });
 
     const handleChange = (e) => {
@@ -43,30 +46,30 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
                         <PageHeader>Tambah Pustaka</PageHeader>
 
                         <FormLayout>
-                            <div className="flex px-10 border-y items-center py-3">
-                                <label htmlFor="title" className="basis-80">
+                            <FormElement>
+                                <InputLabel className="basis-80">
                                     Judul
-                                </label>
+                                </InputLabel>
                                 <span className="mx-7">:</span>
                                 <TextInput
                                     type="text"
                                     className="p-1 basis-full"
                                 />
-                            </div>
-                            <div className="flex px-10 border-y items-center py-3">
-                                <label htmlFor="publisher" className="basis-80">
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-80">
                                     Publisher
-                                </label>
+                                </InputLabel>
                                 <span className="mx-7">:</span>
                                 <TextInput
                                     type="text"
                                     className="p-1 basis-full"
                                 />
-                            </div>
-                            <div className="flex px-10 border-y py-3">
-                                <label htmlFor="author" className="basis-80">
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-80">
                                     Author
-                                </label>
+                                </InputLabel>
                                 <span className="mx-7">:</span>
 
                                 <div className="flex flex-col basis-full">
@@ -86,7 +89,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </FormElement>
                             <div className="flex px-10 border-y items-center py-3">
                                 <label htmlFor="publisher" className="basis-80">
                                     Generator kode item

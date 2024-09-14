@@ -1,5 +1,3 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import { Link } from "@inertiajs/react";
 import { memo } from "react";
 
 export default memo(function FormLayout({ children, ...props }) {
