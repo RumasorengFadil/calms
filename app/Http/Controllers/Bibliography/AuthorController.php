@@ -22,13 +22,14 @@ class AuthorController extends Controller
         try {
             $validatedData = $request->validated();
 
-            $this->mstAuhorRepository->store($validatedData);
+            $author = $this->mstAuhorRepository->store($validatedData);
 
-            return redirect()->route('bibliographies.create')->with(["message" => __("message.success.added", ["entity" => "author"])]);
+            return redirect()->route('bibliographies.create')->with(['message' => __('message.success.added', ['entity' => 'author']), 'author' => $author]);
+            
         } catch (\Exception $e) {
             dd($e->getMessage());
             \Log::error('Failed to store author: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => __('message.error.stored', ['entity' => 'author'])]);
+            return redirect()->back()->withErrors(['error' => __('message.error.added', ['entity' => 'author'])]);
         }
     }
 }

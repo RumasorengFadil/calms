@@ -9,13 +9,14 @@ import PrimaryButton from "../PrimaryButton";
 export default memo(function StoreAuthorModal({
     closelable = true,
     onClose = () => {},
+    onAdded = () => {},
     show = false,
 }) {
     const { post, data, setData, errors, reset } = useForm({
         authorName: "",
     });
 
-    const handleItemCodePattern = (e) => {
+    const handleAuthorNameChange = (e) => {
         setData("authorName", e.target.value);
     };
 
@@ -26,6 +27,7 @@ export default memo(function StoreAuthorModal({
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
                 onClose();
+                onAdded(response.props.flash.author);
                 reset();
             },
             onError: (errors) => {
@@ -47,7 +49,7 @@ export default memo(function StoreAuthorModal({
                             placeholder="exp : Fadil, Jr"
                             name="authorName"
                             value={data.authorName}
-                            onChange={handleItemCodePattern}
+                            onChange={handleAuthorNameChange}
                         />
                     </div>
                     <InputError message={errors.authorName} />

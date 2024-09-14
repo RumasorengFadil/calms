@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mst_authors', function (Blueprint $table) {
             $table->id("author_id");
             $table->string("author_name");
-            $table->string("author_year");
+            // $table->string("author_year");
             $table->date("input_date");
             $table->date("last_update");
             $table->timestamps();

@@ -13,6 +13,7 @@ import StoreAuthorModal from "@/Components/Modal/StoreAuthorModal";
 import FormLayout from "@/Layouts/FormLayout";
 import InputLabel from "@/Components/InputLabel";
 import FormElement from "@/Components/FormElement";
+import AuthorSection from "@/Components/AuthorSection";
 
 export default memo(function CreateBibliography({ itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
@@ -23,7 +24,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
 
     const { post, errors, data, setData } = useForm({
         itemCodePatterns: "",
-        authors : []
+        authors: [],
     });
 
     const handleChange = (e) => {
@@ -31,6 +32,16 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
             ...data,
             [`${e.target.name}`]: e.target.value,
         });
+    };
+
+    const handleAddAuthor = (author) => {
+        setData("authors", [...data.authors, author]);
+    };
+
+    const handleDeleteAuthor = (id) => {
+        const authors = data.authors.filter((author) => author.author_id !== id);
+        
+        setData("authors", authors);
     };
     return (
         <MainLayout>
@@ -72,23 +83,7 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
                                 </InputLabel>
                                 <span className="mx-7">:</span>
 
-                                <div className="flex flex-col basis-full">
-                                    <PrimaryButton
-                                        type="button"
-                                        onClick={() => setModalVisibility(true)}
-                                        className="bg-shadow-blue w-max"
-                                    >
-                                        Tambah Penulis
-                                    </PrimaryButton>
-                                    <div className="border mt-5 rounded p-5 h-28 overflow-auto">
-                                        <div className="flex items-center border-b p-3">
-                                            <PrimaryButton className="bg-red-500 mr-5">
-                                                Hapus
-                                            </PrimaryButton>
-                                            Fadil Hijayat
-                                        </div>
-                                    </div>
-                                </div>
+                                <AuthorSection authors={data.authors} onAdded ={handleAddAuthor} onDelete={handleDeleteAuthor} />
                             </FormElement>
                             <div className="flex px-10 border-y items-center py-3">
                                 <label htmlFor="publisher" className="basis-80">
@@ -132,10 +127,6 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
                 </div>
             </div>
             <StorePatternModal
-                show={isVisible}
-                onClose={() => setModalVisibility(false)}
-            />
-            <StoreAuthorModal
                 show={isVisible}
                 onClose={() => setModalVisibility(false)}
             />

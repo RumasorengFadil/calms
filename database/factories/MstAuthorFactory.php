@@ -18,7 +18,7 @@ class MstAuthorFactory extends Factory
     {
         return [
             'author_name' => fake()->name(),
-            'author_year' =>  fake()->year(),
+            // 'author_year' =>  fake()->year(),
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
         ];

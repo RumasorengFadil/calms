@@ -12,7 +12,7 @@ class MstAuthorRepository
     }
     public function store(array $data): MstAuthor
     {
-        return MstAuthor::create([
+        return MstAuthor::firstOrCreate([
             'author_name' => $data['authorName'],
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
