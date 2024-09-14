@@ -49,4 +49,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/item-code-pattern/store', [ItemCodePatternController::class, 'store'])->name('item-code-pattern.store');
     Route::post('/author/store', [AuthorController::class, 'store'])->name('author.store');
+    Route::get('/author/search', [AuthorController::class, 'search'])->name('author.search');
 });

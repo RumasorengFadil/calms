@@ -51,11 +51,10 @@ function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
         </div>
     );
 }
-
-export default ItemCodePatternSection;
-
 ItemCodePatternSection.propTypes = {
     onChange: PropTypes.func.isRequired, // onChage harus berupa functio
     data: PropTypes.object.isRequired,  // data harus berupa objek
     itemCodePattern: PropTypes.string.isRequired, // itemCodePattern harus berupa string
 };
+
+export default ItemCodePatternSection;

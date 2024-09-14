@@ -3,6 +3,7 @@
 namespace App\Repositories\Bibliography;
 
 use App\Models\MstAuthor;
+use Illuminate\Database\Eloquent\Collection;
 
 class MstAuthorRepository
 {
@@ -18,8 +19,11 @@ class MstAuthorRepository
             'last_update' => now()->toDateString(),
         ]);
     }
-    // public function destroy($ItemCodePattern): void
-    // {
-    //     $ItemCodePattern->delete();
-    // }
+
+    public function search($authorSearchKey): Collection
+    {
+        return MstAuthor::where('author_name', 'LIKE', "%{$authorSearchKey}%")
+            ->limit(10)
+            ->get(['author_id', 'author_name']);
+    }
 }

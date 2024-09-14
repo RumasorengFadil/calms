@@ -7,6 +7,7 @@ use App\Http\Requests\Bibliography\StoreAuthorRequest;
 use App\Models\MstAuthor;
 use App\Repositories\Bibliography\MstAuthorRepository;
 use Inertia\Inertia;
+use Request;
 
 class AuthorController extends Controller
 {
@@ -31,5 +32,16 @@ class AuthorController extends Controller
             \Log::error('Failed to store author: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => __('message.error.added', ['entity' => 'author'])]);
         }
+    }
+
+    public function search (Request $request){
+
+        $authorSearchKey = $request->input('authorSearchKey');
+
+        $authors = $this->mstAuhorRepository->search($authorSearchKey);
+
+        return inertia('StoreAuthorModal', [
+            'authors' => $authors,
+        ]);
     }
 }
