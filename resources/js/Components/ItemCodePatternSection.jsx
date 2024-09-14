@@ -20,7 +20,7 @@ export default function ItemCodePatternSection({ onChange, data, itemCodePattern
                 >
                     <option value="">-- Tentukan Pola --</option>
                     {itemCodePatterns.map((code, i) => (
-                        <option key={code.pattern_id}>
+                        <option key={code.pattern_id} value={code.item_code_pattern}>
                             {code.item_code_pattern}
                         </option>
                     ))}

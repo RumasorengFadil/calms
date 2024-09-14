@@ -17,21 +17,27 @@ export default function AuthorSection({ authors, onAdded, onDelete }) {
                     Tambah Penulis
                 </PrimaryButton>
                 <div className="border mt-5 rounded p-5 h-28 overflow-auto">
-                    {authors.map((author) => (
-                        <div
-                            key={author.author_id}
-                            className="flex items-center border-b p-3"
-                        >
-                            <PrimaryButton
-                                type="button"
-                                className="bg-red-500 mr-5"
-                                onClick={() => onDelete(author.author_id)}
+                    {authors.length > 0 ? (
+                        authors.map((author) => (
+                            <div
+                                key={author.author_id}
+                                className="flex items-center border-b p-3"
                             >
-                                Hapus
-                            </PrimaryButton>
-                            {author.author_name}
-                        </div>
-                    ))}
+                                <PrimaryButton
+                                    type="button"
+                                    className="bg-red-500 mr-5"
+                                    onClick={() => onDelete(author.author_id)}
+                                >
+                                    Hapus
+                                </PrimaryButton>
+                                {author.author_name}
+                            </div>
+                        ))
+                    ) : (
+                        <p className="w-full h-full flex items-center justify-center">
+                            Tidak ada penulis yang ditambahkan.
+                        </p>
+                    )}
                 </div>
             </div>
 

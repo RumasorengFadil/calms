@@ -5,24 +5,15 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
-import PrimaryButton from "@/Components/PrimaryButton";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "@/Layouts/MainLayout";
-import StorePatternModal from "@/Components/Modal/StorePatternModal";
-import StoreAuthorModal from "@/Components/Modal/StoreAuthorModal";
 import FormLayout from "@/Layouts/FormLayout";
 import InputLabel from "@/Components/InputLabel";
 import FormElement from "@/Components/FormElement";
 import AuthorSection from "@/Components/AuthorSection";
 import ItemCodePatternSection from "@/Components/ItemCodePatternSection";
 
-export default memo(function CreateBibliography({ itemCodePatterns }) {
-    const [isVisible, setIsVisible] = useState(false);
-
-    const setModalVisibility = (isVisible) => {
-        setIsVisible(isVisible);
-    };
-
+export default function CreateBibliography({ itemCodePatterns }) {
     const { post, errors, data, setData } = useForm({
         itemCodePattern: "",
         authors: [],
@@ -30,15 +21,16 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
     });
 
     const handleChange = (e) => {
-        console.log(e.target.value);
-        setData({
-            ...data,
-            [`${e.target.name}`]: e.target.value,
-        });
+        setData((prevData) => ({
+            ...prevData,
+            [e.target.name]: e.target.value,
+        }));
     };
 
     const handleAddAuthor = (author) => {
-        setData("authors", [...data.authors, author]);
+        if (!data.authors.some((existingAuthor) => existingAuthor.author_id === author.author_id)) {
+            setData("authors", [...data.authors, author]);
+        }
     };
 
     const handleDeleteAuthor = (id) => {
@@ -101,4 +93,4 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
             </div>
         </MainLayout>
     );
-});
+};
