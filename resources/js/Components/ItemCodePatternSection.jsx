@@ -6,9 +6,8 @@ import TextInput from "./TextInput";
 export default function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
 
-    const setModalVisibility = (isVisible) => {
-        setIsVisible(isVisible);
-    };
+    const setModalVisibility = (isVisible) => setIsVisible(isVisible);
+
 
     return (
         <div className="w-full">
@@ -17,10 +16,11 @@ export default function ItemCodePatternSection({ onChange, data, itemCodePattern
                     name="itemCodePattern"
                     className="p-1 pl-2 rounded basis-full"
                     onChange={onChange}
+                    value={data.itemCodePattern}
                 >
                     <option value="">-- Tentukan Pola --</option>
                     {itemCodePatterns.map((code, i) => (
-                        <option key={code.pattern_id} value="">
+                        <option key={code.pattern_id}>
                             {code.item_code_pattern}
                         </option>
                     ))}

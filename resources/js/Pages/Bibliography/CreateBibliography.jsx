@@ -24,12 +24,13 @@ export default memo(function CreateBibliography({ itemCodePatterns }) {
     };
 
     const { post, errors, data, setData } = useForm({
-        itemCodePatterns: "",
+        itemCodePattern: "",
         authors: [],
-        totalItems : 0
+        totalItems : ""
     });
 
     const handleChange = (e) => {
+        console.log(e.target.value);
         setData({
             ...data,
             [`${e.target.name}`]: e.target.value,

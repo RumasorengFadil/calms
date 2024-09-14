@@ -4,10 +4,7 @@ import PrimaryButton from "./PrimaryButton";
 
 export default function AuthorSection({ authors, onAdded, onDelete }) {
     const [isVisible, setIsVisible] = useState(false);
-
-    const setModalVisibility = (isVisible) => {
-        setIsVisible(isVisible);
-    };
+    const setModalVisibility = (isVisible) => setIsVisible(isVisible);
 
     return (
         <div className="w-full">
