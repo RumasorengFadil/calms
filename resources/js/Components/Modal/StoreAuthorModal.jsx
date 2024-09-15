@@ -5,7 +5,6 @@ import Modal from "./Modal";
 import TextInput from "../TextInput";
 import InputError from "../InputError";
 import PrimaryButton from "../PrimaryButton";
-import Autocomplete from "../Autocomplete";
 
 export default memo(function StoreAuthorModal({
     closelable = true,
