@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import TextInput from "../TextInput";
 import InputError from "../InputError";
 import PrimaryButton from "../PrimaryButton";
+import Autocomplete from "../Autocomplete";
 
 export default memo(function StoreAuthorModal({
     closelable = true,
@@ -52,10 +53,11 @@ export default memo(function StoreAuthorModal({
                             onChange={handleAuthorNameChange}
                         />
                     </div>
+
                     <InputError message={errors.authorName} />
                 </div>
                 <PrimaryButton type="submit" className="mt-5 bg-primary">
-                    Simpan
+                    Tambah
                 </PrimaryButton>
             </form>
         </Modal>

@@ -54,7 +54,7 @@ function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
 ItemCodePatternSection.propTypes = {
     onChange: PropTypes.func.isRequired, // onChage harus berupa functio
     data: PropTypes.object.isRequired,  // data harus berupa objek
-    itemCodePattern: PropTypes.string.isRequired, // itemCodePattern harus berupa string
+    itemCodePatterns: PropTypes.array.isRequired, // itemCodePattern harus berupa string
 };
 
 export default ItemCodePatternSection;

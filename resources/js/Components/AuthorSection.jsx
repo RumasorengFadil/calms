@@ -53,7 +53,7 @@ function AuthorSection({ authors, onAdded, onDelete }) {
 
 // Tambahkan validasi props di sini
 AuthorSection.propTypes = {
-    author: PropTypes.array.isRequired, // authors harus berupa array
+    authors: PropTypes.array.isRequired, // authors harus berupa array
     onAdded: PropTypes.func.isRequired,  // onAdded harus berupa function
     onDelete: PropTypes.func.isRequired, // onDelete harus berupa function
 };
