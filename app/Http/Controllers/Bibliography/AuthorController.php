@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Bibliography\SearchAuthorRequest;
 use App\Http\Requests\Bibliography\StoreAuthorRequest;
 use App\Models\MstAuthor;
 use App\Repositories\Bibliography\MstAuthorRepository;
@@ -11,11 +12,11 @@ use Request;
 
 class AuthorController extends Controller
 {
-    protected $mstAuhorRepository;
+    protected $mstAuthorRepository;
 
     public function __construct(MstAuthorRepository $mstAuthorRepository)
     {
-        $this->mstAuhorRepository = $mstAuthorRepository;
+        $this->mstAuthorRepository = $mstAuthorRepository;
     }
     public function store(StoreAuthorRequest $request)
     {
@@ -23,7 +24,7 @@ class AuthorController extends Controller
         try {
             $validatedData = $request->validated();
 
-            $author = $this->mstAuhorRepository->store($validatedData);
+            $author = $this->mstAuthorRepository->store($validatedData);
 
             return redirect()->route('bibliographies.create')->with(['message' => __('message.success.added', ['entity' => 'author']), 'author' => $author]);
             
@@ -34,14 +35,13 @@ class AuthorController extends Controller
         }
     }
 
-    public function search (Request $request){
+    public function search (SearchAuthorRequest $request){
+        
+        $authorSearchKey = $request->validated()['authorSearchKey'];
+        
+        $authors = $this->mstAuthorRepository->search($authorSearchKey);
 
-        $authorSearchKey = $request->input('authorSearchKey');
+        return response()->json($authors);
 
-        $authors = $this->mstAuhorRepository->search($authorSearchKey);
-
-        return inertia('StoreAuthorModal', [
-            'authors' => $authors,
-        ]);
     }
 }

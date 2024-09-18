@@ -2,13 +2,14 @@ import { useState } from "react";
 import StoreAuthorModal from "./Modal/StoreAuthorModal";
 import PrimaryButton from "./PrimaryButton";
 import PropTypes from 'prop-types';
+import { useForm } from "@inertiajs/react";
 
 function AuthorSection({ authors, onAdded, onDelete }) {
     const [isVisible, setIsVisible] = useState(false);
     const setModalVisibility = (isVisible) => setIsVisible(isVisible);
 
     return (
-        <div className="w-full">
+        <div className="flex-1">
             <div className="flex flex-col basis-full">
                 <PrimaryButton
                     type="button"

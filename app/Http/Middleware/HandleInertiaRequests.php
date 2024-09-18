@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
             'baseRouteName' => $baseRouteName,
             'flash' => [
                 'message' => fn() => $request->session()->get('message'),
-                'author' => fn() => $request->session()->get('author')
+                'author' => fn() => $request->session()->get('author'),
+                'authors' => fn() => $request->session()->get('authors'),
             ],
         ];
     }

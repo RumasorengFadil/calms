@@ -12,12 +12,22 @@ import InputLabel from "@/Components/InputLabel";
 import FormElement from "@/Components/FormElement";
 import AuthorSection from "@/Components/AuthorSection";
 import ItemCodePatternSection from "@/Components/ItemCodePatternSection";
+import Autocomplete from "@/Components/Autocomplete";
 
 export default function CreateBibliography({ itemCodePatterns }) {
     const { post, errors, data, setData } = useForm({
+        title: "",
+        edition: "",
+        isbnIssn: "",
+        publishYear: "",
+        publisher: "",
+        collation: "",
+        placeName: "",
+        category: "",
+        biblioPhoto: "",
         itemCodePattern: "",
         authors: [],
-        totalItems : ""
+        totalItems: "",
     });
 
     const handleChange = (e) => {
@@ -28,13 +38,20 @@ export default function CreateBibliography({ itemCodePatterns }) {
     };
 
     const handleAddAuthor = (author) => {
-        if (!data.authors.some((existingAuthor) => existingAuthor.author_id === author.author_id)) {
+        if (
+            !data.authors.some(
+                (existingAuthor) =>
+                    existingAuthor.author_id === author.author_id
+            )
+        ) {
             setData("authors", [...data.authors, author]);
         }
     };
 
     const handleDeleteAuthor = (id) => {
-        const authors = data.authors.filter((author) => author.author_id !== id);
+        const authors = data.authors.filter(
+            (author) => author.author_id !== id
+        );
 
         setData("authors", authors);
     };
@@ -53,39 +70,99 @@ export default function CreateBibliography({ itemCodePatterns }) {
 
                         <FormLayout>
                             <FormElement>
-                                <InputLabel className="basis-80">
+                                <InputLabel className="basis-52">
                                     Judul
                                 </InputLabel>
                                 <span className="mx-7">:</span>
                                 <TextInput
+                                    name="title"
+                                    value={data.title}
+                                    onChange={handleChange}
                                     type="text"
-                                    className="p-1 basis-full"
+                                    className="p-1 pl-2 flex-1"
                                 />
                             </FormElement>
                             <FormElement>
-                                <InputLabel className="basis-80">
-                                    Publisher
+                                <InputLabel className="basis-52">
+                                    Penerbit
                                 </InputLabel>
                                 <span className="mx-7">:</span>
                                 <TextInput
+                                    name="publisher"
+                                    onChange={handleChange}
+                                    value={data.publisher}
                                     type="text"
-                                    className="p-1 basis-full"
+                                    className="p-1 pl-2 flex-1"
                                 />
                             </FormElement>
                             <FormElement>
-                                <InputLabel className="basis-80">
-                                    Author
+                                <InputLabel className="basis-52">
+                                    Penulis
                                 </InputLabel>
                                 <span className="mx-7">:</span>
 
-                                <AuthorSection authors={data.authors} onAdded ={handleAddAuthor} onDelete={handleDeleteAuthor} />
+                                <AuthorSection
+                                    authors={data.authors}
+                                    onAdded={handleAddAuthor}
+                                    onDelete={handleDeleteAuthor}
+                                />
                             </FormElement>
                             <FormElement>
-                                <InputLabel className="basis-80">
+                                <InputLabel className="basis-52">
                                     Generator kode item
                                 </InputLabel>
                                 <span className="mx-7">:</span>
-                                <ItemCodePatternSection itemCodePatterns = {itemCodePatterns} onChange={handleChange} data = {data} />
+                                <ItemCodePatternSection
+                                    itemCodePatterns={itemCodePatterns}
+                                    onChange={handleChange}
+                                    data={data}
+                                />
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-52">
+                                    Edisi
+                                </InputLabel>
+                                <span className="mx-7">:</span>
+                                <TextInput
+                                    name="edition"
+                                    onChange={handleChange}
+                                    value={data.edition}
+                                    type="text"
+                                    className="p-1 pl-2 flex-1"
+                                />
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-52">
+                                    Tahun Terbit
+                                </InputLabel>
+                                <span className="mx-7">:</span>
+                                <TextInput
+                                    name="publishYear"
+                                    onChange={handleChange}
+                                    value={data.publishYear}
+                                    type="number"
+                                    className="p-1 pl-2 basis-56"
+                                />
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-52">
+                                    Tempat Terbit
+                                </InputLabel>
+                                <span className="mx-7">:</span>
+                                {/* <TextInput
+                                    name="placeName"
+                                    onChange={handleChange}
+                                    value={data.placeName}
+                                    type="text"
+                                    className="p-1 pl-2 basis-56"
+                                /> */}
+                                <Autocomplete
+                                    value={data.authorName}
+                                    onChange={() => {}}
+                                    name={"author.search"}
+                                    className="w-56"
+                                    placeholder="exp : Indonesia"
+                                />
                             </FormElement>
                         </FormLayout>
                     </MainContentLayout>
@@ -93,4 +170,4 @@ export default function CreateBibliography({ itemCodePatterns }) {
             </div>
         </MainLayout>
     );
-};
+}

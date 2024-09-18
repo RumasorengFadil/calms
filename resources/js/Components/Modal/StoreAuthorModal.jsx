@@ -5,6 +5,8 @@ import Modal from "./Modal";
 import TextInput from "../TextInput";
 import InputError from "../InputError";
 import PrimaryButton from "../PrimaryButton";
+import Autocomplete from "../Autocomplete";
+import axios from "axios";
 
 export default memo(function StoreAuthorModal({
     closelable = true,
@@ -12,12 +14,12 @@ export default memo(function StoreAuthorModal({
     onAdded = () => {},
     show = false,
 }) {
-    const { post, data, setData, errors, reset } = useForm({
+    const { post, get, data, setData, errors, reset } = useForm({
         authorName: "",
     });
 
-    const handleAuthorNameChange = (e) => {
-        setData("authorName", e.target.value);
+    const handleAuthorNameChange = (authorName) => {
+        setData("authorName", authorName);
     };
 
     const submit = (e) => {
@@ -39,21 +41,17 @@ export default memo(function StoreAuthorModal({
         <Modal show={show} onClose={() => onClose()} closeable={closelable}>
             <div className="p-5 border-b">Tambah Penulis Baru</div>
             <form onSubmit={submit} action="" className="p-5">
-                <div className="py-2 border-b">
+                <div className="flex items-center py-2 border-b">
+                    <label htmlFor="author">Nama</label>
+                    <span className="mx-7">:</span>
                     <div>
-                        <label htmlFor="author">Nama</label>
-                        <span className="mx-7">:</span>
-                        <TextInput
-                            type="text"
-                            className="p-1 pl-2"
-                            placeholder="exp : Fadil, Jr"
-                            name="authorName"
+                        <Autocomplete
                             value={data.authorName}
                             onChange={handleAuthorNameChange}
+                            name={"author.search"}
                         />
+                        <InputError message={errors.authorName} />
                     </div>
-
-                    <InputError message={errors.authorName} />
                 </div>
                 <PrimaryButton type="submit" className="mt-5 bg-primary">
                     Tambah
