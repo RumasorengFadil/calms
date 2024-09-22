@@ -73,7 +73,7 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                             <div className="p-4">
                                 <div className="mb-2">{biblio.title}</div>
                                 <div className="text-gray-400">
-                                    JURAGAN MUDA
+                                    {biblio.publisher.publisher_name}
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     <div className="basis-1/3 text-gray-400">
                         {biblio.publisher.publisher_name}
                     </div>
-                    <div className="basis-1/3 ">SI00027</div>
+                    <div className="basis-1/3 "> {biblio.itemCodePattern}</div>
                     <div className="basis-1/3">
                         <BibliographyItemActions biblioId={biblio.biblio_id} />
                     </div>
