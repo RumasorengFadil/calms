@@ -14,6 +14,7 @@ class BiblioAuthor extends Model
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'author_id';
     protected $fillable = [
         "biblio_id",
         "author_id",
@@ -30,5 +31,9 @@ class BiblioAuthor extends Model
     public function biblio()
     {
         return $this->belongsTo(Biblio::class, 'biblio_id');
+    }
+    public function author()
+    {
+        return $this->belongsTo(MstAuthor::class, 'author_id');
     }
 }

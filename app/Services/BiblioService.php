@@ -91,7 +91,6 @@ class BiblioService
         } catch (Exception $e) {
             // Log the error for debugging
             Log::error('Failed to create biblio with relations: ' . $e->getMessage());
-
             // Handle error (return a custom exception or a specific response)
             throw new Exception("Failed to create biblio", 0, $e);
         }
@@ -108,28 +107,29 @@ class BiblioService
      * @return void
      * @throws \Exception If any operation within the transaction fails.
      */
-    public function updateBiblioWithRelations(BiblioDTO $biblioDTO, $biblioId)
+    public function updateBiblioWithRelations(BiblioDTO $biblioDTO, $biblio)
     {
         try {
+            $biblioId = $biblio->biblio_id;
             DB::transaction(function () use ($biblioDTO, $biblioId) {
                 // Update Language entry and retrieve the updated Language object
                 $createdLanguage = $this->mstLanguageRepository->update($biblioDTO->getLanguageData(), $biblioId);
-
+                
                 // Update Publisher entry and retrieve the updated Publisher object
                 $createdPublisher = $this->mstPublisherRepository->update($biblioDTO->getPublisherData(), $biblioId);
-
+                
                 // Update Place entry and retrieve the updated Place object
                 $createdPlace = $this->mstPlaceRepository->update($biblioDTO->getPlaceData(), $biblioId);
-
+                
                 // Update Bibliography entry with the IDs of the newly updated Publisher, Language, and Place
                 $createdBiblio = $this->biblioRepository->update($biblioDTO->getBiblioData() + [
                     "publisherId" => $createdPublisher->publisher_id,
                     "languageId" => $createdLanguage->language_id,
                     "publishPlaceId" => $createdPlace->place_id
                 ], $biblioId);
-
+                
                 // Sync authors to the updated Bibliography entry
-                $this->biblioAuthorRepository->syncAuthorsWithBiblio($biblioDTO->getAuthorData(), $biblioId);
+                $this->biblioAuthorRepository->syncAuthorsWithBiblio($biblioDTO->getAuthorData() + ['biblioId' => $createdBiblio->biblio_id]);
 
                 // Update items associated with the updated Bibliography entry
                 $this->itemRepository->store($biblioDTO->getItemData() + ['biblioId' => $createdBiblio->biblio_id]);
@@ -137,7 +137,7 @@ class BiblioService
         } catch (Exception $e) {
             // Log the error for debugging
             Log::error('Failed to update biblio with relations: ' . $e->getMessage());
-
+            dd($e->getMessage());
             // Handle error (return a custom exception or a specific response)
             throw new Exception("Failed to update biblio", 0, $e);
         }
@@ -146,23 +146,28 @@ class BiblioService
     public function storeBiblio($validatedData)
     {
         // Handle gambar biblio
-        $biblioPhotoPath = $this->photoService->handlePhoto($validatedData->file('biblioPhoto'), 'biblio');
-
+        $biblioPhotoPath = $this->photoService->handlePhoto($validatedData['biblioPhoto'], 'biblio');
+        
         // Membuat biblioDTO
+        
         $biblioDTO = $this->biblioDTOFactory->create($validatedData + ['biblioPhotoPath' => $biblioPhotoPath]);
+        // dd($validatedData);
 
         $this->createBiblioWithRelations($biblioDTO);
     }
-    public function updateBiblio($validatedData, $biblioId)
+    public function updateBiblio($validatedData, $biblio)
     {
         // Handle foto dalam service layer
-        $biblioPhotoPath = $this->photoService->handleUpdatePhoto($validatedData, 'biblio');
+        $biblioPhotoPath = $this->photoService->handleUpdatePhoto($validatedData, $biblio, 'biblio');
+        
+        //Perbarui biblioPhotoPath
+        $validatedData['biblioPhotoPath'] = $biblioPhotoPath;
 
         // Membuat biblioDTO
-        $biblioDTO = $this->biblioDTOFactory->create($validatedData + ['biblioPhotoPath' => $biblioPhotoPath]);
+        $biblioDTO = $this->biblioDTOFactory->create($validatedData);
 
         // Update bibliografi dengan relasinya
-        $this->updateBiblioWithRelations($biblioDTO, $biblioId);
+        $this->updateBiblioWithRelations($biblioDTO, $biblio);
     }
 
     public function deleteBiblio($biblio)

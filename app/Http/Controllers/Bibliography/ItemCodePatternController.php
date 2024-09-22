@@ -21,7 +21,7 @@ class ItemCodePatternController extends Controller
 
             $this->itemCodePatternRepository->store($validatedData);
 
-            return redirect()->route('bibliographies.create')->with(['message' => __('message.success.stored', ['entity' => 'Item code pattern'])]);
+            return redirect()->back()->with(['message' => __('message.success.stored', ['entity' => 'Item code pattern'])]);
         } catch (\Exception $e) {
             dd($e->getMessage());
             \Log::error('Failed to store item code pattern: ' . $e->getMessage());

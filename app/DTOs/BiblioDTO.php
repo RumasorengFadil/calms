@@ -12,38 +12,38 @@ class BiblioDTO{
 
     public function __construct($authorData, $languageData, $publisherData, $placeData, $biblioData, $itemData){
         $this->authorData = $authorData;
-        $this->languageDataData = $languageData;
+        $this->languageData= $languageData;
         $this->publisherData = $publisherData;
         $this->placeData = $placeData;
         $this->biblioData = $biblioData;
         $this->itemData = $itemData;
     }
-    public function getAuthorData()
+    public function getAuthorData(): array
     {
         return $this->authorData;
     }
 
-    public function getLanguageData()
+    public function getLanguageData(): array
     {
         return $this->languageData;
     }
 
-    public function getPublisherData()
+    public function getPublisherData(): array
     {
         return $this->publisherData;
     }
 
-    public function getPlaceData()
+    public function getPlaceData(): array
     {
         return $this->placeData;
     }
 
-    public function getBiblioData()
+    public function getBiblioData(): array
     {
         return $this->biblioData;
     }
 
-    public function getItemData()
+    public function getItemData(): array
     {
         return $this->itemData;
     }

@@ -4,12 +4,13 @@ namespace App\Repositories\Bibliography;
 
 use App\Models\Biblio;
 use App\Models\MstPlace;
+use Illuminate\Database\Eloquent\Collection;
 
 class MstPlaceRepository
 {
     public function store(array $data): MstPlace
     {
-        return MstPlace::create([
+        return MstPlace::firstOrCreate([
             "place_name" => $data["placeName"],
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
@@ -25,5 +26,11 @@ class MstPlaceRepository
         ]);
 
         return $mstPlace;
+    }
+    public function search($searchKey): array| Collection
+    {
+        return MstPlace::where('place_name', 'LIKE', "%{$searchKey}%")
+            ->limit(10)
+            ->get(['place_id', 'place_name']);
     }
 }

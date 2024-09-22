@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Route;
 
 class Biblio extends Model
 {
@@ -29,7 +30,8 @@ class Biblio extends Model
         "call_number",
         "classfication",
         "category",
-        "notes",
+        "abstract",
+        "itemCodePattern",
         "biblio_photo",
         "biblio_photo_path",
         "spec_detail_info",
@@ -49,7 +51,7 @@ class Biblio extends Model
 
     public function place()
     {
-        return $this->belongsTo(MstPlace::class, 'place_id');
+        return $this->belongsTo(MstPlace::class, 'publish_place_id');
     }
 
     public function authors()

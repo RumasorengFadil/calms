@@ -22,7 +22,7 @@ export default memo(function StorePatternModal({
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("item-code-pattern.store"), {
+        post(route("item-code-patterns.store"), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
                 onClose();

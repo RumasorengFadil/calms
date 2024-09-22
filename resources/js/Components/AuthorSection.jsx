@@ -2,12 +2,11 @@ import { useState } from "react";
 import StoreAuthorModal from "./Modal/StoreAuthorModal";
 import PrimaryButton from "./PrimaryButton";
 import PropTypes from 'prop-types';
-import { useForm } from "@inertiajs/react";
 
 function AuthorSection({ authors, onAdded, onDelete }) {
     const [isVisible, setIsVisible] = useState(false);
     const setModalVisibility = (isVisible) => setIsVisible(isVisible);
-
+    
     return (
         <div className="flex-1">
             <div className="flex flex-col basis-full">
@@ -21,6 +20,7 @@ function AuthorSection({ authors, onAdded, onDelete }) {
                 <div className="border mt-5 rounded p-5 h-28 overflow-auto">
                     {authors.length > 0 ? (
                         authors.map((author) => (
+                            
                             <div
                                 key={author.author_id}
                                 className="flex items-center border-b p-3"

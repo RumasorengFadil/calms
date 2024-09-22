@@ -4,7 +4,7 @@ namespace App\Http\Requests\Bibliography;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchAuthorRequest extends FormRequest
+class SearchLanguageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class SearchAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'searchKey' => 'max:255'
+              'searchKey' => 'max:255'
         ];
     }
 }

@@ -56,7 +56,6 @@ class BibliographyController extends Controller
             return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
         } catch (\Exception $e) {
             // Log the error for debugging
-            dd($e->getMessage());
             \Log::error('Failed to fetch member: ' . $e->getMessage());
 
             // Redirect back with error message
@@ -82,13 +81,13 @@ class BibliographyController extends Controller
         try {
             // Data sudah tervalidasi oleh StoreBiblioRequest
             $validatedData = $request->validated();
-
+            // dd($validatedData);
             $this->biblioService->storeBiblio($validatedData);
 
             return redirect()->route('bibliographies.create')
                 ->with(['message' => __('message.success.stored', ['entity' => 'Biblio'])]);
         } catch (\Exception $e) {
-            \Log::error('Failed to fetch biblios: ' . $e->getMessage());
+            \Log::error('Failed to store biblios: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => __('message.error.stored', ['entity' => 'Biblio'])]);
         }
     }
@@ -98,33 +97,43 @@ class BibliographyController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function edit($biblioId)
+    public function edit($biblio)
     {
-        $biblio = $this->biblioRepository->search($biblioId)->first();
+        try {
+            $biblio->load(['language', 'publisher', 'place', 'authors', 'items']);
+            $biblio->authors->load('author');
 
-        return Inertia::render('Bibliography/EditBibliography', ['biblio' => $biblio]);
+            $itemCodePatterns = $this->itemCodePatternRepository->index();
+            
+            return Inertia::render('Bibliography/EditBibliography', ['biblio' => $biblio, 'itemCodePatterns' => $itemCodePatterns]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to fetch biblios: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => __('message.error.fetched', ['entity' => 'Biblio'])]);
+        }
     }
 
 
-    public function update(UpdateBiblioRequest $request, $biblioId)
+    public function update(UpdateBiblioRequest $request, $biblio)
     {
         try {
             // Data sudah tervalidasi oleh UpdateBiblioRequest
             $validatedData = $request->validated();
-
+            
             // Panggil service untuk melakukan update
-            $this->biblioService->updateBiblio($validatedData, $biblioId);
-
-            return redirect()->route('bibliographies.edit')
+            $this->biblioService->updateBiblio($validatedData, $biblio);
+            
+            return redirect()->back()
                 ->with(['message' => __('message.success.updated', ['entity' => 'Biblio'])]);
         } catch (\Exception $e) {
             \Log::error('Failed to update biblios: ' . $e->getMessage());
+        dd($e->getMessage());
+
             return redirect()->back()->withErrors(['error' => __('message.error.updated', ['entity' => 'Biblio'])]);
         }
     }
     public function destroy($biblio)
     {
-        try {   
+        try {
             $this->biblioService->deleteBiblio($biblio);
 
             return redirect()->back()

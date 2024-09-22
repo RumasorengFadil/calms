@@ -17,7 +17,7 @@ class MstPlaceFactory extends Factory
     public function definition(): array
     {
         return [
-            'place_name' => fake()->address(),
+            'place_name' => fake()->country(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ];

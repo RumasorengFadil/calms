@@ -62,8 +62,12 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     <div className="basis-full">
                         <div className="flex">
                             <img
-                                className=""
-                                src="/img/bibliography/biblio-default-picture.png"
+                                className="rounded"
+                                src={
+                                    biblio.biblio_photo_path
+                                        ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                        : "/img/bibliography/biblio-default-picture.png"
+                                }
                                 alt=""
                             />
                             <div className="p-4">

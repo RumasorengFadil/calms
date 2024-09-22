@@ -20,7 +20,7 @@ export default {
                 'primary' : '#3CACAE',
                 'secondary' : '#169DDC',
                 'light-gray' : '#F2F2F2',
-                'shadow-blue' : '#769AAB'
+                'shadow-blue' : '#769AAB',
             } 
         },
     },

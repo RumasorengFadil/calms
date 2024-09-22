@@ -46,9 +46,10 @@ return new class extends Migration
             $table->integer("call_number")->nullable();
             $table->string("classfication")->nullable();
             $table->string("category");
-            $table->text("notes")->nullable();
-            $table->string("biblio_photo");
-            $table->string("biblio_photo_path");
+            $table->text("abstract")->nullable();
+            $table->text("itemCodePattern");
+            $table->string("biblio_photo")->nullable();
+            $table->string("biblio_photo_path")->nullable();
             $table->string("spec_detail_info")->nullable();
             $table->date("input_date");
             $table->date("last_update");

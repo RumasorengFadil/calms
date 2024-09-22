@@ -17,7 +17,7 @@ class BiblioRepository
         return Biblio::create($this->mapData($data));
     }
     public function update(array $data, $id): Biblio
-    {
+    {   
         $biblio = Biblio::findOrFail($id);
         $biblio->update($this->mapData($data));
 
@@ -44,6 +44,8 @@ class BiblioRepository
             'publish_year' => $data['publishYear'],
             'collation' => $data['collation'],
             'category' => $data['category'],
+            'abstract' => $data['abstract'],
+            'itemCodePattern' => $data['itemCodePattern'],
             'biblio_photo' => $data['biblioPhoto'],
             'biblio_photo_path' => $data['biblioPhotoPath'],
             'input_date' => now()->toDateString(),

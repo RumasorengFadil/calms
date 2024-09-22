@@ -15,18 +15,30 @@ class ItemRepository
     }
     public function store(array $data)
     {
-        $insertData = [];
+        // $insertData = [];
 
         for ($i = 0; $i < $data['totalItems']; $i++) {
-            $insertData[] = [
+            Item::create([
                 'biblio_id' => $data['biblioId'],
                 'item_code' => $this->itemCodeGenerator->generateItemCode($data['itemCodePattern']),
-                'received_date' => $data['receivedDate'],
+                // 'received_date' => $data['receivedDate'],
+                'received_date' => now()->toDateString(),
                 'input_date' => now()->toDateString(),
                 'last_update' => now()->toDateString(),
-            ];
+            ]);
         }
-        
-        Item::insert($insertData);
+
+        // for ($i = 0; $i < $data['totalItems']; $i++) {
+        //     $insertData[] = [
+        //         'biblio_id' => $data['biblioId'],
+        //         'item_code' => $this->itemCodeGenerator->generateItemCode($data['itemCodePattern']),
+        //         // 'received_date' => $data['receivedDate'],
+        //         'received_date' => now()->toDateString(),
+        //         'input_date' => now()->toDateString(),
+        //         'last_update' => now()->toDateString(),
+        //     ];
+        // }
+
+        // Item::insert($insertData);
     }
 }

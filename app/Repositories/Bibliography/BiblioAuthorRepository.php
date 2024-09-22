@@ -16,31 +16,39 @@ class BiblioAuthorRepository
             foreach ($data['authors'] as $author) {
                 $insertData[] = [
                     'biblio_id' => $data['biblioId'],
-                    'author_id' => $author['authorId'],
+                    'author_id' => $author['author_id'],
                 ];
             }
             BiblioAuthor::insert($insertData);
         });
     }
 
-    public function syncAuthorsWithBiblio(array $data, $biblioId)
+    public function syncAuthorsWithBiblio(array $data)
     {
-        DB::transaction(function () use ($data, $biblioId) {
+        DB::transaction(function () use ($data) {
+            $insertData = [];
             // Hapus semua author yang terkait dengan biblio_id
-             BiblioAuthor::where('biblio_id', $biblioId)->delete();
-
+            BiblioAuthor::where('biblio_id', $data['biblioId'])->delete();
             // Persiapkan data untuk diinsert
-            $authorsToInsert = array_map(function ($data) {
-                return [
+            // $authorsToInsert = array_map(function ($data) {
+            //     return [
+            //         'biblio_id' => $data['biblioId'],
+            //         'author_id' => $data['authorId'],
+            //     ];
+            // }, $data['authors'], $biblioId);
+            foreach ($data['authors'] as $author) {
+                $insertData[] = [
                     'biblio_id' => $data['biblioId'],
-                    'author_id' => $data['authorId'],
+                    'author_id' => $author['author_id'],
                 ];
-            }, $data['authors']);
-
+            }
             // Insert data author baru
-            BiblioAuthor::insert($authorsToInsert);
+            BiblioAuthor::insert($insertData);
         });
-
+    }
+    public function destroy($biblioAuthor)
+    {
+        $biblioAuthor->delete();
     }
 }
 

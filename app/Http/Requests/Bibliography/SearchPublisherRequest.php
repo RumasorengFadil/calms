@@ -4,7 +4,7 @@ namespace App\Http\Requests\Bibliography;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchAuthorRequest extends FormRequest
+class SearchPublisherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

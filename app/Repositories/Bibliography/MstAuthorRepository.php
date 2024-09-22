@@ -20,9 +20,9 @@ class MstAuthorRepository
         ]);
     }
 
-    public function search($authorSearchKey): Collection
+    public function search($searchKey): Collection
     {
-        return MstAuthor::where('author_name', 'LIKE', "%{$authorSearchKey}%")
+        return MstAuthor::where('author_name', 'LIKE', "%{$searchKey}%")
             ->limit(10)
             ->get(['author_id', 'author_name']);
     }

@@ -29,6 +29,7 @@ class BiblioFactory extends Factory
             'category' => fake()->word(),
             'biblio_photo' => "",
             'biblio_photo_path' => "",
+            'itemCodePattern' => "B00000",
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
             'publisher_id' => MstPublisher::factory(),

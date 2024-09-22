@@ -18,14 +18,14 @@ export default memo(function StoreAuthorModal({
         authorName: "",
     });
 
-    const handleAuthorNameChange = (authorName) => {
-        setData("authorName", authorName);
+    const handleAuthorNameChange = (e) => {
+        setData("authorName", e.target.value);
     };
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("author.store"), {
+        post(route("authors.store"), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
                 onClose();
@@ -48,7 +48,9 @@ export default memo(function StoreAuthorModal({
                         <Autocomplete
                             value={data.authorName}
                             onChange={handleAuthorNameChange}
-                            name={"author.search"}
+                            route={route("authors.search")}
+                            placeholder="exp: Fadil, Jr"
+                            show="author_name"
                         />
                         <InputError message={errors.authorName} />
                     </div>

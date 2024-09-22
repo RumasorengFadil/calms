@@ -15,7 +15,7 @@ function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
             <div className="flex">
                 <select
                     name="itemCodePattern"
-                    className="p-1 pl-2 rounded basis-full"
+                    className="p-1 pl-2 rounded border-gray-300 basis-full"
                     onChange={onChange}
                     value={data.itemCodePattern}
                 >

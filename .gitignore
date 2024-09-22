@@ -20,3 +20,6 @@ yarn-error.log
 
 # Ignore folder /public/fake
 /public/fake/
+
+# Ignore folder /public/upload
+/public/uploads/

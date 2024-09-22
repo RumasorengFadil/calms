@@ -3,40 +3,55 @@
 namespace App\Services;
 
 use App\Exceptions\PhotoHandlingException;
+use App\Models\Biblio;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 
 class PhotoService
 {
-    const MEMBER_PHOTO_PATH = 'img/members/photo/';
-    const BIBLIO_PHOTO_PATH = 'img/biblio/photo/';
+    const MEMBER_PHOTO_PATH = '/uploads/img/members/photo/';
+    const BIBLIO_PHOTO_PATH = '/uploads/img/biblios/photo/';
+    const DEFAULT_PHOTO_PATH = '/img/bibliography/biblio-default-picture.png';
 
     public function handlePhoto($image, $type)
     {
         try {
+            // create new manager instance with desired driver
+            $manager = new ImageManager(new Driver());
+
             // Membuat nama file unik
             $filename = uniqid() . '_' . $image->getClientOriginalName();
             $path = $this->getPathByType($type);
 
-            // Resize image
-            $resizedImage = ImageManager::imagick()->read($image)->resize(200, 300);
-
-            // Simpan gambar yang di-resize ke storage
-            Storage::disk('public')->put((string) $path . $filename, (string) $resizedImage->encode());
-
+            // Resize gambar
+            $resizedImage = $manager->read($image)->resize(88, 120);
+            
+            // Simpan gambar
+            Storage::disk('public')->put((string) $path . $filename, $resizedImage->encode());
+            
             // Kembalikan URL yang dapat diakses
-            return Storage::url((string) $path . $filename);
+            return $filename;
         } catch (\Exception $e) {
+            dd($e->getMessage());
             throw new PhotoHandlingException("Failed to handle $type photo", 0, $e);
         }
     }
-    public function handleUpdatePhoto($validatedData, $type)
+    public function handleUpdatePhoto($validatedData, $biblio, $type)
     {
+        // Mengambil biblioPhotoPath
+        $biblioPhotoPath = $biblio["biblio_photo_path"];
+
+        // Mengambil biblioPhoto
+        $biblioPhoto = $validatedData["biblioPhoto"];
+
+        if($biblioPhoto === null) return $biblioPhotoPath;
+        
         // Menghapus data foto sebelumnya
-        self::removePhoto($validatedData->memberPhotoPath, $type);
+        self::removePhoto($biblioPhotoPath, $type);
 
         // Handle gambar biblio
-        $filename = self::handlePhoto($validatedData->file('biblioPhoto'), $type);
+        $filename = self::handlePhoto($validatedData['biblioPhoto'], $type);
 
         return $filename;
     }
@@ -44,9 +59,13 @@ class PhotoService
     public function removePhoto($photoPath, $type)
     {
         $path = $this->getPathByType($type);
-        if ($photoPath) {
+        // dd((string) $path . $photoPath);
+        // dd(Storage::disk('public')->exists((string) $path . $photoPath));
+        // "/uploads/img/biblios/photo/66ef84f4ccfc9_Screenshot 2024-05-11 133812.png"
+        if (Storage::disk('public')->exists((string) $path . $photoPath)) {
             Storage::disk('public')->delete((string) $path . $photoPath);
         }
+        // dd($photoPath);
     }
 
     private function getPathByType($type)
