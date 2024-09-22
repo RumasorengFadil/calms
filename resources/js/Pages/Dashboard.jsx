@@ -16,6 +16,11 @@ export default function Dashboard({}) {
                 >
                     Dashboard
                 </SidebarNavLink>
+                <SidebarNavLink
+                    href={route("logout")}
+                >
+                    Logout
+                </SidebarNavLink>
             </SidebarLayout>
 
             <div className="flex flex-col w-full">
