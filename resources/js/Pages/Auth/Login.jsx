@@ -10,6 +10,8 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import PageHeader from "@/Components/PageHeader";
 import FormLayout from "@/Layouts/FormLayout";
 import FormElement from "@/Components/FormElement";
+import Slider from "@/Components/Slider/Slider";
+import SliderItem from "@/Components/Slider/SliderItem";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -33,25 +35,31 @@ export default function Login({ status, canResetPassword }) {
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
             <div className="flex flex-col sm:flex-row-reverse bg-white rounded-lg">
-                <div className="w-full sm:max-w-xl py-9 bg-primary">
-                    <PageHeader className="py-0 pl-0 text-2xl text-center text-white">
+                <div className="w-full sm:max-w-md py-9 bg-primary rounded-r-lg">
+                    <div className="font-bold text-2xl text-center text-white">
                         Quote
-                    </PageHeader>
+                    </div>
                     <p className="mx-auto text-center text-white max-w-96 text-base px-4">
                         "Ilmu itu ada di mana-mana, pengetahuan di mana-mana
                         tersebar, kalau kita bersedia membaca, dan bersedia
                         mendengar." <br />- Felix Siauw
                     </p>
+
+                    <Slider className="mt-8 h-72">
+                        <SliderItem className="" slidenumber={0} src="/img/app/slider/slide-0.png" />
+                        <SliderItem slidenumber={1} src="/img/app/slider/slide-0.png" />
+                        <SliderItem slidenumber={2} src="/img/app/slider/slide-0.png" />
+                    </Slider>
                 </div>
 
                 <div className="w-full sm:max-w-xl p-6">
                     <Link href="/">
                         <ApplicationLogo className="w-20 h-8 mb-10 fill-current text-gray-500" />
                     </Link>
-                    <PageHeader className="py-0 pl-0 text-2xl text-center">
+                    <div className="font-bold text-2xl text-center">
                         Selamat Datang
-                    </PageHeader>
-                    <p className="text-center text-sm">
+                    </div>
+                    <p className="text-center text-sm max-w-96">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Nobis non debitis quibusdam nostrum? Illo odit, nisi
                     </p>
