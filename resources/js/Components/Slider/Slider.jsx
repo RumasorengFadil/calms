@@ -35,7 +35,7 @@ export default memo(function Slider({
             goToSlide(slides, currentSlide);
             
             currentSlide++;
-        },2000);
+        },3000);
     }
     return (
         <div onLoad={initSlides} ref={slider} className={`relative overflow-hidden ${className}`}>
