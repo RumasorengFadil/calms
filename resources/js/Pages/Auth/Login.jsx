@@ -7,13 +7,16 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import PageHeader from "@/Components/PageHeader";
 import FormLayout from "@/Layouts/FormLayout";
 import FormElement from "@/Components/FormElement";
 import Slider from "@/Components/Slider/Slider";
-import SliderItem from "@/Components/Slider/SliderItem";
 
 export default function Login({ status, canResetPassword }) {
+    const slides = [
+        {image : "/img/app/slider/slide-0.png"},
+        {image : "/img/app/slider/slide-0.png"},
+        {image : "/img/app/slider/slide-0.png"},
+    ];
     const { data, setData, post, processing, errors, reset } = useForm({
         username: "",
         password: "",
@@ -45,11 +48,7 @@ export default function Login({ status, canResetPassword }) {
                         mendengar." <br />- Felix Siauw
                     </p>
 
-                    <Slider className="mt-8 h-72">
-                        <SliderItem className="" slidenumber={0} src="/img/app/slider/slide-0.png" />
-                        <SliderItem slidenumber={1} src="/img/app/slider/slide-0.png" />
-                        <SliderItem slidenumber={2} src="/img/app/slider/slide-0.png" />
-                    </Slider>
+                    <Slider slides={slides} />
                 </div>
 
                 <div className="w-full sm:max-w-xl p-6">
