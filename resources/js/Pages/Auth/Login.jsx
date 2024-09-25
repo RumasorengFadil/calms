@@ -14,8 +14,8 @@ import Slider from "@/Components/Slider/Slider";
 export default function Login({ status, canResetPassword }) {
     const slides = [
         {image : "/img/app/slider/slide-0.png"},
-        {image : "/img/app/slider/slide-0.png"},
-        {image : "/img/app/slider/slide-0.png"},
+        {image : "/img/app/slider/slide-1.jpg"},
+        {image : "/img/app/slider/slide-2.jpg"},
     ];
     const { data, setData, post, processing, errors, reset } = useForm({
         username: "",

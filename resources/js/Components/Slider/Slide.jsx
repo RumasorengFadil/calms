@@ -13,7 +13,7 @@ export default memo(function Slide({
         <div
             {...props}
             slidenumber={slidenumber}
-            className={`absolute w-full h-full transition-all ease-linear duration-1000 translate-x-16 slider-item ${className}`}
+            className={`absolute w-full h-full transition-all ease-linear duration-1000 ${className}`}
         >
             <a className={"" + className}>
                 <img className="w-full h-full" src={src} alt="html"></img>

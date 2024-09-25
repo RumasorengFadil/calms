@@ -11,7 +11,7 @@ export default memo(function SlidernavItem({
     return (
         <div
             {...props}
-            className={`w-2 h-2 mx-1 rounded-full bg-gray-300 ${className}`}
+            className={`w-2 h-2 mx-1 tran rounded-full bg-gray-300 transition-all ease-linear duration-1000 ${className}`}
         ></div>
     );
 });
