@@ -4,6 +4,7 @@ import { useForm } from "@inertiajs/react";
 import PrimaryButton from "../PrimaryButton";
 import BibliographyItemActions from "./BibliographyItemActions ";
 import toastUtils from "@/utils/toastUtils";
+import Pagination from "../Pagination";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
     // const { flash } = usePage().props;
@@ -87,6 +88,9 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     </div>
                 </div>
             ))}
+
+            <Pagination links={biblios.links} />
+
             <div className="py-3 px-10">
                 <PrimaryButton onClick={submit} className="bg-red-500">
                     Hapus Data yang Dipilih

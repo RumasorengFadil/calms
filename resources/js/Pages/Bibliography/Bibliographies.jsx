@@ -17,6 +17,7 @@ import { memo } from "react";
 export default memo(function Bibliographies({ biblios, breadcrumbs }) {
     return (
         <MainLayout>
+            {console.log(biblios)}
             <div className="flex fixed min-w-full bg-light-gray max-h-screen">
                 <SidebarLayout>
                     <BibliographySidebar />
