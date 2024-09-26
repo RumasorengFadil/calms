@@ -13,7 +13,7 @@ class StoreMemberRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,14 +24,12 @@ class StoreMemberRequest extends FormRequest
     public function rules(): array
     {
         $rules = $this->memberRules();
-        $rules["password"] = "required|min:8";
         return $rules;
     }
 
     public function messages()
     {
-        $message = $this->memberMessage();
-        $message["password.required"] = "Password harus diisi";
+        $message = $this->memberMessages();
         return $message;
     }
 }

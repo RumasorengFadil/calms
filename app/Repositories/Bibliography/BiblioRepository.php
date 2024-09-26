@@ -10,7 +10,7 @@ class BiblioRepository
 
     public function index()
     {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->paginate(5);
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->paginate(10);
     }
     public function store(array $data): Biblio
     {

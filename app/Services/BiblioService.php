@@ -114,20 +114,20 @@ class BiblioService
             DB::transaction(function () use ($biblioDTO, $biblioId) {
                 // Update Language entry and retrieve the updated Language object
                 $createdLanguage = $this->mstLanguageRepository->update($biblioDTO->getLanguageData(), $biblioId);
-                
+
                 // Update Publisher entry and retrieve the updated Publisher object
                 $createdPublisher = $this->mstPublisherRepository->update($biblioDTO->getPublisherData(), $biblioId);
-                
+
                 // Update Place entry and retrieve the updated Place object
                 $createdPlace = $this->mstPlaceRepository->update($biblioDTO->getPlaceData(), $biblioId);
-                
+
                 // Update Bibliography entry with the IDs of the newly updated Publisher, Language, and Place
                 $createdBiblio = $this->biblioRepository->update($biblioDTO->getBiblioData() + [
                     "publisherId" => $createdPublisher->publisher_id,
                     "languageId" => $createdLanguage->language_id,
                     "publishPlaceId" => $createdPlace->place_id
                 ], $biblioId);
-                
+
                 // Sync authors to the updated Bibliography entry
                 $this->biblioAuthorRepository->syncAuthorsWithBiblio($biblioDTO->getAuthorData() + ['biblioId' => $createdBiblio->biblio_id]);
 
@@ -146,11 +146,11 @@ class BiblioService
     public function storeBiblio($validatedData)
     {
         // Handle gambar biblio
-        $biblioPhotoPath = $this->photoService->handlePhoto($validatedData['biblioPhoto'], 'biblio');
-        
+        $filename = $this->photoService->handlePhoto($validatedData['biblioPhoto'], 'biblio');
+
         // Membuat biblioDTO
-        
-        $biblioDTO = $this->biblioDTOFactory->create($validatedData + ['biblioPhotoPath' => $biblioPhotoPath]);
+
+        $biblioDTO = $this->biblioDTOFactory->create($validatedData + ['biblioPhotoPath' => $filename]);
         // dd($validatedData);
 
         $this->createBiblioWithRelations($biblioDTO);
@@ -158,10 +158,11 @@ class BiblioService
     public function updateBiblio($validatedData, $biblio)
     {
         // Handle foto dalam service layer
-        $biblioPhotoPath = $this->photoService->handleUpdatePhoto($validatedData, $biblio, 'biblio');
-        
+        $filename = $this->photoService
+            ->handleUpdatePhoto($validatedData, $biblio["biblio_photo_path"], 'biblio');
+
         //Perbarui biblioPhotoPath
-        $validatedData['biblioPhotoPath'] = $biblioPhotoPath;
+        $validatedData['biblioPhotoPath'] = $filename;
 
         // Membuat biblioDTO
         $biblioDTO = $this->biblioDTOFactory->create($validatedData);

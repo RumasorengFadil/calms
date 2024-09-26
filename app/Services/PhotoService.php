@@ -17,11 +17,15 @@ class PhotoService
     public function handlePhoto($image, $type)
     {
         try {
+            if(!$image) return null;
+
             // create new manager instance with desired driver
             $manager = new ImageManager(new Driver());
 
             // Membuat nama file unik
             $filename = uniqid() . '_' . $image->getClientOriginalName();
+
+            //Memperoleh path
             $path = $this->getPathByType($type);
 
             // Resize gambar
@@ -37,18 +41,15 @@ class PhotoService
             throw new PhotoHandlingException("Failed to handle $type photo", 0, $e);
         }
     }
-    public function handleUpdatePhoto($validatedData, $biblio, $type)
+    public function handleUpdatePhoto($validatedData, $photoPath, $type)
     {
-        // Mengambil biblioPhotoPath
-        $biblioPhotoPath = $biblio["biblio_photo_path"];
-
         // Mengambil biblioPhoto
         $biblioPhoto = $validatedData["biblioPhoto"];
 
-        if($biblioPhoto === null) return $biblioPhotoPath;
+        if($biblioPhoto === null) return $photoPath;
         
         // Menghapus data foto sebelumnya
-        self::removePhoto($biblioPhotoPath, $type);
+        self::removePhoto($photoPath, $type);
 
         // Handle gambar biblio
         $filename = self::handlePhoto($validatedData['biblioPhoto'], $type);
@@ -59,9 +60,7 @@ class PhotoService
     public function removePhoto($photoPath, $type)
     {
         $path = $this->getPathByType($type);
-        // dd((string) $path . $photoPath);
-        // dd(Storage::disk('public')->exists((string) $path . $photoPath));
-        // "/uploads/img/biblios/photo/66ef84f4ccfc9_Screenshot 2024-05-11 133812.png"
+
         if (Storage::disk('public')->exists((string) $path . $photoPath)) {
             Storage::disk('public')->delete((string) $path . $photoPath);
         }

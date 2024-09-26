@@ -15,9 +15,9 @@ return new class extends Migration
             $table->integer("member_id")->primary();
             $table->string("member_name");
             $table->date("birth_date");
-            $table->enum("gender", ["pria", "wanita"]);
+            $table->enum("gender", ["Laki-laki", "Perempuan"]);
             $table->date("member_since_date");
-            $table->date("register_date");
+            $table->date("register_date")->nullable();
             $table->date("expire_date");
             $table->boolean("is_active")->default(true);
             $table->string("inst_name")->nullable();
@@ -25,8 +25,7 @@ return new class extends Migration
             $table->string("postal_code")->nullable();
             $table->string("member_phone");
             $table->integer("pin")->nullable();
-            $table->string("member_photo");
-            $table->string("member_photo_path");
+            $table->string("member_photo_path")->nullable();
             $table->string("member_email")->nullable();
             $table->string("member_password");
             $table->dateTime("last_login");

@@ -46,12 +46,12 @@ class MembershipController extends Controller
         try {
             // Data sudah tervalidasi oleh StoreMemberRequest
             $validatedData = $request->validated();
-
+            
             // Handle foto member
-            $filename = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
+            $memberPhotoPath = $this->photoService->handlePhoto($validatedData['memberPhoto'], 'member');
 
             // Tambahkan data member beserta path gambar ke dalam database
-            $this->memberRepository->store($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"]);
+            $this->memberRepository->store($validatedData + ['memberPhotoPath' => $memberPhotoPath]);
 
             return redirect()->route('membership.create')
                 ->with(["message" => __("message.success.stored", ["entity" => "Member"])]);
@@ -62,6 +62,7 @@ class MembershipController extends Controller
             // Log the error for debugging
             \Log::error("Failed to store member: " . $e->getMessage());
 
+            dd($e->getMessage());
             // Redirect back with error message
             redirect()->back()->withErrors(['error' => __("message.error.stored", ["entity" => "Member"])]);
         }
@@ -81,10 +82,10 @@ class MembershipController extends Controller
             $this->photoService->removePhoto($validatedData->memberPhotoPath, 'member');
 
             // Handle foto member
-            $filename = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
+            $memberPhotoPath = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
 
             // Tambahkan data member beserta path gambar ke dalam database
-            $this->memberRepository->update($validatedData + ['memberPhotoPath' => "public/members/photo/$filename"], $id);
+            $this->memberRepository->update($validatedData + ['memberPhotoPath' => "public/members/photo/$memberPhotoPath"], $id);
 
             return redirect()->route('membership.edit')
                 ->with(["message" => __("message.success.updated", ["entity" => "Member"])]);

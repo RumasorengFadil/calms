@@ -19,6 +19,7 @@ import Breadcrumbs from "@/Components/Breadcrumbs/Breadcrumbs ";
 import MainLayout from "@/Layouts/MainLayout";
 import { useState } from "react";
 import { useImagePreview } from "@/hooks/useImagePreview";
+import FormActions from "@/Components/Form/FormActions";
 
 export default function EditBibliography({
     biblio,
@@ -363,26 +364,14 @@ export default function EditBibliography({
                                     <InputError message={errors.biblioPhoto} />
                                 </InputGroup>
                             </FormElement>
-
-                            <FormElement className="bg-light-gray py-6 justify-end">
-                                <PrimaryButton
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        window.history.back();
-                                    }}
-                                    className="cursor-pointer mx-1 bg-shadow-blue hover:bg-gray-700"
-                                >
-                                    Kembali
-                                </PrimaryButton>
-                                {/* <PrimaryButton className="cursor-pointer mx-1 bg-shadow-blue hover:bg-gray-700">Edit</PrimaryButton> */}
-                                <PrimaryButton
-                                    type="button"
-                                    onClick={submit}
-                                    className="cursor-pointer mx-1 bg-secondary hover:bg-gray-700"
-                                >
-                                    Simpan
-                                </PrimaryButton>
-                            </FormElement>
+                            
+                            <FormActions 
+                                onBack={(e) => {
+                                    e.preventDefault();
+                                    window.history.back();
+                                }}
+                                onSave = {submit}
+                            />
                         </FormLayout>
                     </MainContentLayout>
                 </div>

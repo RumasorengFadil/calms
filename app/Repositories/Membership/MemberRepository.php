@@ -41,7 +41,7 @@ class MemberRepository
             "postal_code" => $data['postalCode'],
             "member_phone" => $data['memberPhone'],
             "pin" => $data['pin'],
-            "member_photo" => $data['memberPhoto'],
+            // "member_photo" => $data['memberPhoto'],
             "member_photo_path" => $data['memberPhotoPath'],
             "member_email" => $data['memberEmail'],
             // "member_password" => bcrypt($data['memberPassword']), // Hash password before storing

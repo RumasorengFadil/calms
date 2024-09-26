@@ -37,7 +37,7 @@ class Member extends Model
         "postal_code",
         "member_phone",
         "pin",
-        "member_photo",
+        "member_photo_path",
         "member_email",
         "member_password",
         "last_login",

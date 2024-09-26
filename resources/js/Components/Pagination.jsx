@@ -1,11 +1,12 @@
+import { Link } from "@inertiajs/react";
 
 const Pagination = ({ links }) => {
     return (
         <div>
             {links.map((link, index) => (
-                <a
+                <Link
                     key={index}
-                    className={`${link.active ? "text-primary" : "text-gray-500"}`}
+                    className={`hover:text-primary ${link.active ? "text-primary" : "text-gray-500"}`}
                     disabled={!link.url}
                     href={link.url}
                     dangerouslySetInnerHTML={{ __html: `${link.label}   `}}
