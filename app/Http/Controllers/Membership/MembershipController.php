@@ -138,7 +138,6 @@ class MembershipController extends Controller
                 ->with(['message' => __('message.success.destroyed', ['entity' => 'Member'])]);
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             \Log::error('Failed to update biblios: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Member'])]);
         }
@@ -148,24 +147,18 @@ class MembershipController extends Controller
         try {
             // Data sudah tervalidasi oleh SearchBiblioRequest
             $validatedData = $request->validated();
-
+            
             $members = $this->memberRepository->search($validatedData["searchKey"]);
 
             return Inertia::render('Membership/Memberships', [
                 'members' => $members,
             ]);
-            // return redirect()->back()->with(['members' => $members]);
-            // return Inertia::render('Bibliography/Bibliographies', ['members' => $members]);
         } catch (\Exception $e) {
             // Menyimpan log error
             \Log::error('Failed to search biblios: ' . $e->getMessage());
-            dd($e->getMessage());
+
             // Menyediakan feedback kepada pengguna
             redirect()->back()->withErrors(['error' => __("message.error.searched", ["entity" => "Member"])]);
-
-            // return Inertia::render('Bibliography/Bibliographies', [
-            //     'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
-            // ]);
         }
     }
 }
