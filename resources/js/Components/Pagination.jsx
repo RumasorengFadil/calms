@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
 
-const Pagination = ({ links }) => {
+const Pagination = ({ links, className }) => {
     return (
-        <div>
+        <div className={`${className}`}>
             {links.map((link, index) => (
                 <Link
                     key={index}

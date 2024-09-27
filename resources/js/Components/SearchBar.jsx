@@ -4,30 +4,37 @@ import PrimaryButton from "./PrimaryButton";
 import TextInput from "./TextInput";
 import { useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
+import toastUtils from "@/utils/toastUtils";
 
 export default memo(function SearchBar({
     searchLabel = "Cari",
     buttonLabel = "Cari",
-    className,
+    route,
+    className = "",
+    setMembers = () => {},
 }) {
     const { data, setData, get } = useForm({
-        biblioSearchKey: "",
+        searchKey: "",
     });
 
-    const handleBiblioSearchKey = (biblioSearchKey) => {
-        setData("biblioSearchKey", biblioSearchKey);
+    const handleSearchKey = (searchKey) => {
+        setData("searchKey", searchKey);
     };
 
     const submit = (e) => {
         e.preventDefault();
-        get(route("bibliographies.index"), {
+        get(route, {
+            onSuccess : (response) =>{
+                console.log(response.props.flash.members)
+                setMembers(response.props.flash.members);
+            },
             onError: (error) => {
-                toast.error(error);
+                toastUtils.showError(error)
             },
         });
     };
     return (
-        <div className={"w-2/3 flex items-center h-full" + className}>
+        <div className={"flex items-center h-full " + className}>
             <InputLabel htmlFor="search" className="text-base">
                 {searchLabel}
             </InputLabel>
@@ -36,8 +43,8 @@ export default memo(function SearchBar({
                 id="search"
                 type="search"
                 className="p-1 pl-2 mx-3 w-full rounded-lg border border-black"
-                value={data.biblioSearchKey}
-                onChange={(e) => handleBiblioSearchKey(e.target.value)}
+                value={data.searchKey}
+                onChange={(e) => handleSearchKey(e.target.value)}
             />
             <PrimaryButton
                 onClick={submit}

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Bibliography;
+namespace App\Http\Requests\Membership;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexBiblioRequest extends FormRequest
+class DestroysMemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,16 @@ class IndexBiblioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'searchKey' => 'max:255'
+            'selectedMemberIds' => 'required|array|min:1',
+            'selectedMemberIds.*' => 'exists:members,member_id',
         ];
     }
 
     public function messages()
     {
         return [
-            'searchKey.max' => 'Panjang karakter melebihi 255 karakter!.',
+            'selectedMemberIds.required' => 'Member belum dipilih.!',
+            'selectedMemberIds.*.exists' => 'The selected Memberships ID :input does not exist.',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories\Membership;
 
 use App\Models\Member;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MemberRepository
 {
@@ -50,5 +51,9 @@ class MemberRepository
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ];
+    }
+    public function search($memberSearchKey) : LengthAwarePaginator
+    {
+        return Member::where('member_name', 'like', "%{$memberSearchKey}%")->orWhere('member_id', $memberSearchKey)->paginate(perPage: 5);
     }
 }

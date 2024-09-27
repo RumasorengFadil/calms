@@ -29,7 +29,7 @@ export default memo(function Bibliographies({ biblios, breadcrumbs }) {
                     <MainContentLayout>
                         <Breadcrumbs breadcrumbs={breadcrumbs}></Breadcrumbs>
                         <SearchBarLayout>
-                            <SearchBar />
+                            <SearchBar route={route("bibliographies.index")} />
                         </SearchBarLayout>
 
                         <BiblioTableLayout>

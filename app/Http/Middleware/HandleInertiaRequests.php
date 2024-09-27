@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn() => $request->session()->get('message'),
                 'author' => fn() => $request->session()->get('author'),
                 'authors' => fn() => $request->session()->get('authors'),
+                'members' => fn() => $request->session()->get('members'),
             ],
         ];
     }

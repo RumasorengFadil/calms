@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Membership;
 
 use App\Exceptions\PhotoHandlingException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Bibliography\SearchRequest;
+use App\Http\Requests\Membership\DestroysMemberRequest;
 use App\Http\Requests\Membership\StoreMemberRequest;
 use App\Http\Requests\Membership\UpdateMemberRequest;
 use App\Models\Member;
 use App\Repositories\Membership\MemberRepository;
+use App\Services\MemberService;
 use App\Services\PhotoService;
 use Inertia\Inertia;
 use Redirect;
@@ -16,11 +19,13 @@ class MembershipController extends Controller
 {
     protected $memberRepository;
     protected $photoService;
+    protected $memberService;
 
-    public function __construct(MemberRepository $memberRepository, PhotoService $photoService)
+    public function __construct(MemberRepository $memberRepository, PhotoService $photoService, MemberService $memberService)
     {
         $this->memberRepository = $memberRepository;
         $this->photoService = $photoService;
+        $this->memberService = $memberService;
     }
     public function index()
     {
@@ -31,7 +36,7 @@ class MembershipController extends Controller
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error("Failed to fetch member: " . $e->getMessage());
-            
+
             // Redirect back with error message
             redirect()->back()->withErrors(['error' => __("message.error.fetched", ["entity" => "Member"])]);
         }
@@ -46,7 +51,7 @@ class MembershipController extends Controller
         try {
             // Data sudah tervalidasi oleh StoreMemberRequest
             $validatedData = $request->validated();
-            
+
             // Handle foto member
             $memberPhotoPath = $this->photoService->handlePhoto($validatedData['memberPhoto'], 'member');
 
@@ -108,17 +113,59 @@ class MembershipController extends Controller
 
             $this->photoService->removePhoto($member->memberPhotoPath, 'member');
 
-            $this->memberRepository->destroy($member);
-            return redirect()->route('membership.index')
-                ->with(["message" => __("message.success.destroy", ["entity" => "Member"])]);
+            $this->memberService->deleteMember($member);
+            return redirect()->back()
+                ->with(["message" => __("message.success.destroyed", ["entity" => "Member"])]);
 
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error("Failed to destroy member: " . $e->getMessage());
-
             // Redirect back with error message
-            redirect()->back()->withErrors(['error' => __("message.error.destroy", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __("message.error.destroyed", ["entity" => "Member"])]);
         }
 
+    }
+    public function destroys(DestroysMemberRequest $request)
+    {
+        try {
+            // Data sudah tervalidasi oleh DestroysBiblioRequest
+            $validatedData = $request->validated();
+
+
+            $this->memberService->deleteMembers($validatedData['selectedMemberIds']);
+
+            return redirect()->back()
+                ->with(['message' => __('message.success.destroyed', ['entity' => 'Member'])]);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            \Log::error('Failed to update biblios: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Member'])]);
+        }
+    }
+    public function search(SearchRequest $request)
+    {
+        try {
+            // Data sudah tervalidasi oleh SearchBiblioRequest
+            $validatedData = $request->validated();
+
+            $members = $this->memberRepository->search($validatedData["searchKey"]);
+
+            return Inertia::render('Membership/Memberships', [
+                'members' => $members,
+            ]);
+            // return redirect()->back()->with(['members' => $members]);
+            // return Inertia::render('Bibliography/Bibliographies', ['members' => $members]);
+        } catch (\Exception $e) {
+            // Menyimpan log error
+            \Log::error('Failed to search biblios: ' . $e->getMessage());
+            dd($e->getMessage());
+            // Menyediakan feedback kepada pengguna
+            redirect()->back()->withErrors(['error' => __("message.error.searched", ["entity" => "Member"])]);
+
+            // return Inertia::render('Bibliography/Bibliographies', [
+            //     'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
+            // ]);
+        }
     }
 }

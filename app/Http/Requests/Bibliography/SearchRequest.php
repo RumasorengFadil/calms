@@ -4,7 +4,7 @@ namespace App\Http\Requests\Bibliography;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexBiblioRequest extends FormRequest
+class SearchRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,14 @@ class IndexBiblioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'searchKey' => 'max:255'
+            'searchKey' => 'nullable|string|max:255'
         ];
     }
 
     public function messages()
     {
         return [
+            'searchKey.required' => 'Tidak ada input yang diterima!.',
             'searchKey.max' => 'Panjang karakter melebihi 255 karakter!.',
         ];
     }

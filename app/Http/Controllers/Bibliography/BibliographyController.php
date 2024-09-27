@@ -48,7 +48,7 @@ class BibliographyController extends Controller
             $validatedData = $request->validated();
 
             if ($validatedData) {
-                $biblios = $this->biblioRepository->search($validatedData['biblioSearchKey']);
+                $biblios = $this->biblioRepository->search($validatedData['searchKey']);
             } else {
                 $biblios = $this->biblioRepository->index();
             }

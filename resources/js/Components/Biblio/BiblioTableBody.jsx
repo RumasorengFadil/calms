@@ -46,9 +46,9 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
         setData("selectedBiblioIds", []);
     };
     return (
-        <div className={"px-10" + className}>
+        <div className={" " + className}>
             {biblios.data.map((biblio) => (
-                <div className={"flex border-y py-3"} key={biblio.biblio_id}>
+                <div className={"flex px-10 border-y py-3"} key={biblio.biblio_id}>
                     <div className="basis-1/5 flex items-center justify-start">
                         <TextInput
                             type="checkbox"
@@ -89,9 +89,9 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                 </div>
             ))}
 
-            <Pagination links={biblios.links} />
+            <Pagination className={"py-3 px-10"} links={biblios.links} />
 
-            <div className="py-3 px-10">
+            <div className="py-6 bg-light-gray px-10">
                 <PrimaryButton onClick={submit} className="bg-red-500">
                     Hapus Data yang Dipilih
                 </PrimaryButton>
