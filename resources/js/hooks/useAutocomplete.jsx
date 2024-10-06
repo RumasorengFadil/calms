@@ -16,6 +16,7 @@ export const useAutocomplete = (fetchRoute) => {
             const response = await axios.get(fetchRoute, {
                 params: { searchKey },
             });
+            // console.log(response);
             setResults(response.data);
         } catch (error) {
             console.error("Search error:", error);

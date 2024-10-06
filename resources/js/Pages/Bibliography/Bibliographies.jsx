@@ -17,7 +17,6 @@ import { memo } from "react";
 export default memo(function Bibliographies({ biblios, breadcrumbs }) {
     return (
         <MainLayout>
-            {console.log(biblios)}
             <div className="flex fixed min-w-full bg-light-gray max-h-screen">
                 <SidebarLayout>
                     <BibliographySidebar />
@@ -29,7 +28,7 @@ export default memo(function Bibliographies({ biblios, breadcrumbs }) {
                     <MainContentLayout>
                         <Breadcrumbs breadcrumbs={breadcrumbs}></Breadcrumbs>
                         <SearchBarLayout>
-                            <SearchBar route={route("bibliographies.index")} />
+                            <SearchBar className="w-2/3" route={route("bibliographies.index")} />
                         </SearchBarLayout>
 
                         <BiblioTableLayout>

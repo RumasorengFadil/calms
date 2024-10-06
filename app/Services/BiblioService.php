@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\DTOs\BiblioDTO;
 use App\Models\Biblio;
-use App\Models\BiblioAuthor;
-use App\Models\Item;
 use App\Repositories\Bibliography\BiblioAuthorRepository;
 use App\Repositories\Bibliography\BiblioRepository;
 use App\Repositories\Bibliography\ItemRepository;
@@ -159,7 +157,7 @@ class BiblioService
     {
         // Handle foto dalam service layer
         $filename = $this->photoService
-            ->handleUpdatePhoto($validatedData, $biblio["biblio_photo_path"], 'biblio');
+            ->handleUpdatePhoto($validatedData["biblioPhoto"], $biblio["biblio_photo_path"], 'biblio');
 
         //Perbarui biblioPhotoPath
         $validatedData['biblioPhotoPath'] = $filename;

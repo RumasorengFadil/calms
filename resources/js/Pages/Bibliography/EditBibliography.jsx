@@ -3,7 +3,6 @@ import MainContentLayout from "@/Layouts/MainContentLayout";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
 import FormLayout from "@/Layouts/FormLayout";
 import InputLabel from "@/Components/InputLabel";
@@ -11,13 +10,11 @@ import FormElement from "@/Components/FormElement";
 import AuthorSection from "@/Components/AuthorSection";
 import ItemCodePatternSection from "@/Components/ItemCodePatternSection";
 import Autocomplete from "@/Components/Autocomplete";
-import PrimaryButton from "@/Components/PrimaryButton";
 import toastUtils from "@/utils/toastUtils";
 import InputError from "@/Components/InputError";
 import InputGroup from "@/Components/InputGroup";
 import Breadcrumbs from "@/Components/Breadcrumbs/Breadcrumbs ";
 import MainLayout from "@/Layouts/MainLayout";
-import { useState } from "react";
 import { useImagePreview } from "@/hooks/useImagePreview";
 import FormActions from "@/Components/Form/FormActions";
 
@@ -90,8 +87,6 @@ export default function EditBibliography({
     };
 
     const submit = function () {
-        console.log(biblio);
-        console.log(data);
         post(route("bibliographies.update", biblio.biblio_id), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
@@ -328,7 +323,9 @@ export default function EditBibliography({
                                     src={
                                         imagePreview
                                             ? imagePreview
-                                            : `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                            : biblio.biblio_photo_path
+                                            ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                            : "/img/bibliography/biblio-default-picture.png"
                                     }
                                 ></img>
                                 <InputGroup className="">
@@ -364,13 +361,13 @@ export default function EditBibliography({
                                     <InputError message={errors.biblioPhoto} />
                                 </InputGroup>
                             </FormElement>
-                            
-                            <FormActions 
+
+                            <FormActions
                                 onBack={(e) => {
                                     e.preventDefault();
                                     window.history.back();
                                 }}
-                                onSave = {submit}
+                                onSave={submit}
                             />
                         </FormLayout>
                     </MainContentLayout>

@@ -25,7 +25,6 @@ export default memo(function SearchBar({
         e.preventDefault();
         get(route, {
             onSuccess : (response) =>{
-                console.log(response.props.flash.members)
                 setMembers(response.props.flash.members);
             },
             onError: (error) => {

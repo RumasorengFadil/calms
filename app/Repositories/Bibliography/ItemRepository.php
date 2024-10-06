@@ -4,6 +4,8 @@ namespace App\Repositories\Bibliography;
 
 use App\Models\Item;
 use App\Services\ItemCodeGenerator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class ItemRepository
 {
@@ -40,5 +42,10 @@ class ItemRepository
         // }
 
         // Item::insert($insertData);
+    }
+
+    public function search($searchKey)
+    {
+        return Item::where('item_code',$searchKey)->with(['biblio'])->first();
     }
 }

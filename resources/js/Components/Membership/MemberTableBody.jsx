@@ -74,7 +74,7 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                                 src={
                                     member.member_photo_path
                                         ? `/storage/uploads/img/members/photo/${member.member_photo_path}`
-                                        : "/img/memberhips/member-default-picture.png"
+                                        : "/img/memberships/member-default-picture.png"
                                 }
                                 alt=""
                             />
@@ -102,7 +102,7 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                         <div>
                             <div className="flex items-center">
                                 <FaLocationDot
-                                    className=""
+                                    className="mr-2"
                                     size={20}
                                     color="black"
                                 />
@@ -112,14 +112,22 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                                         : " -"}
                                 </div>
                             </div>
-                            <div className="my-2 text-black">
-                                Status:{" "}
-                                {member.is_active ? "Aktif" : "Tidak aktif"}
+                            <div className={`my-2 text-black  `}>
+                                Status: 
+                                <span
+                                    className={`${
+                                        member.is_active
+                                            ? "text-green-500 font-bold"
+                                            : "text-red-500 font-bold"
+                                    }`}
+                                >
+                                    {member.is_active ? " Aktif" : " Tidak aktif"}
+                                </span>
                             </div>
 
                             <div className="flex items-center">
                                 <MdOutlineMail
-                                    className="inline"
+                                    className="mr-2"
                                     size={20}
                                     color="black"
                                 />

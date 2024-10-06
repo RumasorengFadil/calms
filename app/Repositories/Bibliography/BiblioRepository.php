@@ -34,7 +34,7 @@ class BiblioRepository
 
     private function mapData(array $data): array
     {
-        return [
+        $mappedData = [
             'title' => $data['title'],
             'edition' => $data['edition'],
             'isbn_issn' => $data['isbnIssn'],
@@ -47,9 +47,13 @@ class BiblioRepository
             'abstract' => $data['abstract'],
             'itemCodePattern' => $data['itemCodePattern'],
             'biblio_photo' => $data['biblioPhoto'],
-            'biblio_photo_path' => $data['biblioPhotoPath'],
+            // 'biblio_photo_path' => $data['biblioPhotoPath'],
             'input_date' => now()->toDateString(),
             'last_update' => now()->toDateString(),
         ];
+        if (!is_null($data['biblioPhotoPath'])) {
+            $mappedData["biblio_photo_path"] = $data['biblioPhotoPath']; // Hash password before storing
+        }
+        return $mappedData;
     }
 }

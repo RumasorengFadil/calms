@@ -13,7 +13,7 @@ import MainLayout from "@/Layouts/MainLayout";
 
 export default function CreateMember({}) {
     const { data, setData, errors, post, reset } = useForm({
-        memberId: "",
+        // memberId: "",
         memberName: "",
         birthDate: "",
         gender: "",
@@ -43,7 +43,6 @@ export default function CreateMember({}) {
     const submit = (e) => {
         e.preventDefault();
 
-        console.log(data);
         post(route("membership.store"), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
@@ -69,7 +68,7 @@ export default function CreateMember({}) {
                         <PageHeader>Tambah Anggota</PageHeader>
 
                         <FormLayout>
-                            <FormElement
+                            {/* <FormElement
                                 label="ID Anggota *"
                                 name="memberId"
                                 placeholder="exp : 1"
@@ -78,7 +77,7 @@ export default function CreateMember({}) {
                                 onChange={handleChange}
                                 className="w-3/5"
                                 error={errors.memberId}
-                            />
+                            /> */}
                             <FormElement
                                 label="Nama Anggota *"
                                 name="memberName"
@@ -180,11 +179,11 @@ export default function CreateMember({}) {
                             <FormElement label="Foto Anggota">
                                 <div className="flex items-start">
                                     <img
-                                        className="mr-7 rounded w-28 h-40"
+                                        className="mr-7 rounded h-24 w-20 "
                                         src={
                                             imagePreview
                                                 ? imagePreview
-                                                : `/img/bibliography/biblio-default-picture.png`
+                                                : `/img/memberships/member-default-picture.png`
                                         }
                                     ></img>
                                     <div className="flex items-center">
@@ -228,6 +227,7 @@ export default function CreateMember({}) {
                                 placeholder="exp : zubairumi@gmail.com"
                                 type="email"
                                 onChange={handleChange}
+                                error = {errors.memberEmail}
                             />
                             <FormElement
                                 label="Password *"

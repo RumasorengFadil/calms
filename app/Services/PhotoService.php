@@ -41,18 +41,18 @@ class PhotoService
             throw new PhotoHandlingException("Failed to handle $type photo", 0, $e);
         }
     }
-    public function handleUpdatePhoto($validatedData, $photoPath, $type)
+    public function handleUpdatePhoto($photo, $photoPath, $type)
     {
         // Mengambil biblioPhoto
-        $biblioPhoto = $validatedData["biblioPhoto"];
+        // $biblioPhoto = $validatedData["biblioPhoto"];
 
-        if($biblioPhoto === null) return $photoPath;
+        if(!$photo) return;
         
         // Menghapus data foto sebelumnya
         self::removePhoto($photoPath, $type);
 
         // Handle gambar biblio
-        $filename = self::handlePhoto($validatedData['biblioPhoto'], $type);
+        $filename = self::handlePhoto($photo, $type);
 
         return $filename;
     }

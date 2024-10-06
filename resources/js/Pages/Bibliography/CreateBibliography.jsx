@@ -87,7 +87,6 @@ export default function CreateBibliography({ itemCodePatterns }) {
 
         post(route("bibliographies.store"), {
             onSuccess: (response) => {
-                console.log(response);
                 toastUtils.showSuccess(response.props.flash);
                 reset();
             },

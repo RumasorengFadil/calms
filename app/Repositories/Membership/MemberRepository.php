@@ -16,10 +16,13 @@ class MemberRepository
         return Member::create($this->mapData($data));
     }
 
-    public function update(array $data, $id): bool
+    public function update(array $data, $member): bool
     {
-        $member = Member::findOrFail($id);
         return $member->update($this->mapData($data));
+    }
+    public function deactivate($member): bool
+    {
+        return $member->update(["is_active" => !$member['is_active']]);
     }
 
     public function destroy($member): void
@@ -29,8 +32,8 @@ class MemberRepository
 
     private function mapData(array $data): array
     {
-        return [
-            "member_id" => $data['memberId'],
+        $mappedData = [
+            // "member_id" => $data['memberId'],
             "member_name" => $data['memberName'],
             "birth_date" => $data['birthDate'],
             "gender" => $data['gender'],
@@ -43,16 +46,23 @@ class MemberRepository
             "member_phone" => $data['memberPhone'],
             "pin" => $data['pin'],
             // "member_photo" => $data['memberPhoto'],
-            "member_photo_path" => $data['memberPhotoPath'],
+            // "member_photo_path" => $data['memberPhotoPath'],
             "member_email" => $data['memberEmail'],
             // "member_password" => bcrypt($data['memberPassword']), // Hash password before storing
-            "member_password" => $data['memberPassword'], // Hash password before storing
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ];
+        if (!is_null($data['memberPassword'])) {
+            $mappedData["member_password"] = $data['memberPassword']; // Hash password before storing
+        }
+        if (!is_null($data['memberPhotoPath'])) {
+            $mappedData["member_photo_path"] = $data['memberPhotoPath']; // Hash password before storing
+        }
+
+        return $mappedData;
     }
-    public function search($memberSearchKey) : LengthAwarePaginator
+    public function search($memberSearchKey): LengthAwarePaginator
     {
         return Member::where('member_name', 'like', "%{$memberSearchKey}%")->orWhere('member_id', $memberSearchKey)->paginate(perPage: 5);
     }

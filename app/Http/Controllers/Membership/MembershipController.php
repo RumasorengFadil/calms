@@ -31,14 +31,14 @@ class MembershipController extends Controller
     {
         try {
             $members = $this->memberRepository->index(10);
-            return Inertia::render('Membership/Memberships', ["members" => $members]);
+            return Inertia::render('Membership/Memberships', ['members' => $members]);
 
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Log::error("Failed to fetch member: " . $e->getMessage());
+            \Log::error('Failed to fetch member: ' . $e->getMessage());
 
             // Redirect back with error message
-            redirect()->back()->withErrors(['error' => __("message.error.fetched", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __('message.error.fetched', ['entity' => 'Member'])]);
         }
     }
 
@@ -59,69 +59,68 @@ class MembershipController extends Controller
             $this->memberRepository->store($validatedData + ['memberPhotoPath' => $memberPhotoPath]);
 
             return redirect()->route('membership.create')
-                ->with(["message" => __("message.success.stored", ["entity" => "Member"])]);
+                ->with(['message' => __('message.success.stored', ['entity' => 'Member'])]);
 
         } catch (PhotoHandlingException $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Log::error("Failed to store member: " . $e->getMessage());
+            \Log::error('Failed to store member: ' . $e->getMessage());
 
             dd($e->getMessage());
             // Redirect back with error message
-            redirect()->back()->withErrors(['error' => __("message.error.stored", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __('message.error.stored', ['entity' => 'Member'])]);
         }
 
     }
-    public function edit($id)
+    public function edit($memberId)
     {
-        return Inertia::render('Membership/EditMember', ['id' => $id]);
+        $member = Member::find($memberId);
+        return Inertia::render('Membership/EditMember', ['member' => $member]);
     }
-    public function update(UpdateMemberRequest $request, $id)
+    public function update(UpdateMemberRequest $request, $memberId)
     {
         try {
+            $member = Member::find($memberId);
+
             // Data sudah tervalidasi oleh UpdateMemberRequest
             $validatedData = $request->validated();
 
-            // Menghapus data foto sebelumnya
-            $this->photoService->removePhoto($validatedData->memberPhotoPath, 'member');
-
-            // Handle foto member
-            $memberPhotoPath = $this->photoService->handlePhoto($validatedData->file('memberPhoto'), 'member');
+            // Update data foto sebelumnya
+            $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $member['member_photo_path'], 'member');
 
             // Tambahkan data member beserta path gambar ke dalam database
-            $this->memberRepository->update($validatedData + ['memberPhotoPath' => "public/members/photo/$memberPhotoPath"], $id);
+            $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $member);
 
-            return redirect()->route('membership.edit')
-                ->with(["message" => __("message.success.updated", ["entity" => "Member"])]);
+            return redirect()->back()
+                ->with(['message' => __('message.success.updated', ['entity' => 'Member'])]);
 
         } catch (PhotoHandlingException $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Log::error("Failed to update member: " . $e->getMessage());
-
+            dd($e->getMessage());
+            \Log::error('Failed to update member: ' . $e->getMessage());
             // Redirect back with error message
-            redirect()->back()->withErrors(['error' => __("message.error.updated", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __('message.error.updated', ['entity' => 'Member'])]);
         }
 
     }
-    public function destroy($id)
+    public function destroy($memberId)
     {
         try {
-            $member = Member::findOrFail($id);
-
+            $member = Member::find($memberId);
             $this->photoService->removePhoto($member->memberPhotoPath, 'member');
 
             $this->memberService->deleteMember($member);
             return redirect()->back()
-                ->with(["message" => __("message.success.destroyed", ["entity" => "Member"])]);
+                ->with(['message' => __('message.success.destroyed', ['entity' => 'Member'])]);
 
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Log::error("Failed to destroy member: " . $e->getMessage());
+            \Log::error('Failed to destroy member: ' . $e->getMessage());
             // Redirect back with error message
-            redirect()->back()->withErrors(['error' => __("message.error.destroyed", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Member'])]);
         }
 
     }
@@ -147,9 +146,9 @@ class MembershipController extends Controller
         try {
             // Data sudah tervalidasi oleh SearchBiblioRequest
             $validatedData = $request->validated();
-            
-            $members = $this->memberRepository->search($validatedData["searchKey"]);
 
+            $members = $this->memberRepository->search($validatedData['searchKey']);
+            
             return Inertia::render('Membership/Memberships', [
                 'members' => $members,
             ]);
@@ -158,7 +157,27 @@ class MembershipController extends Controller
             \Log::error('Failed to search biblios: ' . $e->getMessage());
 
             // Menyediakan feedback kepada pengguna
-            redirect()->back()->withErrors(['error' => __("message.error.searched", ["entity" => "Member"])]);
+            redirect()->back()->withErrors(['error' => __('message.error.searched', ['entity' => 'Member'])]);
+        }
+    }
+    public function deactivate($memberId)
+    { {
+            try {
+                $member = Member::find($memberId);
+
+                $this->memberRepository->deactivate($member);
+
+                return redirect()->back()
+                    ->with(['message' => __('message.success.statusChanged', ['entity' => 'Member', 'status' => $member["is_active"] === true ? 'activate' : 'deactivate'])]);
+
+            } catch (PhotoHandlingException $e) {
+                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            } catch (\Exception $e) {
+                // Log the error for debugging
+                \Log::error('Failed to update member: ' . $e->getMessage());
+                // Redirect back with error message
+                redirect()->back()->withErrors(['error' => __('message.error.statusChanged', ['entity' => 'Member', 'status' => $member["is_active"] === true ? 'activate' : 'deactivate'])]);
+            }
         }
     }
 }

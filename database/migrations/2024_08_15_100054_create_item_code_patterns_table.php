@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('item_code_patterns', function (Blueprint $table) {
-            $table->id("pattern_id");
-            $table->string("item_code_pattern")->unique();
-            $table->date("input_date");
-            $table->date("last_update");
+            $table->id('pattern_id');
+            $table->string('item_code_pattern')->unique();
+            $table->date('input_date');
+            $table->date('last_update');
             $table->timestamps();
         });
     }

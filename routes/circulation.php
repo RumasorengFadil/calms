@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Circulation\LoanController;
+use App\Http\Controllers\Circulation\LoanHistoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,9 +19,13 @@ use Inertia\Inertia;
 Route::prefix("circulation")
     ->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::get('/', function () {
-            return Inertia::render('Circulation/Circulation');
-        })->name('circulation.index');
+        Route::get('/', [LoanController::class, 'index'])->name('circulation.index');
+        Route::get('/create/{memberId}', [LoanController::class, 'create'])->name('circulation.create');
+        Route::post('/store', [LoanController::class, 'store'])->name('circulation.store');
+        Route::patch('/update/{loanId}', [LoanController::class, 'update'])->name('circulation.update');
+        
+        // Route::get('/', [LoanHistoryController::class, 'index'])->name('circulation.loan-history');
+        
         Route::get('/loan-history', function () {
             return Inertia::render('Circulation/LoanHistory');
         })->name('circulation.loan-history');

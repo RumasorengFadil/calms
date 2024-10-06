@@ -17,7 +17,7 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-        "member_id" => fake()->unique()->randomNumber(5),
+        // "member_id" => fake()->unique()->randomNumber(5),
         "member_name" => fake()->name(),
         "birth_date" => fake()->date(),
         "gender" => fake()->randomElement(["Laki-laki", "Perempuan"]),
@@ -30,7 +30,7 @@ class MemberFactory extends Factory
         "member_phone" => fake()->phoneNumber(),
         "pin" => "123",
         // "member_photo" => fake()->image("public/fake/images", 640, 480, null, false),
-        "member_photo_path" => fake()->url(),
+        // "member_photo_path" => fake()->url(),
         "member_email" => fake()->email(),
         "member_password" => fake()->password(),
         "last_login" => fake() -> dateTime(),

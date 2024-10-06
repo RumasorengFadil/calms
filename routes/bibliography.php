@@ -3,6 +3,7 @@
 use App\Http\Controllers\Bibliography\AuthorController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliography\ItemCodePatternController;
+use App\Http\Controllers\Bibliography\ItemController;
 use App\Http\Controllers\Bibliography\LanguageController;
 use App\Http\Controllers\Bibliography\PlaceController;
 use App\Http\Controllers\Bibliography\PublisherController;
@@ -71,8 +72,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/search', [AuthorController::class, 'search'])->name('authors.search');
         Route::delete('/destroy/{authorId}', [AuthorController::class, 'destroy'])->name('authors.destroy');
     });
-
-    // Item Code Pattern routes
+    
+    // Items Route
+    Route::prefix('items')->group(function () {
+        Route::post('/search', [ItemController::class, 'search'])->name('items.search');
+    });
+    // Item Code Pattern Route
     Route::prefix('item-code-patterns')->group(function () {
         Route::post('/store', [ItemCodePatternController::class, 'store'])->name('item-code-patterns.store');
     });

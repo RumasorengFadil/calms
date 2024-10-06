@@ -7,7 +7,7 @@ trait MemberRules
     protected function memberRules()
     {
         return [
-            'memberId' => 'required|unique:members,member_id',
+            // 'memberId' => 'required|unique:members,member_id',
             'memberName' => 'required',
             'birthDate' => 'required',
             'gender' => 'required',
@@ -22,7 +22,7 @@ trait MemberRules
             'memberAddress' => '',
             'postalCode' => '',
             'pin' => '',
-            'memberEmail' => '',
+            'memberEmail' => 'nullable|email',
             'registerDate' =>'',
         ];
     }
@@ -30,13 +30,14 @@ trait MemberRules
     public function memberMessages()
     {
         return [
-            'memberId.required' => 'ID member harus diisi.!',
+            // 'memberId.required' => 'ID member harus diisi.!',
             'memberId.unique' => 'ID member sudah terdaftar.!',
             'memberName.required' => 'Nama harus diisi!',
             'birthDate.required' => 'Tanggal lahir harus diisi!',
             'gender.required' => 'Jenis kelamin harus diisi!',
             'registerDate.required' => 'Tanggal daftar harus diisi!',
             'expireDate.required' => 'Tanggal expired harus diisi!',
+            'memberEmail.email' => 'Email tidak valid!',
             'memberPhone.required' => 'Nomor telepon harus diisi!',
             'memberPhoto.required' => 'Member image harus diisi!',
             'memberPhoto.image' => 'File harus berupa gambar!',
@@ -44,8 +45,10 @@ trait MemberRules
             'memberPhoto.max' => 'Gambar tidak boleh melebihi 2mb!',
             // 'memberPhotoPath.required' => 'Path image harus diisi!',
             'memberPassword.required' => 'Password harus diisi!.',
+            'memberPassword.required_with' => 'Password harus diisi!.',
             'memberPassword.min' => 'Password minimal 8 karakter!',
             'passwordConfirmation.required' => 'Konfirmasi password harus diisi!',
+            'passwordConfirmation.required_with' => 'Konfirmasi password harus diisi!',
             'passwordConfirmation.min' => 'Konfirmasi password minimal 8 karakter!',
             'passwordConfirmation.same' => 'Password dan konfirmasi password tidak cocok!.',
         ];
