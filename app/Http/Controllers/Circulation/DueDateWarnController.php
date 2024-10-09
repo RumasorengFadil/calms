@@ -4,24 +4,23 @@ namespace App\Http\Controllers\Circulation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\SearchRequest;
-use App\Models\LoanHistory;
-use App\Repositories\Circulation\LoanHistoryRepository;
+use App\Models\Loan;
+use App\Repositories\Circulation\LoanRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class LoanHistoryController extends Controller
+class DueDateWarnController extends Controller
 {
-    protected $loanHistoryRepository;
-
-    public function __construct(LoanHistoryRepository $loanHistoryRepository)
+    protected $loanRepository;
+    public function __construct(LoanRepository $loanRepository)
     {
-        $this->loanHistoryRepository = $loanHistoryRepository;
+        $this->loanRepository = $loanRepository;
     }
     public function index()
     {
         try {
-            $histories = LoanHistory::with(['member'])->paginate(10);
-            return Inertia::render('Circulation/LoanHistory', ['histories' => $histories]);
+            $loans = Loan::with(['history', 'member'])->paginate(5);
+            return Inertia::render('Circulation/DueDateWarning', ['loans' => $loans]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Failed to fetch member: ' . $e->getMessage());
@@ -37,10 +36,9 @@ class LoanHistoryController extends Controller
             // Data sudah tervalidasi oleh SearchBiblioRequest
             $validatedData = $request->validated();
 
-            $histories = $this->loanHistoryRepository->search($validatedData['searchKey']);
-            
-            return Inertia::render('Circulation/LoanHistory', [
-                'histories' => $histories,
+            $loans = $this->loanRepository->search($validatedData['searchKey']);
+            return Inertia::render('Circulation/DueDateWarning', [
+                'loans' => $loans,
             ]);
         } catch (\Exception $e) {
             // Menyimpan log error

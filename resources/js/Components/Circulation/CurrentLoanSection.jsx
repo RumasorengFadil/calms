@@ -7,14 +7,9 @@ import { useState } from "react";
 import toastUtils from "@/utils/toastUtils";
 import ReturnBookSection from "./ReturnBookSection";
 import ExtendsBookSection from "./ExtendsBookSection";
+import isOverdue from "@/utils/isOverDue";
 
 export default memo(function CurrentLoanSection({ data }) {
-    const isOverdue = (loanDate, dueDate) => {
-        const today = new Date().setHours(0, 0, 0, 0);
-        const due = new Date(dueDate).setHours(0, 0, 0, 0);
-        return today > due;
-    };
-
     return (
         <div className="overflow-x-auto bg-white">
             <div id="header" className="flex border-y py-2 mx-7">
@@ -33,7 +28,7 @@ export default memo(function CurrentLoanSection({ data }) {
                             <div
                                 key={i}
                                 className={`flex px-7 ${
-                                    isOverdue(loan.loan_date, loan.due_date)
+                                    isOverdue(loan.due_date)
                                         ? "bg-red-200"
                                         : ""
                                 } items-center border-y py-2`}

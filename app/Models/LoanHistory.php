@@ -30,4 +30,13 @@ class LoanHistory extends Model
         'input_date',
         'last_update',
     ];
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id');
+    }
+    public function loan()
+    {
+        return $this->belongsTo(Loan::class, 'loan_id');
+    }
 }

@@ -32,4 +32,8 @@ class Loan extends Model
     {
         return $this->belongsTo(LoanHistory::class, 'loan_id');
     }
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id');
+    }
 }

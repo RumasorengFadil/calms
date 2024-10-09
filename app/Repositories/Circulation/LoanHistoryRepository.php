@@ -3,6 +3,7 @@
 namespace App\Repositories\Circulation;
 
 use App\Models\LoanHistory;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LoanHistoryRepository
 {
@@ -39,5 +40,9 @@ class LoanHistoryRepository
         ];
 
         return $mappedData;
+    }
+    public function search($historySearchKey): LengthAwarePaginator
+    {
+        return LoanHistory::with('member')->where('member_id', $historySearchKey)->paginate(perPage: 5);
     }
 }

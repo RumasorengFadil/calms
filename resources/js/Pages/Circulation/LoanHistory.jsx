@@ -6,19 +6,21 @@ import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
+import { memo } from "react";
 
-export default function LoanHistory({histories}) {
+export default memo(function LoanHistory({ histories }) {
     const { get, data, setData, errors, reset } = useForm({
-        memberId: " ",
+        searchKey: "",
     });
 
     const handleChange = function (e) {
-        setData("memberId", e.target.value);
+        setData("searchKey", e.target.value);
     };
     const submit = (e) => {
         e.preventDefault();
-        get(route("circulation.create", data.memberId));
+        get(route("loan-history.search"));
     };
+
     return (
         <div className="flex fixed min-w-full bg-light-gray max-h-screen">
             <SidebarLayout>
@@ -38,11 +40,11 @@ export default function LoanHistory({histories}) {
                         <div className="flex items-center mx-10 py-6">
                             <label>ID Anggota</label>
                             <TextInput
-                                value={data.memberId}
+                                value={data.searchKey}
                                 onChange={handleChange}
                                 type="text"
-                                name="memberId"
-                                className="mx-5 p-1"
+                                name="searchKey"
+                                className="mx-5 w-60 p-1"
                             />
                             <PrimaryButton
                                 type="button"
@@ -53,10 +55,10 @@ export default function LoanHistory({histories}) {
                             </PrimaryButton>
                         </div>
 
-                        <div className="overflow-x-auto">
-                            <table className="table-auto mx-10 border-collapse border border-gray-300">
-                                <thead className="bg-gray-300">
-                                    <tr>
+                        <div className="">
+                            <table className="table-auto mb-10 block mx-10 h-96 overflow-auto border-collapse border border-gray-300">
+                                <thead className="bg-gray-300 sticky top-0">
+                                    <tr className="">
                                         <th className="border border-gray-400 px-4 py-1">
                                             ID anggota
                                         </th>
@@ -84,84 +86,34 @@ export default function LoanHistory({histories}) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-white">
-                                        <td className="border border-gray-400 px-4 py-1 text-center">
-                                            1
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Ucup
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            B004
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Aku anak sehat
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            23-07-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            29-07-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Selesai
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            01-08-2024
-                                        </td>
-                                    </tr>
-                                    <tr className="bg-white">
-                                        <td className="border border-gray-400 px-4 py-1 text-center">
-                                            2
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Jordy
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            B002
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Si Kancil
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            20-07-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            31-07-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Selesai
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            01-08-2024
-                                        </td>
-                                    </tr>
-                                    <tr className="bg-white">
-                                        <td className="border border-gray-400 px-4 py-1 text-center">
-                                            3
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Anton
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            B001
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Sejarah Indonesia
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            27-07-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            01-08-2024
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            Selesai
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-1">
-                                            01-08-2024
-                                        </td>
-                                    </tr>
+                                    {histories.data.map((history,i) => (
+                                        <tr className="bg-white" key = {i}>
+                                            <td className="border border-gray-400 px-4 py-1 text-center">
+                                                {history.member.member_id}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                                {history.member.member_name}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                            {history.item_code}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                                {history.title}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                            {history.loan_date}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                            {history.due_date}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                                {history.is_return === 1? "Selesai" : "Dipinjam"}
+                                            </td>
+                                            <td className="border border-gray-400 px-4 py-1">
+                                                {history.last_update}
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -170,4 +122,4 @@ export default function LoanHistory({histories}) {
             </div>
         </div>
     );
-}
+});

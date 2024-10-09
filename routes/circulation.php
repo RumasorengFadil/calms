@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Circulation\DueDateWarnController;
 use App\Http\Controllers\Circulation\LoanController;
 use App\Http\Controllers\Circulation\LoanHistoryController;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,15 @@ Route::prefix("circulation")
         Route::post('/store', [LoanController::class, 'store'])->name('circulation.store');
         Route::patch('/update/{loanId}', [LoanController::class, 'update'])->name('circulation.update');
         
-        // Route::get('/', [LoanHistoryController::class, 'index'])->name('circulation.loan-history');
+        // Loan History Route
+        Route::prefix('loan-history')->group(function () {
+            Route::get('/', [LoanHistoryController::class, 'index'])->name('loan-history.index');
+            Route::get('/search', [LoanHistoryController::class, 'search'])->name('loan-history.search');
+        });
         
-        Route::get('/loan-history', function () {
-            return Inertia::render('Circulation/LoanHistory');
-        })->name('circulation.loan-history');
-        Route::get('/due-date-warning', function () {
-            return Inertia::render('Circulation/DueDateWarning');
-        })->name('circulation.due-date-warning');
+        // Due Date Warning Route
+        Route::prefix('/due-date-warning')->group(function () {
+            Route::get('/', [DueDateWarnController::class, 'index'])->name('due-date-warning.index');
+            Route::get('/search', [DueDateWarnController::class, 'search'])->name('due-date-warning.search');
+        });
     });

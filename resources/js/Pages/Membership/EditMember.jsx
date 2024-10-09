@@ -178,7 +178,7 @@ export default function EditMember({ member, breadcrumbs }) {
                                 name="pin"
                                 value={data.pin}
                                 placeholder="exp : 12342"
-                                type="text"
+                                type="number"
                                 onChange={handleChange}
                                 className="w-1/2"
                             />

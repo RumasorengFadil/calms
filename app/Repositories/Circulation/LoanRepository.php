@@ -3,6 +3,7 @@
 namespace App\Repositories\Circulation;
 use App\Models\Loan;
 use DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class LoanRepository
@@ -37,18 +38,13 @@ class LoanRepository
             'return_date' => $data['returnDate'],
         ];
 
-        // //Logika untuk pengembalian buku
-        // if (isset($data['isReturn'])) {
-        //     $mappedData = ['is_return' => $data['isReturn']];
-        // }
-
-        // //Logika untuk perpanjangan buku
-        // if (isset($data['renewed'])) {
-        //     $mappedData = ['renewed' => $data['renewed']];
-        // }
-
         $mappedData['last_update'] = now()->toDateString();
 
         return $mappedData;
+    }
+
+    public function search($loanSearchKey): LengthAwarePaginator
+    {
+        return Loan::with(['history', 'member'])->where('member_id', $loanSearchKey)->paginate(perPage: 5);
     }
 }
