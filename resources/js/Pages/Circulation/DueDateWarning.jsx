@@ -54,7 +54,6 @@ export default function DueDateWarning({ loans }) {
                                 Cari
                             </PrimaryButton>
                         </div>
-
                         <div className="">
                             <table className="table-auto mb-10 block mx-10 h-96 overflow-auto border-collapse border border-gray-300">
                                 <thead className="bg-gray-300 sticky top-0">
