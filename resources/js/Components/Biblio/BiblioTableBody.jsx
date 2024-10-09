@@ -103,7 +103,6 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                 </PrimaryButton>
                 <PrimaryButton
                     onClick={unselectAllBibliographyIds}
-                    className="bg-gray-500"
                 >
                     Jangan Pilih Semua
                 </PrimaryButton>
