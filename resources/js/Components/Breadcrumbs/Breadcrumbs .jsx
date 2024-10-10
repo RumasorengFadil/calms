@@ -4,7 +4,7 @@ import { memo } from "react";
 export default memo(function Breadcrumbs({ breadcrumbs }) {
     return (
         <nav>
-            <ul className="flex space-x-2 py-8 pl-10 text-3xl">
+            <ul className="flex space-x-2 py-8 pl-10 text-base">
                 {breadcrumbs.map((crumb, index) => (
                     <li key={index}>
                         <Link
@@ -17,7 +17,7 @@ export default memo(function Breadcrumbs({ breadcrumbs }) {
                         >
                             {crumb.label}
                         </Link>
-                        {index < breadcrumbs.length - 1 && " >"}
+                        {index < breadcrumbs.length - 1 && " /"}
                     </li>
                 ))}
             </ul>
