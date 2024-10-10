@@ -1,6 +1,8 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import SidebarNavLink from "@/Components/Sidebar/SidebarNavLink";
 import { Link } from "@inertiajs/react";
 import { memo } from "react";
+import { BiLogOutCircle } from "react-icons/bi";
 
 export default memo(function SidebarLayout({ children }) {
     return (
@@ -17,6 +19,14 @@ export default memo(function SidebarLayout({ children }) {
                 </div>
                 <div className="border-y border-opacity-20 border-black pt-6 pb-6">
                     <ul>{children}</ul>
+                </div>
+
+                <div className="absolute bottom-6">
+                    <SidebarNavLink className="flex shadow-lg items-end bg-red-500" href={route("logout")}>
+                        <BiLogOutCircle size={24} className="mr-2" />
+                        
+                        Logout
+                    </SidebarNavLink>
                 </div>
             </nav>
         </div>
