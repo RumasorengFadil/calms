@@ -45,7 +45,6 @@ export default function EditMember({ member, breadcrumbs }) {
         post(route("membership.update", member.member_id), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
-                reset();
             },
             onError: (errors) => {
                 toastUtils.showError(errors);
@@ -59,7 +58,6 @@ export default function EditMember({ member, breadcrumbs }) {
         post(route("membership.deactivate", member.member_id), {
             onSuccess: (response) => {
                 toastUtils.showSuccess(response.props.flash);
-                reset();
             },
             onError: (errors) => {
                 toastUtils.showError(errors);
