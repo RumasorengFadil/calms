@@ -29,7 +29,7 @@ class BiblioRepository
     }
     public function search($biblioSearchKey) : LengthAwarePaginator
     {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(5);
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(10);
     }
 
     private function mapData(array $data): array

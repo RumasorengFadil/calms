@@ -19,7 +19,7 @@ trait MemberRules
             'memberPassword' => 'required|string|min:8',
             'passwordConfirmation' => 'required|string|min:8|same:memberPassword',
             'instName' => '',
-            'memberAddress' => '',
+            'memberAddress' => 'nullable',
             'postalCode' => '',
             'pin' => '',
             'memberEmail' => 'nullable|email',

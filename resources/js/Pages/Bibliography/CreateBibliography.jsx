@@ -5,7 +5,6 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import TextInput from "@/Components/TextInput";
-import { useEffect, useState } from "react";
 import MainLayout from "@/Layouts/MainLayout";
 import FormLayout from "@/Layouts/FormLayout";
 import InputLabel from "@/Components/InputLabel";
@@ -17,6 +16,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import toastUtils from "@/utils/toastUtils";
 import InputError from "@/Components/InputError";
 import InputGroup from "@/Components/InputGroup";
+import { useImagePreview } from "@/hooks/useImagePreview";
 
 export default function CreateBibliography({ itemCodePatterns }) {
     const { post, errors, data, setData, reset } = useForm({
@@ -35,6 +35,9 @@ export default function CreateBibliography({ itemCodePatterns }) {
         totalItems: "",
         languageName: "",
     });
+
+    const { imagePreview, handleFileChange } = useImagePreview(); // State untuk menyimpan Data URL
+
     // const [imagePreview, setImagePreview] = useState(null); // State untuk menyimpan Data URL
 
     // const handleFileChange = (e) => {
@@ -140,7 +143,9 @@ export default function CreateBibliography({ itemCodePatterns }) {
                                         name="publisherName"
                                         show="publisher_name"
                                     />
-                                    <InputError message={errors.publisherName} />
+                                    <InputError
+                                        message={errors.publisherName}
+                                    />
                                 </InputGroup>
                             </FormElement>
                             <FormElement className="items-start">
@@ -314,9 +319,11 @@ export default function CreateBibliography({ itemCodePatterns }) {
                                 </InputLabel>
                                 <span className="mx-7">:</span>
                                 <img
-                                    className="mr-7 rounded"
+                                    className="mr-7 rounded w-28 h-40"
                                     src={
-                                        "/img/bibliography/biblio-default-picture.png"
+                                        imagePreview
+                                            ? imagePreview
+                                            : "/img/bibliography/biblio-default-picture.png"
                                     }
                                 ></img>
                                 <InputGroup className="">
@@ -326,7 +333,11 @@ export default function CreateBibliography({ itemCodePatterns }) {
                                             id="file-upload"
                                             className="hidden"
                                             name="biblioPhoto"
-                                            onChange={handleChange}
+                                            onChange={(e) =>
+                                                handleFileChange(e, (file) =>
+                                                    setData("biblioPhoto", file)
+                                                )
+                                            }
                                         />
 
                                         <input
@@ -334,9 +345,7 @@ export default function CreateBibliography({ itemCodePatterns }) {
                                             className="border focus:border-gray-300 focus:ring-0 cursor-auto border-gray-300 rounded-md shadow-sm p-1 px-2 w-full"
                                             placeholder="Pilih Berkas"
                                             value={
-                                                data.biblioPhoto?.name
-                                                    ? data.biblioPhoto?.name
-                                                    : ""
+                                                imagePreview ? imagePreview : ""
                                             }
                                             readOnly
                                         />

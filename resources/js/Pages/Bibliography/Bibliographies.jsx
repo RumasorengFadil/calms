@@ -26,7 +26,7 @@ export default memo(function Bibliographies({ biblios, breadcrumbs }) {
                     <TopbarLayout />
 
                     <MainContentLayout>
-                        <Breadcrumbs breadcrumbs={breadcrumbs}></Breadcrumbs>
+                        <PageHeader>Pustaka</PageHeader>
                         <SearchBarLayout>
                             <SearchBar className="w-2/3" route={route("bibliographies.index")} />
                         </SearchBarLayout>

@@ -24,9 +24,9 @@ class BiblioSeeder extends Seeder
         MstPlace::factory()->count(5)->create();
 
         // Buat data untuk Biblio
-        Biblio::factory()->count(50)->create()->each(function ($biblio) {
+        Biblio::factory()->count(200)->create()->each(function ($biblio) {
             // Setiap Biblio bisa memiliki beberapa BiblioAuthor dan Item
-            BiblioAuthor::factory()->count(3)->create(['biblio_id' => $biblio->biblio_id, 'author_id' => fake()->numberBetween(1, 5)]);
+            BiblioAuthor::factory()->count(1)->create(['biblio_id' => $biblio->biblio_id, 'author_id' => fake()->numberBetween(1, 5)]);
             Item::factory()->count(1)->create([
                 'biblio_id' => $biblio->biblio_id,
                 "item_code" => fake()->unique()->randomNumber(5),
