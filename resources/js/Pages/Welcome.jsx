@@ -10,6 +10,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     { id: 3, title: "Buku 3", stock: 3 },
     { id: 4, title: "Buku 4", stock: 7 },
     { id: 5, title: "Buku 5", stock: 0 },
+    { id: 6, title: "Buku 6", stock: 9 },
   ]);
 
   // Fungsi untuk memfilter buku berdasarkan input pencarian
