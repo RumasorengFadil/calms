@@ -32,6 +32,13 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'username.required' => 'Username harus diisi.!',
+            'password.required' => 'Password harus diisi.!',
+        ];
+    }
     /**
      * Attempt to authenticate the request's credentials.
      *
