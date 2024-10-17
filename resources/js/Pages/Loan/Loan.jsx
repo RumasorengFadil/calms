@@ -82,50 +82,61 @@ const LoanList = ({ auth, member }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {member.loans.map((loan) => (
-                                        <tr
-                                            key={loan.loan_id}
-                                            className="border-t"
-                                        >
-                                            {console.log(loan)}
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.item_code}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.history.title}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.loan_date}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.due_date}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span
-                                                    className={`inline-block px-3 py-1 text-sm font-semibold text-white rounded-full ${
-                                                        loan.is_return
-                                                            ? "bg-green-500"
-                                                            : "bg-red-500"
+                                    {member.loans.map((loan) =>
+                                        !loan.is_return ? (
+                                            <tr
+                                                key={loan.loan_id}
+                                                className="border-t"
+                                            >
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.item_code}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.history.title}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.loan_date}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.due_date}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span
+                                                        className={`inline-block px-3 py-1 text-sm font-semibold text-white rounded-full ${
+                                                            loan.is_return
+                                                                ? "bg-green-500"
+                                                                : "bg-red-500"
+                                                        }`}
+                                                    >
+                                                        {loan.is_return
+                                                            ? "Selesai"
+                                                            : "Belum"}
+                                                    </span>
+                                                </td>
+                                                <td
+                                                    className={`px-6 py-4 text-sm text-gray-800 ${
+                                                        calcDayDifference(
+                                                            loan.due_date
+                                                        ) < 0
+                                                            ? "text-red-500"
+                                                            : ""
                                                     }`}
                                                 >
-                                                    {loan.is_return
-                                                        ? "Selesai"
-                                                        : "Belum"}
-                                                </span>
-                                            </td>
-                                            <td className={`px-6 py-4 text-sm text-gray-800 ${calcDayDifference(loan.due_date) < 0 ? "text-red-500":""}`}>
-                                                {calcDayDifference(
-                                                    loan.due_date
-                                                ) < 0
-                                                    ? `Rp. ${Math.abs(
-                                                          calcDayDifference(
-                                                              loan.due_date
-                                                          ) * 500
-                                                      )}`
-                                                    : "Rp. -"}
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                    {calcDayDifference(
+                                                        loan.due_date
+                                                    ) < 0
+                                                        ? `Rp. ${Math.abs(
+                                                              calcDayDifference(
+                                                                  loan.due_date
+                                                              ) * 500
+                                                          )}`
+                                                        : "Rp. -"}
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            ""
+                                        )
+                                    )}
                                 </tbody>
                             </table>
                         ) : (
@@ -150,38 +161,42 @@ const LoanList = ({ auth, member }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {member.loans.map((loan) => (
-                                        <tr
-                                            key={loan.loan_id}
-                                            className="border-t"
-                                        >
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.item_code}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.history.title}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.loan_date}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                {loan.due_date}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span
-                                                    className={`inline-block px-3 py-1 text-sm font-semibold text-white rounded-full ${
-                                                        loan.is_return
-                                                            ? "bg-green-500"
-                                                            : "bg-red-500"
-                                                    }`}
-                                                >
-                                                    {loan.is_return
-                                                        ? "Selesai"
-                                                        : "Belum"}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {member.loans.map((loan) =>
+                                        loan.is_return ? (
+                                            <tr
+                                                key={loan.loan_id}
+                                                className="border-t"
+                                            >
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.item_code}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.history.title}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.loan_date}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800">
+                                                    {loan.due_date}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span
+                                                        className={`inline-block px-3 py-1 text-sm font-semibold text-white rounded-full ${
+                                                            loan.is_return
+                                                                ? "bg-green-500"
+                                                                : "bg-red-500"
+                                                        }`}
+                                                    >
+                                                        {loan.is_return
+                                                            ? "Selesai"
+                                                            : "Belum"}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            ""
+                                        )
+                                    )}
                                 </tbody>
                             </table>
                         )}

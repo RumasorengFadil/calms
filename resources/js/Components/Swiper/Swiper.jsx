@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import SwiperButton from "./SwiperButton";
 import { useState } from "react";
+import { Link } from "@inertiajs/react";
 
 export default function ({ data, className }) {
     const [books] = useState([
@@ -61,9 +62,10 @@ export default function ({ data, className }) {
                     {data.length > 0 ? (
                         data.map((book, i) => (
                             <SwiperSlide key={i}>
-                                <div
+                                <Link
                                     // key={book.id}
-                                    className="bg-white shadow-lg h-72 py-5 px-5 flex-1 rounded-lg text-center"
+                                    href = {route('bibliographies.show',book.biblio_id)}
+                                    className="bg-white block shadow-lg h-72 py-5 px-5 flex-1 rounded-lg text-center cursor-pointer"
                                 >
                                     <img
                                         src={
@@ -80,7 +82,7 @@ export default function ({ data, className }) {
                                     {/* <p className="text-gray-600 mt-2">
                                         Stok Buku: {book.stock}
                                     </p> */}
-                                </div>
+                                </Link>
                             </SwiperSlide>
                         ))
                     ) : (

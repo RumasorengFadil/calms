@@ -42,4 +42,17 @@ class WelcomeController extends Controller
             'phpVersion' => PHP_VERSION,
         ]);
     }
+
+    public function show($biblio)
+    {
+        try {
+            return Inertia::render('Bibliography/ShowBibliography', [
+                'biblio' => $biblio
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to fetch biblios: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => __('message.error.fetched', ['entity' => 'Biblio'])]);
+        }
+    }
 }

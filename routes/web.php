@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliography\ItemCodePatternController;
 use App\Http\Controllers\Membership\MembershipController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +22,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [WelcomeController::class, 'index'])->name('index');
+Route::get('/bibliographies/{biblioId}', [WelcomeController::class, 'show'])->name('bibliographies.show');
 
 
 Route::middleware('auth:member')->group(function () {
