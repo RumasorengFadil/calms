@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest
+class UserLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
     }
@@ -35,8 +35,9 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.required' => 'Username harus diisi.!',
+            'email.required' => 'Email harus diisi.!',
             'password.required' => 'Password harus diisi.!',
+            'email.email' => 'Format email tidak sesuai.!',
         ];
     }
     /**
@@ -46,13 +47,19 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        
+        $crendentials = [
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+        
         $this->ensureIsNotRateLimited();
-
-        if (!Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
+        
+        if (!Auth::guard('member')->attempt($crendentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
-
+            
             throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
+                'email' => trans('auth.failed'),
             ]);
         }
 
@@ -66,7 +73,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -75,7 +82,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'username' => trans('auth.throttle', [
+            'email' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -87,6 +94,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('username')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }

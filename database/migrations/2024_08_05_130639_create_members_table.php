@@ -27,8 +27,10 @@ return new class extends Migration
             $table->string("member_phone");
             $table->integer("pin")->nullable();
             $table->string("member_photo_path")->nullable();
-            $table->string("member_email")->nullable();
-            $table->string("member_password");
+            // $table->string("member_email")->nullable();
+            // $table->string("member_password");
+            $table->string("email");
+            $table->string("password");
             $table->dateTime("last_login");
             $table->date("input_date");
             $table->date("last_update");

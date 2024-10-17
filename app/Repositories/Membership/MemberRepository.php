@@ -17,7 +17,7 @@ class MemberRepository
     }
 
     public function update(array $data, $member): bool
-    {
+    {   
         return $member->update($this->mapData($data));
     }
     public function deactivate($member): bool
@@ -47,14 +47,14 @@ class MemberRepository
             "pin" => $data['pin'],
             // "member_photo" => $data['memberPhoto'],
             // "member_photo_path" => $data['memberPhotoPath'],
-            "member_email" => $data['memberEmail'],
+            "email" => $data['memberEmail'],
             // "member_password" => bcrypt($data['memberPassword']), // Hash password before storing
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),
         ];
         if (!is_null($data['memberPassword'])) {
-            $mappedData["member_password"] = $data['memberPassword']; // Hash password before storing
+            $mappedData["password"] = bcrypt($data['memberPassword']); // Hash password before storing
         }
         if (!is_null($data['memberPhotoPath'])) {
             $mappedData["member_photo_path"] = $data['memberPhotoPath']; // Hash password before storing

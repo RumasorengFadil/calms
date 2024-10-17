@@ -22,7 +22,7 @@ trait MemberRules
             'memberAddress' => 'nullable',
             'postalCode' => '',
             'pin' => '',
-            'memberEmail' => 'nullable|email',
+            'memberEmail' => 'required|email',
             'registerDate' =>'',
         ];
     }
@@ -38,6 +38,7 @@ trait MemberRules
             'registerDate.required' => 'Tanggal daftar harus diisi!',
             'expireDate.required' => 'Tanggal expired harus diisi!',
             'memberEmail.email' => 'Email tidak valid!',
+            'memberEmail.required' => 'Email harus diisi!',
             'memberPhone.required' => 'Nomor telepon harus diisi!',
             'memberPhoto.required' => 'Member image harus diisi!',
             'memberPhoto.image' => 'File harus berupa gambar!',

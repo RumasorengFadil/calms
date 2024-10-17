@@ -7,6 +7,8 @@ import TopbarLayout from "@/Layouts/TopbarLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Dashboard({}) {
+    const {props} = usePage();
+    console.log(props);
     return (
         <div className="flex fixed min-w-full bg-light-gray min-h-screen">
             <SidebarLayout>

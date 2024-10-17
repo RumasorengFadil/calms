@@ -8,6 +8,7 @@ import TextInput from "../TextInput";
 import InputError from "../InputError";
 import Checkbox from "../Checkbox";
 import PrimaryButton from "../PrimaryButton";
+import toastUtils from "@/utils/toastUtils";
 
 export default function UserLogin({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -25,7 +26,7 @@ export default function UserLogin({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("login"), {
+        post("/user-login", {
             onError: (errors) => {
                 toastUtils.showError(errors);
             },

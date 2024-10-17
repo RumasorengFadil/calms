@@ -3,6 +3,7 @@
 namespace App\Repositories\Bibliography;
 
 use App\Models\Biblio;
+use Cache;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BiblioRepository
@@ -31,7 +32,28 @@ class BiblioRepository
     {
         return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(10);
     }
-
+    public function getLatestBooks(int $limit = 10)
+    {
+        return Cache::remember('latest_books', 60, function () use ($limit) {
+            // Query untuk mengambil buku terbaru
+            return Biblio::orderBy('created_at', 'desc')
+                ->take($limit)
+                ->get();
+        });
+    }
+    public function getFavoriteBooks(int $limit = 10)
+    {
+        // $biblio = Biblio::withCount('loansHistory')->orderBy('loans_history_count','desc')->limit(10)->get();
+        // dd($biblio);
+        
+        // Query untuk mengambil buku dengan peminjaman terbanyak
+        return Cache::remember('favorite_books', 60, function () use ($limit) {
+            return Biblio::withCount('loansHistory')
+                ->orderBy('loans_history_count', 'desc')
+                ->take($limit)
+                ->get();
+        });
+    }
     private function mapData(array $data): array
     {
         $mappedData = [

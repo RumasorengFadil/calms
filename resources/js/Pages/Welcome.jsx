@@ -1,84 +1,105 @@
-import { Link, Head } from '@inertiajs/react';
+import Pagination from "@/Components/Pagination";
+import Swiper from "@/Components/Swiper/Swiper";
+import SwiperButton from "@/Components/Swiper/SwiperButton";
+import MemberLayout from "@/Layouts/MemberLayout";
+import toastUtils from "@/utils/toastUtils";
+import { Link, Head, useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
-  // State untuk menyimpan buku dan kata kunci pencarian
-  const [searchTerm, setSearchTerm] = useState("");
-  const [books] = useState([
-    { id: 1, title: "Buku 1", stock: 10 },
-    { id: 2, title: "Buku 2", stock: 5 },
-    { id: 3, title: "Buku 3", stock: 3 },
-    { id: 4, title: "Buku 4", stock: 7 },
-    { id: 5, title: "Buku 5", stock: 0 },
-    { id: 6, title: "Buku 6", stock: 9 },
-  ]);
+export default function Welcome({
+    latestBooks,
+    favoriteBooks,
+    biblios,
+    auth,
+    laravelVersion,
+    phpVersion,
+}) {
+    // State untuk menyimpan buku dan kata kunci pencarian
+    const { data, setData, reset, get } = useForm({
+        searchKey: "",
+    });
 
-  // Fungsi untuk memfilter buku berdasarkan input pencarian
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    const submit = (e) => {
+        e.preventDefault();
 
-  return (
-    <>
-      <Head title="Welcome" />
-      
-      <div className="min-h-screen bg-gray-100">
-        {/* Header */}
-        <header className="flex justify-between items-center p-5 bg-white shadow-md">
-          <div className="flex items-center">
-            <img src="/path-to-logo" alt="CAZH Logo" className="h-8" />
-          </div>
-          <nav className="flex space-x-8 text-lg">
-            <Link href="/" className="font-semibold text-gray-800">Beranda</Link>
-            <Link href="/daftar-pinjaman" className="text-gray-600 hover:text-gray-800">Daftar Pinjaman</Link>
-            <Link href="/profil" className="text-gray-600 hover:text-gray-800">Profil</Link>
-          </nav>
-        </header>
+        get(route("index"), {
+            onError: (errors) => {
+                toastUtils.showError(errors);
+            },
+        });
+    };
+    return (
+        <>
+            <Head title="Welcome" />
+            <MemberLayout member={auth.member}  greeting="Selamat Datang Flaminggo ✨">
+                <section className="text-center mt-10">
+                    <p className="mt-4 text-lg">Yuk cari bukunya...</p>
+                    <div className="mt-6">
+                        <input
+                            type="text"
+                            placeholder="Cari buku..."
+                            className="w-80 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={data.searchKey}
+                            onChange={(e) =>
+                                setData("searchKey", e.target.value)
+                            }
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    submit(e);
+                                }
+                            }}
+                        />
+                    </div>
+                </section>
 
-        {/* Welcome Section */}
-        <section className="text-center mt-10">
-          <h1 className="text-2xl font-semibold text-gray-800">
-            Selamat Datang, {auth?.user?.name || 'Flamingo'}! ✨
-          </h1>
-          <p className="mt-4 text-lg">Yuk cari bukunya...</p>
-          <div className="mt-6">
-            <input
-              type="text"
-              placeholder="Cari buku..."
-              className="w-80 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </section>
+                {latestBooks && (
+                    <section>
+                        <h2 className="text-xl mt-10 font-semibold text-gray-800 text-center">
+                            Buku Terbaru 📚
+                        </h2>
+                        <Swiper data={latestBooks} />
+                    </section>
+                )}
 
-        {/* Buku Terbaru - Hasil Pencarian */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold text-gray-800 text-center">
-            Hasil Pencarian 📚
-          </h2>
-          <div className="flex justify-center mt-6 space-x-4">
-            {filteredBooks.length > 0 ? (
-              filteredBooks.map((book) => (
-                <div
-                  key={book.id}
-                  className="bg-white shadow-lg p-4 w-40 rounded-lg text-center"
-                >
-                  <div className="h-40 bg-gray-300 flex items-center justify-center">
-                    COVER
-                  </div>
-                  <h3 className="mt-4 text-sm font-semibold text-gray-800">
-                    {book.title}
-                  </h3>
-                  <p className="text-gray-600 mt-2">Stok Buku: {book.stock}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500 text-lg">Buku tidak ditemukan.</p>
-            )}
-          </div>
-        </section>
-      </div>
-    </>
-  );
+                {favoriteBooks && (
+                    <section>
+                        <h2 className="text-xl mt-10 font-semibold text-gray-800 text-center">
+                            Buku Terfavorit 📚
+                        </h2>
+                        <Swiper data={favoriteBooks} />
+                    </section>
+                )}
+
+                {biblios && (
+                    <section>
+                        <div className="flex justify-center px-10 flex-wrap py-10">
+                            {biblios.data.map((biblio, id) => (
+                                <div
+                                    key={id}
+                                    className="bg-white shadow-lg h-72 py-5 px-5 w-40 rounded-lg text-center ml-4 mt-4"
+                                >
+                                    <img
+                                        src={
+                                            biblio.biblio_photo_path
+                                                ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                                : "/img/bibliography/biblio-default-picture.png"
+                                        }
+                                        className="h-40 rounded bg-gray-300 inline-block text-center"
+                                    />
+
+                                    <h3 className="mt-4 text-xs font-semibold text-gray-800">
+                                        {biblio.title}
+                                    </h3>
+                                    {/* <p className="text-gray-600 mt-2">
+                                        Stok Buku: {book.stock}
+                                    </p> */}
+                                </div>
+                            ))}
+                            {!biblios.data.length && "Buku tidak ditemukan!"}
+                        </div>
+                    </section>
+                )}
+            </MemberLayout>
+        </>
+    );
 }

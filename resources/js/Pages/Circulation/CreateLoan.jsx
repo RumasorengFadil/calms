@@ -137,7 +137,7 @@ export default function CreateLoan({ member, breadcrumbs }) {
                                     >
                                         <a
                                             onClick={() => setTabname("loan")}
-                                            className="inline-block px-4 py-2  hover:text-blue-600 transition ease-linear duration-150"
+                                            className="inline-block px-4 py-2  hover:text-blue-600 transition transition-all"
                                         >
                                             Pinjaman
                                         </a>
@@ -153,7 +153,7 @@ export default function CreateLoan({ member, breadcrumbs }) {
                                             onClick={() =>
                                                 setTabname("currentLoan")
                                             }
-                                            className="inline-block px-4 py-2 hover:text-blue-600 transition ease-linear duration-150"
+                                            className="inline-block px-4 py-2 hover:text-blue-600 transition transition-all"
                                         >
                                             Pinjaman saat ini
                                         </a>

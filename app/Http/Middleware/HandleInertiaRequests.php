@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'member' => $request->user('member'),
             ],
             'currentRouteName' => $currentRouteName,
             'baseRouteName' => $baseRouteName,

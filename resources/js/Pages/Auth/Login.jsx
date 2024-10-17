@@ -14,7 +14,7 @@ export default function Login({ status, canResetPassword }) {
     ];
 
     const [tab, setTab] = useState("user");
-    
+
     return (
         <MainLayout>
             <div className="min-h-screen flex justify-center items-center bg-gray-100">
@@ -39,10 +39,24 @@ export default function Login({ status, canResetPassword }) {
                             </Link>
 
                             <div className="flex bg-primary rounded-full border-2 border-primary bg-opacity-20">
-                                <div onClick={() => setTab("user")} className={`px-6 py-1 text-xs font-bold cursor-pointer ${tab==="user"?"bg-primary rounded-l-full text-white":""}`}>
+                                <div
+                                    onClick={() => setTab("user")}
+                                    className={`px-6 py-1 text-xs font-bold cursor-pointer transition-all ${
+                                        tab === "user"
+                                            ? "bg-primary rounded-l-full text-white"
+                                            : ""
+                                    }`}
+                                >
                                     User
                                 </div>
-                                <div onClick={() => setTab("admin")} className={`px-6 py-1 text-xs font-bold cursor-pointer ${tab==="admin"?"bg-primary rounded-r-full text-white":""}`}>
+                                <div
+                                    onClick={() => setTab("admin")}
+                                    className={`px-6 py-1 text-xs font-bold cursor-pointer transition-all ${
+                                        tab === "admin"
+                                            ? "bg-primary rounded-r-full text-white"
+                                            : ""
+                                    }`}
+                                >
                                     Admin
                                 </div>
                             </div>
@@ -56,10 +70,10 @@ export default function Login({ status, canResetPassword }) {
                             odit, nisi
                         </p>
 
-                        {tab === "admin" ? (
-                            <AdminLogin canResetPassword={canResetPassword} />
-                        ) : (
+                        {tab === "user" ? (
                             <UserLogin canResetPassword={canResetPassword} />
+                        ) : (
+                            <AdminLogin canResetPassword={canResetPassword} />
                         )}
                     </div>
                 </div>

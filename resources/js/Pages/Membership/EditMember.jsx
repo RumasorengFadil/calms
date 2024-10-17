@@ -28,7 +28,7 @@ export default function EditMember({ member, breadcrumbs }) {
         registerDate: member.register_date,
         pin: member.pin,
         memberPhoto: null,
-        memberEmail: member.member_email,
+        memberEmail: member.email,
     });
     const { imagePreview, handleFileChange } = useImagePreview(); // State untuk menyimpan Data URL
 

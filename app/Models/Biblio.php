@@ -63,4 +63,8 @@ class Biblio extends Model
     {
         return $this->hasMany(Item::class, 'biblio_id');
     }
+    public function loansHistory()
+    {
+        return $this->hasMany(LoanHistory::class, 'biblio_id');
+    }
 }
