@@ -31,7 +31,7 @@ export default function MemberLayout({ member, greeting, children }) {
                         {member && (
                             <>
                                 <Link
-                                    href="/loan"
+                                    href={route("loan.index")}
                                     className={`${
                                         baseRouteName === "loan"
                                             ? "font-semibold"
@@ -41,7 +41,7 @@ export default function MemberLayout({ member, greeting, children }) {
                                     Daftar Pinjaman
                                 </Link>
                                 <Link
-                                    href="/loan"
+                                    href={route("profile.edit")}
                                     className={`${
                                         baseRouteName === "profile"
                                             ? "font-semibold"
