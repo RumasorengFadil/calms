@@ -1,11 +1,11 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link, usePage } from "@inertiajs/react";
 
-export default function MemberLayout({ member, greeting, children }) {
+export default function MemberLayout({ member, greeting, className, children }) {
     const { baseRouteName } = usePage().props;
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className={"min-h-screen bg-gray-100 " + className}>
             <header
                 style={{
                     backgroundImage: "url('/img/common/library-picture.png')",
