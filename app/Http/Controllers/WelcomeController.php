@@ -45,6 +45,8 @@ class WelcomeController extends Controller
 
     public function show($biblio)
     {
+
+        $biblio->load(['authors.author', 'publisher', 'language']);
         try {
             return Inertia::render('Bibliography/ShowBibliography', [
                 'biblio' => $biblio

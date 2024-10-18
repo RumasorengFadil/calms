@@ -16,6 +16,7 @@ export const useImagePreview = (data) => {
 
             reader.readAsDataURL(file); // Baca file sebagai Data URL
         }
+        console.log(file);
         callback(file);
     };
 

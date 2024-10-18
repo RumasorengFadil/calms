@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Member;
+use App\Repositories\Membership\MemberRepository;
+use App\Services\PhotoService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +16,14 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    protected $memberRepository;
+    protected $photoService;
+
+    public function __construct(MemberRepository $memberRepository, PhotoService $photoService)
+    {
+        $this->memberRepository = $memberRepository;
+        $this->photoService = $photoService;
+    }
     /**
      * Display the user's profile form.
      */
@@ -29,15 +40,19 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+            $member = Auth::user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+            // Data sudah tervalidasi oleh UpdateMemberRequest
+            $validatedData = $request->validated();
 
-        $request->user()->save();
+            // Update data foto sebelumnya
+            $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $member['member_photo_path'], 'member');
 
-        return Redirect::route('profile.edit');
+            // Tambahkan data member beserta path gambar ke dalam database
+            $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $member);
+
+            return redirect()->back()
+                ->with(['message' => __('message.success.updated', ['entity' => 'Member'])]);
     }
 
     /**
