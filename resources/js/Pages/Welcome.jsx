@@ -30,7 +30,7 @@ export default function Welcome({
     };
     return (
         <>
-            <Head title="Welcome" />
+            <Head title="Home" />
             <MemberLayout
                 member={auth.member}
                 greeting="Selamat Datang Flaminggo ✨"
