@@ -48,8 +48,8 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
         <div className={" " + className}>
             {biblios.data.map((biblio) => (
                 <div
-                    className={"flex px-10 border-y py-3"}
-                    key={biblio.biblio_id}
+                className={"flex px-10 border-y py-3"}
+                key={biblio.biblio_id}
                 >
                     <div className="basis-1/5 flex items-center justify-start">
                         <TextInput

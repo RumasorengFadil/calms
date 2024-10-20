@@ -53,7 +53,7 @@ class BiblioSeeder extends Seeder
                 'biblio_photo' => "",
                 'biblio_photo_path' => "",
                 // 'biblio_photo_path' => "ajax.jpg",
-                'itemCodePattern' => "A00000",
+                'itemCodePattern' => "B00000",
                 'input_date' => now()->toDateString(),
                 'last_update' => now()->toDateString(),
             ],

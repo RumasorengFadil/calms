@@ -25,6 +25,7 @@ export default function Dashboard({}) {
 
                 <MainContentLayout>
                     <PageHeader>Dashboard</PageHeader>
+                    <div className="flex items-center text-xl justify-center mt-32">Welcome to Calms Library Management System</div>
                 </MainContentLayout>
             </div>
         </div>

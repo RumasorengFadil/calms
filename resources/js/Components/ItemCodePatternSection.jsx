@@ -8,7 +8,7 @@ function ItemCodePatternSection({ onChange, data, itemCodePatterns }) {
     const [isVisible, setIsVisible] = useState(false);
 
     const setModalVisibility = (isVisible) => setIsVisible(isVisible);
-
+    console.log(data);
 
     return (
         <div className="flex-1">
