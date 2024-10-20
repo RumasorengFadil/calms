@@ -22,7 +22,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [WelcomeController::class, 'index'])->name('index');
-Route::get('/books/{biblioId}', [WelcomeController::class, 'show'])->name('books.show');
+// Route::get('/books/{biblioId}', [WelcomeController::class, 'show'])->name('books.show');
 // Route::get('/bibliographies/{biblioId}', [WelcomeController::class, 'show'])->name('bibliographies.show');
 
 

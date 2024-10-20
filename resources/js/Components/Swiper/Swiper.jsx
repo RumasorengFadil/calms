@@ -61,11 +61,11 @@ export default function ({ data, className }) {
                 <div className="flex justify-center mt-6 space-x-4 py-5">
                     {data.length > 0 ? (
                         data.map((book, i) => (
-                            <SwiperSlide key={i}>
+                            <SwiperSlide className="bg-white cursor-pointer rounded-lg py-4 shadow-lg" key={i}>
                                 <Link
                                     // key={book.id}
-                                    href = {route('books.show',book.biblio_id)}
-                                    className="bg-white block shadow-lg h-72 py-5 px-5 flex-1 rounded-lg text-center cursor-pointer"
+                                    href = {route('bibliographies.show',book.biblio_id)}
+                                    className="block h-64 px-5 flex-1 text-center overflow-hidden"
                                 >
                                     <img
                                         src={
@@ -77,7 +77,7 @@ export default function ({ data, className }) {
                                     />
 
                                     <h3 className="mt-4 text-xs font-semibold text-gray-800">
-                                        {book.title}
+                                        {book.title}dsadasda sdadsad sdfsfsfs sfdsfsffsdf
                                     </h3>
                                     {/* <p className="text-gray-600 mt-2">
                                         Stok Buku: {book.stock}

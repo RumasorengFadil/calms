@@ -31,7 +31,10 @@ export default function Welcome({
     return (
         <>
             <Head title="Welcome" />
-            <MemberLayout member={auth.member}  greeting="Selamat Datang Flaminggo ✨">
+            <MemberLayout
+                member={auth.member}
+                greeting="Selamat Datang Flaminggo ✨"
+            >
                 <section className="text-center mt-10">
                     <p className="mt-4 text-lg">Yuk cari bukunya...</p>
                     <div className="mt-6">
@@ -72,29 +75,34 @@ export default function Welcome({
 
                 {biblios && (
                     <section>
-                        <div className="flex justify-center px-10 flex-wrap py-10">
+                        <div className="flex justify-center px-5 flex-wrap py-10">
                             {biblios.data.map((biblio, id) => (
-                                <Link
-                                    key={id}
-                                    href = {route('books.show',biblio.biblio_id)}
-                                    className="bg-white cursor-pointer block shadow-lg h-72 py-5 px-5 w-40 rounded-lg text-center ml-4 mt-4"
-                                >
-                                    <img
-                                        src={
-                                            biblio.biblio_photo_path
-                                                ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
-                                                : "/img/bibliography/biblio-default-picture.png"
-                                        }
-                                        className="h-40 rounded bg-gray-300 inline-block text-center"
-                                    />
+                                <div className="bg-white flex-auto flex items-center justify-center sm:flex-none rounded-lg cursor-pointer py-4 shadow-lg ml-4 mt-4">
+                                    <Link
+                                        key={id}
+                                        href={route(
+                                            "bibliographies.show",
+                                            biblio.biblio_id
+                                        )}
+                                        className="overflow-hidden block w-40 px-4  h-64  text-center "
+                                    >
+                                        <img
+                                            src={
+                                                biblio.biblio_photo_path
+                                                    ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                                    : "/img/bibliography/biblio-default-picture.png"
+                                            }
+                                            className="h-40 rounded bg-gray-300 inline-block"
+                                        />
 
-                                    <h3 className="mt-4 text-xs font-semibold text-gray-800">
-                                        {biblio.title}
-                                    </h3>
-                                    {/* <p className="text-gray-600 mt-2">
+                                        <h3 className="mt-4 text-xs font-semibold text-gray-800">
+                                            {biblio.title}
+                                        </h3>
+                                        {/* <p className="text-gray-600 mt-2">
                                         Stok Buku: {book.stock}
                                     </p> */}
-                                </Link>
+                                    </Link>
+                                </div>
                             ))}
                             {!biblios.data.length && "Buku tidak ditemukan!"}
                         </div>
