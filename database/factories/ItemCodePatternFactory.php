@@ -17,7 +17,9 @@ class ItemCodePatternFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "item_code_pattern" => "B00000",
+            "input_date" => fake()->date(),
+            "last_update" => fake()->date(),
         ];
     }
 }

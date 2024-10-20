@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string("member_photo_path")->nullable();
             // $table->string("member_email")->nullable();
             // $table->string("member_password");
-            $table->string("email");
+            $table->string("email")->unique();
             $table->string("password");
             $table->dateTime("last_login");
             $table->date("input_date");

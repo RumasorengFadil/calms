@@ -7,6 +7,7 @@ use App\Http\Controllers\Bibliography\ItemController;
 use App\Http\Controllers\Bibliography\LanguageController;
 use App\Http\Controllers\Bibliography\PlaceController;
 use App\Http\Controllers\Bibliography\PublisherController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -76,9 +77,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Items Route
     Route::prefix('items')->group(function () {
         Route::post('/search', [ItemController::class, 'search'])->name('items.search');
+        Route::delete('/destroy/{itemId}', [ItemController::class, 'destroy'])->name('items.destroy');
     });
     // Item Code Pattern Route
     Route::prefix('item-code-patterns')->group(function () {
         Route::post('/store', [ItemCodePatternController::class, 'store'])->name('item-code-patterns.store');
     });
 });
+

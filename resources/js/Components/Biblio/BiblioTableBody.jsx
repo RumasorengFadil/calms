@@ -7,8 +7,7 @@ import toastUtils from "@/utils/toastUtils";
 import Pagination from "../Pagination";
 
 export default memo(function BiblioTableBody({ biblios, className = "" }) {
-    // const { flash } = usePage().props;
-
+    console.log(biblios);
     const {
         data,
         setData,
@@ -48,7 +47,10 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
     return (
         <div className={" " + className}>
             {biblios.data.map((biblio) => (
-                <div className={"flex px-10 border-y py-3"} key={biblio.biblio_id}>
+                <div
+                    className={"flex px-10 border-y py-3"}
+                    key={biblio.biblio_id}
+                >
                     <div className="basis-1/5 flex items-center justify-start">
                         <TextInput
                             type="checkbox"
@@ -67,7 +69,7 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                                 src={
                                     biblio.biblio_photo_path
                                         ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
-                                        : "/img/bibliography/biblio-default-picture.png"
+                                        : `/img/bibliography/biblio-default-picture.png`
                                 }
                                 alt=""
                             />
@@ -82,7 +84,13 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                     <div className="basis-1/3 text-gray-400">
                         {biblio.publisher.publisher_name}
                     </div>
-                    <div className="basis-1/3 "> {biblio.itemCodePattern}</div>
+                    <div
+                        className={`basis-1/3 ${
+                            !biblio.items.length ? "text-red-500" : ""
+                        }`}
+                    >
+                        {biblio.items.length ? biblio.items.length : "none"}
+                    </div>
                     <div className="basis-1/3">
                         <BibliographyItemActions biblioId={biblio.biblio_id} />
                     </div>
@@ -101,9 +109,7 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                 >
                     Pilih Semua
                 </PrimaryButton>
-                <PrimaryButton
-                    onClick={unselectAllBibliographyIds}
-                >
+                <PrimaryButton onClick={unselectAllBibliographyIds}>
                     Jangan Pilih Semua
                 </PrimaryButton>
             </div>

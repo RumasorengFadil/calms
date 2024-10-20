@@ -17,6 +17,7 @@ import Breadcrumbs from "@/Components/Breadcrumbs/Breadcrumbs ";
 import MainLayout from "@/Layouts/MainLayout";
 import { useImagePreview } from "@/hooks/useImagePreview";
 import FormActions from "@/Components/Form/FormActions";
+import ItemsSection from "@/Components/ItemsSection";
 
 export default function EditBibliography({
     biblio,
@@ -76,7 +77,6 @@ export default function EditBibliography({
 
             destroy(route("authors.destroy", id), {
                 onSuccess: (response) => {
-                    console.log(response);
                     toastUtils.showSuccess(response.props.flash);
                 },
                 onError: (errors) => {
@@ -175,6 +175,15 @@ export default function EditBibliography({
                                     <InputError
                                         message={errors.itemCodePattern}
                                     />
+                                </InputGroup>
+                            </FormElement>
+                            <FormElement>
+                                <InputLabel className="basis-52">
+                                    Item(s) Data
+                                </InputLabel>
+                                <span className="mx-7">:</span>
+                                <InputGroup className="flex-1">
+                                    <ItemsSection items={biblio.items} /> 
                                 </InputGroup>
                             </FormElement>
                             <FormElement>

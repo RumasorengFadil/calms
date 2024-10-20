@@ -48,4 +48,18 @@ class ItemController extends Controller
             redirect()->back()->withErrors(['error' => __('message.error.searched', ['entity' => 'Member'])]);
         }
     }
+
+    public function destroy($item)
+    {
+        try {
+            $this->itemRepository->destroy($item);
+
+            return redirect()->back()
+                ->with(['message' => __('message.success.destroyed', ['entity' => 'Item'])]);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to update biblios: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Item'])]);
+        }
+    }
 }

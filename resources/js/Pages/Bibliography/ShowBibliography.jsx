@@ -7,7 +7,10 @@ const BookDetail = ({ biblio }) => {
         <div className="min-h-screen bg-gray-100">
             {/* Back Button */}
             <div className="p-4 bg-primary">
-                <Link onClick={() => history.back()} className="text-white underline">
+                <Link
+                    onClick={() => history.back()}
+                    className="text-white underline"
+                >
                     Kembali
                 </Link>
             </div>
@@ -68,9 +71,14 @@ const BookDetail = ({ biblio }) => {
 
                         {/* Book Cover */}
                         <div className="flex mb-5 items-center justify-center sm:justify-end">
-                            <div className="bg-gray-300 w-40 h-60 flex items-center justify-center mt-[-20px]">
-                                <span className="text-gray-600">COVER</span>
-                            </div>
+                            <img
+                                src={
+                                    biblio.biblio_photo_path
+                                        ? `/storage/uploads/img/biblios/photo/${biblio.biblio_photo_path}`
+                                        : "/img/bibliography/biblio-default-picture.png"
+                                }
+                                className="bg-gray-300 w-40 h-60 flex items-center justify-center mt-[-20px]"
+                            />
                         </div>
                     </div>
 

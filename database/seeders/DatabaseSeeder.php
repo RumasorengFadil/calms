@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             MemberSeeder::class,
             MstAuthorSeeder::class,
+            ItemCodePatternSeeder::class,
             BiblioSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();

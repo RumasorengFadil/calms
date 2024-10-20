@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Biblio;
 use App\Models\BiblioAuthor;
+use App\Models\Item;
 use App\Models\Loan;
 use App\Models\Member;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -37,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         // Route::model('memberId', Member::class);
         Route::model('authorId', BiblioAuthor::class);
         Route::model('loanId', Loan::class);
+        Route::model('itemId', Item::class);
 
         $this->routes(function () {
             Route::middleware('api')

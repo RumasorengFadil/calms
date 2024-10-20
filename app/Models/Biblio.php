@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Route;
+use Storage;
 
 class Biblio extends Model
 {
@@ -39,6 +40,19 @@ class Biblio extends Model
         "last_update",
     ];
 
+    public function getImageUrlAttribute()
+    {
+        $biblioPhotoPath = $this->biblio_photo_path;
+
+        if (!$biblioPhotoPath)
+            return null;
+
+        if (Storage::disk('public')->exists('uploaded_images/' . $biblioPhotoPath)) {
+            return asset('/img/bibliography/' . $biblioPhotoPath);
+        }
+
+        return asset('images/dummy/' . $biblioPhotoPath);
+    }
     public function language()
     {
         return $this->belongsTo(MstLanguage::class, 'language_id');

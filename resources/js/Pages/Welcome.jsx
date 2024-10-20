@@ -74,9 +74,10 @@ export default function Welcome({
                     <section>
                         <div className="flex justify-center px-10 flex-wrap py-10">
                             {biblios.data.map((biblio, id) => (
-                                <div
+                                <Link
                                     key={id}
-                                    className="bg-white shadow-lg h-72 py-5 px-5 w-40 rounded-lg text-center ml-4 mt-4"
+                                    href = {route('books.show',biblio.biblio_id)}
+                                    className="bg-white cursor-pointer block shadow-lg h-72 py-5 px-5 w-40 rounded-lg text-center ml-4 mt-4"
                                 >
                                     <img
                                         src={
@@ -93,7 +94,7 @@ export default function Welcome({
                                     {/* <p className="text-gray-600 mt-2">
                                         Stok Buku: {book.stock}
                                     </p> */}
-                                </div>
+                                </Link>
                             ))}
                             {!biblios.data.length && "Buku tidak ditemukan!"}
                         </div>

@@ -64,7 +64,7 @@ export default function ({ data, className }) {
                             <SwiperSlide key={i}>
                                 <Link
                                     // key={book.id}
-                                    href = {route('bibliographies.show',book.biblio_id)}
+                                    href = {route('books.show',book.biblio_id)}
                                     className="bg-white block shadow-lg h-72 py-5 px-5 flex-1 rounded-lg text-center cursor-pointer"
                                 >
                                     <img

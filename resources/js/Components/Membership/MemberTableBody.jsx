@@ -131,9 +131,10 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                                     size={20}
                                     color="black"
                                 />
+                                {console.log(member)}
                                 <div className="text-black">
-                                    {member.member_email
-                                        ? member.member_email
+                                    {member.email
+                                        ? member.email
                                         : " -"}
                                 </div>
                             </div>

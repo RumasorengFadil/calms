@@ -100,8 +100,7 @@ class BibliographyController extends Controller
     public function edit($biblio)
     {
         try {
-            $biblio->load(['language', 'publisher', 'place', 'authors', 'items']);
-            $biblio->authors->load('author');
+            $biblio->load(['language', 'publisher', 'place', 'authors.author', 'items']);
 
             $itemCodePatterns = $this->itemCodePatternRepository->index();
             
