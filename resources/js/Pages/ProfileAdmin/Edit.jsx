@@ -105,23 +105,6 @@ export default function Edit({ auth }) {
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Password</label>
-                            <input
-                                type="password"
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
-                                defaultValue="*******"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
-                            <input
-                                type="password"
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
-                                defaultValue="*******"
-                            />
-                        </div>
                     </div>
 
                     {/* Button Section */}
