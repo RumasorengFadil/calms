@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 
-export const useAutocomplete = (fetchRoute) => {
-    const [results, setResults] = useState([]);
+export const useAutocomplete = (fetchRoute, defaultValue) => {
+    const [results, setResults] = useState(defaultValue?defaultValue:[]);
 
     useEffect(() => {
         return () => {
@@ -11,17 +11,17 @@ export const useAutocomplete = (fetchRoute) => {
         };
     }, []);
 
-    const fetchResults = debounce(async (searchKey) => {
+    const fetchResults = debounce(async (searchKey, page="") => {
         try {
             const response = await axios.get(fetchRoute, {
                 params: { searchKey },
+                page : page,
             });
-            // console.log(response);
             setResults(response.data);
         } catch (error) {
             console.error("Search error:", error);
         }
-    }, 300);
+    }, 100);
 
     return { results, fetchResults };
 };

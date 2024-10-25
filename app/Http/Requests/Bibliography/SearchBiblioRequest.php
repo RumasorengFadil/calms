@@ -22,15 +22,15 @@ class SearchBiblioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'biblioSearchKey' => 'required|string|max:255'
+            'searchKey' => 'required|string|max:255'
         ];
     }
 
     public function messages()
     {
         return [
-            'biblioSearchKey.required' => 'Tidak ada input yang diterima!.',
-            'biblioSearchKey.max' => 'Panjang karakter melebihi 255 karakter!.',
+            'searchKey.required' => 'Tidak ada input yang diterima!.',
+            'searchKey.max' => 'Panjang karakter melebihi 255 karakter!.',
         ];
     }
 }

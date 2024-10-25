@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Bibliography;
 
-use App\DTOs\BiblioDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bibliography\DestroysBiblioRequest;
 use App\Http\Requests\Bibliography\IndexBiblioRequest;
-use App\Http\Requests\Bibliography\SearchBiblioRequest;
+use App\Http\Requests\Bibliography\SearchRequest;
 use App\Http\Requests\Bibliography\StoreBiblioRequest;
 use App\Http\Requests\Bibliography\UpdateBiblioRequest;
-use App\Models\Biblio;
 use App\Repositories\Bibliography\BiblioRepository;
 use App\Repositories\Bibliography\ItemCodePatternRepository;
 use App\Services\BiblioDTOFactory;
@@ -45,13 +43,8 @@ class BibliographyController extends Controller
     {
         try {
             // Data sudah tervalidasi oleh IndexBiblioRequest
-            $validatedData = $request->validated();
 
-            if ($validatedData) {
-                $biblios = $this->biblioRepository->search($validatedData['searchKey']);
-            } else {
-                $biblios = $this->biblioRepository->index();
-            }
+            $biblios = $this->biblioRepository->index();
 
             return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
         } catch (\Exception $e) {
@@ -159,27 +152,28 @@ class BibliographyController extends Controller
             return redirect()->back()->withErrors(['error' => __('message.error.destroyed', ['entity' => 'Biblio'])]);
         }
     }
+    public function search(SearchRequest $request)
+    {
+        try {
+            // Data sudah tervalidasi oleh SearchBiblioRequest
+            $validatedData = $request->validated();
+
+            $biblios = $this->biblioRepository->search($validatedData['searchKey']);
+            return Inertia::render('Bibliography/Bibliographies', [
+                'biblios' => $biblios,
+                'filters' => $request->only(['searchKey'])
+            ]);
+            // return response()->json($biblios);
+
+        } catch (\Exception $e) {
+            // Menyimpan log error
+            \Log::error('Failed to search biblios: ' . $e->getMessage());
+
+            // Menyediakan feedback kepada pengguna
+            redirect()->back()->withErrors(['error' => __('message.error.searched', ['entity' => 'Member'])]);
+        }
+    }
 }
 
 
 
-
-// public function search(SearchBiblioRequest $request)
-// {
-//     try {
-//         // Data sudah tervalidasi oleh SearchBiblioRequest
-//         $validatedData = $request->validated();
-
-//         $biblios = $this->biblioRepository->search($validatedData["biblioSearchKey"]);
-
-//         return Inertia::render('Bibliography/Bibliographies', ['biblios' => $biblios]);
-//     } catch (\Exception $e) {
-//         // Menyimpan log error
-//         \Log::error('Failed to search biblios: ' . $e->getMessage());
-
-//         // Menyediakan feedback kepada pengguna
-//         return Inertia::render('Bibliography/Bibliographies', [
-//             'errors' => ['error' => __('message.error.search', ['entity' => 'Biblio'])]
-//         ]);
-//     }
-// }

@@ -24,16 +24,16 @@ class WelcomeController extends Controller
         $biblios = null;
         $favoriteBooks = null;
         $latestBooks = null;
-
+        // dd($validatedData);
         if ($validatedData) {
             $biblios = $this->biblioRepository->search($validatedData['searchKey']);
         } else {
             $favoriteBooks = $this->biblioRepository->getFavoriteBooks();
             $latestBooks = $this->biblioRepository->getLatestBooks();
         }
-        
         return Inertia::render('Welcome', [
             'favoriteBooks' => $favoriteBooks,
+            'filters' => $request->only(['searchKey']),
             'latestBooks' => $latestBooks,
             'biblios' => $biblios,
             'canLogin' => Route::has('login'),

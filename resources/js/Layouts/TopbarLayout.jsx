@@ -53,7 +53,7 @@ export default memo(function TopbarLayout({ children }) {
                     </ul>
                     <Link href={route("dashboard.index")}>
                         <img
-                            className="w-64 min-w-32"
+                            className="w-48 min-w-32"
                             src="/img/app/logo-company.png"
                             alt=""
                         />

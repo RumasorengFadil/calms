@@ -2,10 +2,14 @@
 
 namespace App\Http\Requests\Traits;
 
+use App\Models\User;
+use Illuminate\Validation\Rule;
+
 trait MemberRules
 {
     protected function memberRules()
     {
+        // $memberId = $this->route('memberId');
         return [
             // 'memberId' => 'required|unique:members,member_id',
             'memberName' => 'required',
@@ -22,7 +26,7 @@ trait MemberRules
             'memberAddress' => 'nullable',
             'postalCode' => '',
             'pin' => '',
-            'memberEmail' => 'required|email|unique:members,email',
+            'memberEmail' => ['required','email','max:255',Rule::unique(User::class, 'email')->ignore($this->user()->id)],
             'registerDate' =>'',
         ];
     }

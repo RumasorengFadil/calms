@@ -45,6 +45,7 @@ Route::prefix("bibliographies")
 
             Route::get('/create', [BibliographyController::class, 'create'])->name('bibliographies.create');
             Route::post('/store', [BibliographyController::class, 'store'])->name('bibliographies.store');
+            Route::get('/search', [BibliographyController::class, 'search'])->name('bibliographies.search');
 
             Route::get('/edit/{biblioId}', [BibliographyController::class, 'edit'])->name('bibliographies.edit');
             Route::post('/update/{biblioId}', [BibliographyController::class, 'update'])->name('bibliographies.update');

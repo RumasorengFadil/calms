@@ -43,6 +43,7 @@ class UserFactory extends Factory
             "real_name" => 'Admin',
             "email" => fake()->unique()->safeEmail(),
             "password" => Hash::make("admin"),
+            "image" => '',
             "last_login" => now(),
             "input_date" => now()->toDateString(),
             "last_update" => now()->toDateString(),

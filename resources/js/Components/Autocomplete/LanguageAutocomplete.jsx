@@ -1,10 +1,11 @@
 import { Fragment, useState } from "react";
-import TextInput from "./TextInput";
 import { useAutocomplete } from "@/hooks/useAutocomplete";
 import { useDropdown } from "@/hooks/useDropdown";
 import { Transition } from "@headlessui/react";
+import TextInput from "../TextInput";
 
-export default function Autocomplete({
+export default function LanguageAutocomplete({
+    onSearch,
     placeholder = "",
     onChange,
     route,
@@ -14,17 +15,16 @@ export default function Autocomplete({
     children,
     ...props
 }) {
-    const { results, fetchResults } = useAutocomplete(route);
+    const { results, fetchApiResults } = useAutocomplete('https://restcountries.com/v3.1/name');
     const { showDropdown, setShowDropdown } = useDropdown(false);
     const [searchKey, setSearchKey] = useState("");
 
-    {console.log(results)}
     const handleInputChange = (e) => {
         const value = e.target.value;
         onChange(e);
         setSearchKey(value);
         setShowDropdown(true);
-        fetchResults(value);
+        fetchApiResults(value);
     };
 
     const handleSelectDropdown = (e) => {
@@ -36,12 +36,17 @@ export default function Autocomplete({
         setShowDropdown(false);
     };
 
+    const getLanguage = (result) =>{
+        const x = {};
+        
+        console.log(result)
+    }
     return (
-        <div className={`relative w-max ${className}`}>
+        <div className="relative w-max">
             <TextInput
                 {...props}
                 type="text"
-                className={`p-1 pl-2`}
+                className={`p-1 pl-2 ${className}`}
                 placeholder={placeholder}
                 onChange={handleInputChange}
                 name={name}
@@ -68,19 +73,14 @@ export default function Autocomplete({
                                 <input
                                     key={i}
                                     onMouseDown={(e) => handleSelectDropdown(e)}
-                                    value={result[show]}
+                                    value={`${result.altSpellings[0]} - ${result.altSpellings[2]}`}
                                     className="p-1 hover:bg-gray-100 w-full cursor-pointer border-none focus:outline-none focus:border-none focus:ring-0"
                                     role="option"
                                     name={name}
                                     onChange={() => {}}
                                 />
                             ))
-                        ) : (
-                            <li
-                                role="option"
-                                className="p-1 hover:bg-gray-100 cursor-pointer"
-                            >{`Add new <${searchKey}>`}</li>
-                        )}
+                        ) : ""}
                     </ul>
                 </Transition.Child>
             </Transition>

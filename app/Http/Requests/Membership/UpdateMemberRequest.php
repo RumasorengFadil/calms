@@ -23,6 +23,7 @@ class UpdateMemberRequest extends FormRequest
      */
     public function rules(): array
     {
+
         $rules = $this->memberRules();
         $rules['memberPassword'] = 'nullable|string|min:8|required_with:passwordConfirmation';
         $rules['passwordConfirmation'] = 'nullable|string|min:8|same:memberPassword|required_with:memberPassword';

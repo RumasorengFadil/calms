@@ -10,7 +10,7 @@ import { MdOutlineMail } from "react-icons/md";
 import MembershipItemActions from "./MembershipItemActions";
 import toastUtils from "@/utils/toastUtils";
 
-export default memo(function MemberTableBody({ members, className = "" }) {
+export default memo(function MemberTableBody({ members, searchKey, className = "" }) {
     // const { flash } = usePage().props;
 
     const {
@@ -131,7 +131,6 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                                     size={20}
                                     color="black"
                                 />
-                                {console.log(member)}
                                 <div className="text-black">
                                     {member.email
                                         ? member.email
@@ -158,7 +157,7 @@ export default memo(function MemberTableBody({ members, className = "" }) {
                 </div>
             ))}
 
-            <Pagination className="py-3 px-10" links={members.links} />
+            <Pagination searchKey={searchKey} className="py-3 px-10" links={members.links} />
 
             <div className="py-6 px-10 bg-light-gray">
                 <PrimaryButton onClick={submit} className="bg-red-500">

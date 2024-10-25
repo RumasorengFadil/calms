@@ -30,7 +30,7 @@ class BiblioRepository
     }
     public function search($biblioSearchKey) : LengthAwarePaginator
     {
-        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(10);
+        return Biblio::with(['language', 'publisher', 'place', 'authors', 'items'])->where('title', 'like', "%{$biblioSearchKey}%")->orWhere('biblio_id', $biblioSearchKey)->paginate(10)->appends(['keyword' => $biblioSearchKey]);
     }
     public function getLatestBooks(int $limit = 10)
     {

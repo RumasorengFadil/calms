@@ -6,8 +6,7 @@ import BibliographyItemActions from "./BibliographyItemActions ";
 import toastUtils from "@/utils/toastUtils";
 import Pagination from "../Pagination";
 
-export default memo(function BiblioTableBody({ biblios, className = "" }) {
-    console.log(biblios);
+export default memo(function BiblioTableBody({ biblios, searchKey, className = "" }) {
     const {
         data,
         setData,
@@ -97,7 +96,7 @@ export default memo(function BiblioTableBody({ biblios, className = "" }) {
                 </div>
             ))}
 
-            <Pagination className={"py-3 px-10"} links={biblios.links} />
+            <Pagination searchKey={searchKey} className={"py-3 px-10"} links={biblios.links} />
 
             <div className="py-6 bg-light-gray px-10">
                 <PrimaryButton onClick={submit} className="bg-red-500">

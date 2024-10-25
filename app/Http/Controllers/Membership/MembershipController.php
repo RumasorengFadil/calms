@@ -148,13 +148,20 @@ class MembershipController extends Controller
             $validatedData = $request->validated();
 
             $members = $this->memberRepository->search($validatedData['searchKey']);
-            
+            if($request->expectsJson()){
+                return response()->json([
+                    'members' => $members->items(),
+                    'filters' => $request->only(['searchKey'])
+                ]);
+            }
             return Inertia::render('Membership/Memberships', [
                 'members' => $members,
+                'filters' => $request->only(['searchKey'])
             ]);
+
         } catch (\Exception $e) {
             // Menyimpan log error
-            \Log::error('Failed to search biblios: ' . $e->getMessage());
+            \Log::error('Failed to search member: ' . $e->getMessage());
 
             // Menyediakan feedback kepada pengguna
             redirect()->back()->withErrors(['error' => __('message.error.searched', ['entity' => 'Member'])]);

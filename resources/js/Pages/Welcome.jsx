@@ -11,14 +11,11 @@ export default function Welcome({
     favoriteBooks,
     biblios,
     auth,
-    laravelVersion,
-    phpVersion,
+    filters,
 }) {
-    // State untuk menyimpan buku dan kata kunci pencarian
-    const { data, setData, reset, get } = useForm({
-        searchKey: "",
+    const { data, setData, get } = useForm({
+        searchKey: filters.searchKey || "",
     });
-
     const submit = (e) => {
         e.preventDefault();
 
@@ -66,7 +63,7 @@ export default function Welcome({
 
                 {favoriteBooks && (
                     <section>
-                        <h2 className="text-xl mt-10 font-semibold text-gray-800 text-center">
+                        <h2 className="text-xl font-semibold text-gray-800 text-center">
                             Buku Terfavorit 📚
                         </h2>
                         <Swiper data={favoriteBooks} />
@@ -74,12 +71,22 @@ export default function Welcome({
                 )}
 
                 {biblios && (
-                    <section>
-                        <div className="flex justify-center px-5 flex-wrap py-10">
+                    <section className="flex flex-col items-center justify-center">
+                        {biblios.data.length !== 0  && (
+                            <Pagination
+                                className="py-2 w-full bg-white mt-10 flex items-center justify-center"
+                                links={biblios.links}
+                                searchKey={data.searchKey}
+                            />
+                        )}
+
+                        <div className="flex justify-center px-5 flex-wrap">
                             {biblios.data.map((biblio, id) => (
-                                <div className="bg-white flex-auto flex items-center justify-center sm:flex-none rounded-lg cursor-pointer py-4 shadow-lg ml-4 mt-4">
+                                <div
+                                    key={id}
+                                    className="bg-white flex-auto flex items-center justify-center sm:flex-none rounded-lg cursor-pointer py-4 shadow-lg ml-4 mt-4"
+                                >
                                     <Link
-                                        key={id}
                                         href={route(
                                             "bibliographies.show",
                                             biblio.biblio_id
@@ -104,8 +111,16 @@ export default function Welcome({
                                     </Link>
                                 </div>
                             ))}
-                            {!biblios.data.length && "Buku tidak ditemukan!"}
+                            {!biblios.data.length && <h1 className="my-10">Buku tidak ditemukan!</h1>}
                         </div>
+
+                        {biblios.data.length !==0 && (
+                            <Pagination
+                                className="py-2 w-full bg-white mt-4 flex items-center justify-center"
+                                links={biblios.links}
+                                // searchKey={data.searchKey}
+                            />
+                        )}
                     </section>
                 )}
             </MemberLayout>

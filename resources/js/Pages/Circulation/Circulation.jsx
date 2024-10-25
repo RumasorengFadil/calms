@@ -10,6 +10,8 @@ import TextInput from "@/Components/TextInput";
 import toastUtils from "@/utils/toastUtils";
 import InputError from "@/Components/InputError";
 import { useEffect } from "react";
+import Autocomplete from "@/Components/Autocomplete";
+import MemberAutocomplete from "@/Components/Autocomplete/MemberAutoComplete";
 
 export default function Circulation({}) {
     const { get, data, setData, errors, reset } = useForm({
@@ -51,14 +53,23 @@ export default function Circulation({}) {
                         </div>
 
                         <div>
-                            <div className="flex items-center mx-10 py-6">
+                            <div className="flex items-center mx-10 py-10">
                                 <label>ID Anggota</label>
-                                <TextInput
+                                {/* <TextInput
                                     value={data.memberId}
                                     onChange={handleChange}
                                     type="text"
                                     name="memberId"
                                     className="mx-5 p-1"
+                                /> */}
+
+                                <MemberAutocomplete 
+                                    value={data.memberId}
+                                    onChange={handleChange}
+                                    type="text"
+                                    name="memberId"
+                                    className="mx-5 p-1"
+                                    route={route("membership.search")}
                                 />
                                 <PrimaryButton
                                     type="button"
