@@ -28,10 +28,6 @@ Route::middleware('auth:member,web')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-// Route::middleware('auth:web')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-// });
 
 // Route::middleware('auth')->group(function () {
     //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
