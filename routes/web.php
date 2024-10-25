@@ -23,15 +23,15 @@ use Inertia\Inertia;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('index');
 
-Route::middleware('auth:member')->group(function () {
+Route::middleware('auth:member,web')->group(function () {
     Route::get('/loan', [LoanController::class, 'index'])->name('loan.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-Route::middleware('auth:web')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
+// Route::middleware('auth:web')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+// });
 
 // Route::middleware('auth')->group(function () {
     //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

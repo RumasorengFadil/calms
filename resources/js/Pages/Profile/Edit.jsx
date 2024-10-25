@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DeleteUserForm from "./Partials/DeleteUserForm";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import MemberLayout from "@/Layouts/MemberLayout";
 import { useImagePreview } from "@/hooks/useImagePreview";
 import toastUtils from "@/utils/toastUtils";
