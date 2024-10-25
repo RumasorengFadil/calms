@@ -5,7 +5,7 @@ import SliderNav from "./SliderNav";
 import Slides from "./Slides";
 import Slide from "./Slide";
 
-export default memo(function Slider({ slides, interval = 4000, className }) {
+export default memo(function Slider({ slides, interval = 2500, className }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Function to go to the previous slide

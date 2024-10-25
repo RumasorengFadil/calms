@@ -29,7 +29,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Edit', [
+
+        if (Auth::guard('member')->user()) {
+            return Inertia::render('Profile/Edit', [
+                'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+                'status' => session('status'),
+            ]);
+        }
+
+        return Inertia::render('ProfileAdmin/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -40,19 +48,19 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-            $member = Auth::user();
+        $member = Auth::user();
 
-            // Data sudah tervalidasi oleh UpdateMemberRequest
-            $validatedData = $request->validated();
+        // Data sudah tervalidasi oleh UpdateMemberRequest
+        $validatedData = $request->validated();
 
-            // Update data foto sebelumnya
-            $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $member['member_photo_path'], 'member');
+        // Update data foto sebelumnya
+        $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $member['member_photo_path'], 'member');
 
-            // Tambahkan data member beserta path gambar ke dalam database
-            $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $member);
+        // Tambahkan data member beserta path gambar ke dalam database
+        $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $member);
 
-            return redirect()->back()
-                ->with(['message' => __('message.success.updated', ['entity' => 'Member'])]);
+        return redirect()->back()
+            ->with(['message' => __('message.success.updated', ['entity' => 'Member'])]);
     }
 
     /**
