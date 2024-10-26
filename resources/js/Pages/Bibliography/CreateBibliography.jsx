@@ -86,7 +86,6 @@ export default function CreateBibliography({ itemCodePatterns }) {
     };
 
     const submit = function () {
-        console.log(data.biblioPhoto);
 
         post(route("bibliographies.store"), {
             onSuccess: (response) => {
@@ -139,7 +138,7 @@ export default function CreateBibliography({ itemCodePatterns }) {
                                         value={data.publisherName}
                                         onChange={handleChange}
                                         route={route("publishers.search")}
-                                        className="w-56 px-2"
+                                        className="w-56"
                                         name="publisherName"
                                         show="publisher_name"
                                     />

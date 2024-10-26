@@ -9,7 +9,13 @@ trait MemberRules
 {
     protected function memberRules()
     {
-        // $memberId = $this->route('memberId');
+        $memberId = $this->route('memberId');
+
+        // Jika guard saat ini adalah 'member', ambil member_id dari user
+        if (auth()->guard('member')->check()) {
+            $memberId = auth()->guard('member')->user()->member_id;
+        }
+
         return [
             // 'memberId' => 'required|unique:members,member_id',
             'memberName' => 'required',
@@ -26,8 +32,8 @@ trait MemberRules
             'memberAddress' => 'nullable',
             'postalCode' => '',
             'pin' => '',
-            'memberEmail' => ['required','email','max:255',Rule::unique(Member::class, 'email')->ignore($this->user()->member_id, 'member_id')],
-            'registerDate' =>'',
+            'memberEmail' => ['required', 'email', 'max:255', Rule::unique(Member::class, 'email')->ignore($memberId, 'member_id')],
+            'registerDate' => '',
         ];
     }
 

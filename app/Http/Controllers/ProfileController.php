@@ -33,7 +33,7 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
 
-        if (Auth::guard('member')->user()) {
+        if (Auth::guard('member')->check()) {
             return Inertia::render('Profile/Edit', [
                 'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
                 'status' => session('status'),
@@ -56,7 +56,7 @@ class ProfileController extends Controller
         // Data sudah tervalidasi oleh UpdateMemberRequest
         $validatedData = $request->validated();
 
-        if (Auth::guard('member')->user()) {
+        if (Auth::guard('member')->check()) {
             // Update data foto sebelumnya
             $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $user['member_photo_path'], 'member');
 
@@ -64,7 +64,7 @@ class ProfileController extends Controller
             $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $user);
         }
 
-        if (Auth::guard('web')->user()) {
+        if (Auth::guard('web')->check()) {
             // Update data foto sebelumnya
             $pathPhoto = $this->photoService->handleUpdatePhoto($validatedData['image'], $user['image'], 'member');
             

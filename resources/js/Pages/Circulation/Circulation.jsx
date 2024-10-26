@@ -45,7 +45,7 @@ export default function Circulation({}) {
                 <div className="flex flex-col w-full">
                     <TopbarLayout />
 
-                    <MainContentLayout>
+                    <MainContentLayout className="min-h-screen">
                         <PageHeader>Peminjaman</PageHeader>
 
                         <div className="px-10 py-4 bg-blue-200">
@@ -53,7 +53,7 @@ export default function Circulation({}) {
                         </div>
 
                         <div>
-                            <div className="flex items-center mx-10 py-10">
+                            <div className="flex items-center mx-10 py-10 relative">
                                 <label>ID Anggota</label>
                                 {/* <TextInput
                                     value={data.memberId}
@@ -68,7 +68,7 @@ export default function Circulation({}) {
                                     onChange={handleChange}
                                     type="text"
                                     name="memberId"
-                                    className="mx-5 p-1"
+                                    className="mx-5 p-1 z-50 absolute"
                                     route={route("membership.search")}
                                 />
                                 <PrimaryButton
