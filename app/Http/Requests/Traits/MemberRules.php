@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Traits;
 
-use App\Models\User;
+use App\Models\Member;
 use Illuminate\Validation\Rule;
 
 trait MemberRules
@@ -26,7 +26,7 @@ trait MemberRules
             'memberAddress' => 'nullable',
             'postalCode' => '',
             'pin' => '',
-            'memberEmail' => ['required','email','max:255',Rule::unique(User::class, 'email')->ignore($this->user()->id)],
+            'memberEmail' => ['required','email','max:255',Rule::unique(Member::class, 'email')->ignore($this->user()->member_id, 'member_id')],
             'registerDate' =>'',
         ];
     }

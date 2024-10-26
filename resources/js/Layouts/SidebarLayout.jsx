@@ -16,7 +16,7 @@ export default memo(function SidebarLayout({ children }) {
                         className="w-24 h-24 mr-6 bg-white p-1 rounded-full"
                         src={
                             user.image
-                                ? `/img/users/${user.image}`
+                                ? `/storage/uploads/img/members/photo/${user.image}`
                                 : `/img/memberships/member-default-picture.png`
                         }
                     ></img>
@@ -55,12 +55,12 @@ export default memo(function SidebarLayout({ children }) {
                         >
                             Ubah Profile
                         </Link>
-                        <Link
+                        {/* <Link
                             href={route("profile.edit")}
                             class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                             Ubah Password
-                        </Link>
+                        </Link> */}
                         <Link
                             href={route("logout")}
                             class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"

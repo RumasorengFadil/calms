@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Member;
 use App\Repositories\Membership\MemberRepository;
+use App\Repositories\Profile\ProfileRepository;
 use App\Services\PhotoService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -17,11 +18,13 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
     protected $memberRepository;
+    protected $profileRepository;
     protected $photoService;
 
-    public function __construct(MemberRepository $memberRepository, PhotoService $photoService)
+    public function __construct(MemberRepository $memberRepository, ProfileRepository $profileRepository, PhotoService $photoService)
     {
         $this->memberRepository = $memberRepository;
+        $this->profileRepository = $profileRepository;
         $this->photoService = $photoService;
     }
     /**
@@ -48,19 +51,29 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $member = Auth::user();
+        $user = Auth::user();
 
         // Data sudah tervalidasi oleh UpdateMemberRequest
         $validatedData = $request->validated();
 
-        // Update data foto sebelumnya
-        $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $member['member_photo_path'], 'member');
+        if (Auth::guard('member')->user()) {
+            // Update data foto sebelumnya
+            $memberPhotoPath = $this->photoService->handleUpdatePhoto($validatedData['memberPhoto'], $user['member_photo_path'], 'member');
 
-        // Tambahkan data member beserta path gambar ke dalam database
-        $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $member);
+            // Tambahkan data member beserta path gambar ke dalam database
+            $this->memberRepository->update($validatedData + ['memberPhotoPath' => $memberPhotoPath], $user);
+        }
 
+        if (Auth::guard('web')->user()) {
+            // Update data foto sebelumnya
+            $pathPhoto = $this->photoService->handleUpdatePhoto($validatedData['image'], $user['image'], 'member');
+            
+            // Tambahkan data member beserta path gambar ke dalam database
+            $this->profileRepository->update($validatedData + ['pathPhoto' => $pathPhoto], $user);
+        }
         return redirect()->back()
-            ->with(['message' => __('message.success.updated', ['entity' => 'Member'])]);
+            ->with(['message' => __('message.success.updated', ['entity' =>  Auth::guard('member')->user()?'Member':'Admin'])]);
+
     }
 
     /**
