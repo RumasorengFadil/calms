@@ -118,7 +118,7 @@ export default function Welcome({
                             <Pagination
                                 className="py-2 w-full bg-white mt-4 flex items-center justify-center"
                                 links={biblios.links}
-                                // searchKey={data.searchKey}
+                                searchKey={data.searchKey}
                             />
                         )}
                     </section>
