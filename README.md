@@ -16,31 +16,27 @@
 <h1 align="center">Integrated Bookkeeping & POS System (Laravel + Inertia.js)</h1>
 
 <p align="center">
-  Manage your <b>sales, inventory, expenses, and bookkeeping</b> in one powerful and responsive web app.  
-  <br/>
+    Manage your library's book collection, members, and circulation in one modern and responsive web application.
+    <br/>
   <b>Laravel + Inertia.js + TailwindCSS</b> for modern SMEs that need speed, simplicity, and clarity.
 </p>
 
----
-
-# Integrated Bookkeeping & POS System (Laravel + Inertia.js)
-
-An **integrated bookkeeping and Point of Sale (POS)** web application built with **Laravel** and **Inertia.js**.  
-This system helps you manage **sales, inventory, expenses, and financial reports** in one unified dashboard — perfect for small and medium businesses looking for a modern accounting and sales management solution.
-
-> 📊 Simplify your business operations — from transactions to bookkeeping — all in one web app.
-
----
-
 ## 🚀 Features
 
-- 🧾 **Bookkeeping & Accounting** — Automatically record income, expenses, and generate balance reports.  
-- 💰 **Point of Sale (POS)** — Process sales quickly with real-time updates and transaction history.  
-- 📦 **Inventory Management** — Track stock levels, restocks, and low-stock alerts.  
-- 📈 **Dashboard Analytics** — Visualize sales trends, profit, and cash flow insights.  
-- 🌐 **Multi-device Support** — Fully responsive and optimized for desktop, tablet, and mobile.  
-- 🔐 **Secure Authentication** — Token-based sessions powered by Laravel Sanctum.  
-- 👥 **Customer & Employee Management** — Manage users, roles, and permissions (next feat).  
+- 📖 **Manajemen Koleksi Buku**
+  - Tambah, edit, hapus, dan kategorikan buku berdasarkan ISBN
+- 👥 **Manajemen Anggota**
+  - Registrasi, aktivasi, dan kontrol status anggota
+- 🔄 **Sirkulasi Buku**
+  - Fitur peminjaman dan pengembalian dengan notifikasi keterlambatan
+- 📊 **Dashboard & Laporan**
+  - Statistik koleksi, transaksi, dan aktivitas anggota
+- 🔐 **Role-based Access Control**
+  - Level: Admin dan Anggota
+- 🌗 **Modern UI & Responsif**
+  - Dark mode, TailwindCSS, dan komponen ShadCN UI
+- 🧠 **Optimasi Performa & Keamanan**
+  - Auth berbasis session dan caching otomatis
 
 ---
 
@@ -50,8 +46,8 @@ This system helps you manage **sales, inventory, expenses, and financial reports
 |-------|-------------|
 | **Framework** | Laravel 10 |
 | **Frontend Rendering** | Inertia.js |
-| **Templating** | Vue.js / React (depending on setup) |
-| **Styling** | TailwindCSS + ShadCN UI |
+| **Templating** | React (depending on setup) |
+| **Styling** | TailwindCSS
 | **Database** | MySQL / PostgreSQL |
 | **Authentication** | Laravel Sanctum |
 | **Deployment** | Vercel / Laravel Forge / Docker |
@@ -84,9 +80,7 @@ Access at http://localhost:8000
 ```
 ## 📸 Demo
 
-🔗 **Live Demo:** [click here](https://pos.rumasoreng.com/)  
-
-![Preview Screenshot](./public/images/common/preview-screenshoot.png)
+🔗 **Live Demo:** - 
 
 ---
 
