@@ -36,7 +36,9 @@ jobs:
 
       - name: Build Frontend Assets
         run: npm run build
-
+        env:
+          APP_NAME: Calms
+          APP_ENV: production
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.7.0
         with:
